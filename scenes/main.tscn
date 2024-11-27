@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc8vwfquxrwi7"]
+
+[sub_resource type="GDScript" id="GDScript_7qxio"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_btn_quit_pressed() -> void:
+	get_tree().quit()
+
+func _on_btn_pvp_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/board.tscn\")
+
+func _on_btn_cpu_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://scenes/board.tscn\")
+"
+
+[node name="Main" type="Node2D"]
+script = SubResource("GDScript_7qxio")
+
+[node name="btn_pvp" type="Button" parent="."]
+offset_left = 412.0
+offset_top = 493.0
+offset_right = 612.0
+offset_bottom = 553.0
+text = "2 Player"
+
+[node name="btn_cpu" type="Button" parent="."]
+visible = false
+offset_left = 450.0
+offset_top = 260.0
+offset_right = 700.0
+offset_bottom = 340.0
+text = "Computer"
+
+[node name="btn_quit" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 412.0
+offset_top = 600.0
+offset_right = 612.0
+offset_bottom = 660.0
+grow_horizontal = 2
+text = "Quit
+"
+
+[connection signal="pressed" from="btn_pvp" to="." method="_on_btn_pvp_pressed"]
+[connection signal="pressed" from="btn_cpu" to="." method="_on_btn_cpu_pressed"]
+[connection signal="pressed" from="btn_quit" to="." method="_on_btn_quit_pressed"]

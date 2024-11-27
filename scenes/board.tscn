@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://du428wt07wtcc"]
+
+[ext_resource type="Script" path="res://script/control.gd" id="1_ogsvn"]
+[ext_resource type="Texture2D" uid="uid://bryypwdb4ppkn" path="res://img/board/board_slot.png" id="2_u2t6a"]
+[ext_resource type="Texture2D" uid="uid://c6x273lnsmbb7" path="res://img/board/hand_slot.png" id="3_6j2kn"]
+[ext_resource type="Texture2D" uid="uid://fr2fg45dg8co" path="res://img/board/selected_slot.png" id="4_2auoy"]
+[ext_resource type="Script" path="res://script/tile_map.gd" id="5_27d20"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bfj3p"]
+texture = ExtResource("2_u2t6a")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_neurl"]
+texture = ExtResource("3_6j2kn")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yyrd2"]
+texture = ExtResource("4_2auoy")
+texture_region_size = Vector2i(80, 80)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7sx3d"]
+tile_size = Vector2i(90, 90)
+sources/0 = SubResource("TileSetAtlasSource_bfj3p")
+sources/1 = SubResource("TileSetAtlasSource_neurl")
+sources/2 = SubResource("TileSetAtlasSource_yyrd2")
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ogsvn")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.219501, 0.219501, 0.219501, 1)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 824.0
+offset_top = 42.0
+offset_right = 970.0
+offset_bottom = 86.0
+text = "add piece"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 821.0
+offset_top = 677.0
+offset_right = 967.0
+offset_bottom = 721.0
+text = "add piece"
+
+[node name="Board" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 768.0
+color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+
+[node name="TileMap" type="TileMap" parent="Board"]
+position = Vector2(24, 24)
+tile_set = SubResource("TileSet_7sx3d")
+rendering_quadrant_size = 90
+format = 2
+layer_1/name = "Layer1"
+layer_2/name = "Layer2"
+script = ExtResource("5_27d20")
+
+[node name="Pieces" type="Node2D" parent="Board"]
+
+[node name="Player1" type="Node2D" parent="Board/Pieces"]
+
+[node name="Player2" type="Node2D" parent="Board/Pieces"]
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="gui_input" from="Board" to="Board/TileMap" method="_on_board_gui_input"]

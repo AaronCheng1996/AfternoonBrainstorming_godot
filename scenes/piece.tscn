@@ -1,0 +1,117 @@
+[gd_scene load_steps=11 format=3 uid="uid://cyoqy6p4tv88c"]
+
+[ext_resource type="Script" path="res://script/piece.gd" id="1_x0sth"]
+[ext_resource type="Texture2D" uid="uid://cnitia133lmjr" path="res://img/piece/standerd/white_tri.png" id="2_dad0u"]
+[ext_resource type="Shader" uid="uid://dqmkig0jg4ph6" path="res://shader/selected_flash.tres" id="2_t10jp"]
+[ext_resource type="PackedScene" uid="uid://tahtsvfotixd" path="res://scenes/component/health_component.tscn" id="4_o5vgb"]
+[ext_resource type="PackedScene" uid="uid://4gn77audskrs" path="res://scenes/component/attack_component.tscn" id="5_rl023"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4i8jm"]
+resource_local_to_scene = true
+shader = ExtResource("2_t10jp")
+shader_parameter/enable = false
+shader_parameter/tint = Color(0.929412, 0.807843, 0.278431, 0.564706)
+
+[sub_resource type="Animation" id="Animation_nt3qk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sab8m"]
+resource_name = "select"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:material:shader_parameter/enable")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667),
+"transitions": PackedFloat32Array(0.450625, 2.92817),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_27a3y"]
+resource_name = "damaged"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xt36v"]
+_data = {
+"RESET": SubResource("Animation_nt3qk"),
+"damaged": SubResource("Animation_27a3y"),
+"select": SubResource("Animation_sab8m")
+}
+
+[node name="Piece" type="Node2D"]
+script = ExtResource("1_x0sth")
+
+[node name="PlayerEffect" type="TextureRect" parent="."]
+offset_right = 80.0
+offset_bottom = 80.0
+
+[node name="Icon" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_4i8jm")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 88.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_dad0u")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_o5vgb")]
+
+[node name="AttackComponent" parent="." instance=ExtResource("5_rl023")]
+
+[node name="SelectAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xt36v")
+}
+
+[node name="ControlPanel" type="Control" parent="."]
+visible = false
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 80.0
+offset_right = 120.0
+offset_bottom = 40.0
+
+[node name="MoveButton" type="Button" parent="ControlPanel"]
+layout_mode = 0
+offset_left = -80.0
+offset_top = 1.0
+offset_right = -40.0
+offset_bottom = 32.0
+text = "移動"
+
+[node name="AttackButton" type="Button" parent="ControlPanel"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 1.0
+offset_bottom = 32.0
+text = "攻擊"
+
+[connection signal="gui_input" from="Icon" to="." method="_on_icon_gui_input"]
+[connection signal="mouse_entered" from="Icon" to="." method="_on_icon_mouse_entered"]
+[connection signal="mouse_exited" from="Icon" to="." method="_on_icon_mouse_exited"]
+[connection signal="mouse_entered" from="ControlPanel/AttackButton" to="." method="_on_attack_button_mouse_entered"]
+[connection signal="mouse_exited" from="ControlPanel/AttackButton" to="." method="_on_attack_button_mouse_exited"]
+[connection signal="pressed" from="ControlPanel/AttackButton" to="." method="_on_attack_button_pressed"]
