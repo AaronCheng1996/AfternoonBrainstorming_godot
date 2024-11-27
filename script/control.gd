@@ -5,60 +5,93 @@ extends Control
 @onready var p1_pieces = $Board/Pieces/Player1
 @onready var p2_pieces = $Board/Pieces/Player2
 @onready var tilemap = $Board/TileMap
-#場面上棋子
+#牌庫
+var deck_size = 12
+var deck := []
+#場面
 var gird_size = 4
-var hand_size = 8
 var board_piece_dic := {}
+#手牌
+var hand_size = 8
+var starter_hand_count = 4
 var hand_piece_array := []
 #棋子座標修正
 var icon_offset := Vector2(-16, -28)
 #選定的棋子
 var piece_selected = null
+#當前回合
+var player_turn = 0
+#分數
+var score = 15
 
 #生成
 func _ready() -> void:
-	#加入2位玩家
-	for i in range(2):
-		hand_piece_array.append([])
-		#填充 0 進入佇列
-		hand_piece_array[i].resize(hand_size)
-		hand_piece_array[i].fill(0)
-	#生成棋盤
+	#生成棋盤陣列
 	for x in gird_size:
 		for y in gird_size:
 			board_piece_dic[str(Vector2(x + 2, y + 2))] = 0
+	#生成2位玩家手牌陣列
+	for player in range(2):
+		hand_piece_array.append([])
+		hand_piece_array[player].resize(hand_size)
+		hand_piece_array[player].fill(0)
+		
+		#測試用 牌庫陣列
+		create_test_deck(player)
+		
+		for j in range(starter_hand_count):
+			draw_piece(player)
 	
 	tilemap.tile_selected.connect(_on_tile_clicked)
+	start_turn(0)
 
 #每 frame 執行
 func _process(delta: float) -> void:
 	pass
 
-#region 抽牌
+#region 流程
 
-#將棋子放入手上
-func add_piece_to_hand(piece_type, player) -> void:
+#回合開始
+func start_turn(player) -> void:
+	select_piece(null)
+	draw_piece(player)
+
+#回合結束
+func end_turn() -> void:
+	calculate_score(player_turn)
+	if player_turn == 0:
+		player_turn = 1
+	else:
+		player_turn = 0
+	start_turn(player_turn)
+
+#抽牌
+func draw_piece(player) -> void:
 	if hand_piece_array[player].count(0) <= 0: #手上沒有空間
 		return
-	#生成棋子
-	var new_piece = piece_scene.instantiate()
+	if deck[player].size() == 0: #空牌庫
+		return
+	
+	var piece = deck[player].pop_front()
 	if player == 0:
-		p1_pieces.add_child(new_piece)
+		p1_pieces.add_child(piece)
 	else:
-		p2_pieces.add_child(new_piece)
-	new_piece.player = player
-	new_piece.init(piece_type)
-	#尋找手上空格並生成
+		p2_pieces.add_child(piece)
 	var empty = hand_piece_array[player].find(0)
-	new_piece.global_position = tilemap.map_to_local(Vector2(empty, player * 7)) + icon_offset
-	new_piece.location = Vector2(empty, player * 7)
-	hand_piece_array[player][empty] = new_piece
+	piece.load_icon()
+	piece.global_position = tilemap.map_to_local(Vector2(empty, player * 7)) + icon_offset
+	piece.location = Vector2(empty, player * 7)
+	hand_piece_array[player][empty] = piece
 	#連結
-	new_piece.piece_selected.connect(_on_piece_selected)
-	new_piece.piece_attack.connect(_on_piece_attack)
-	new_piece.mouse_on_attack.connect(_on_mouse_on_attack)
-	new_piece.mouse_out_attack.connect(_on_mouse_out_attack)
-	new_piece.piece_death.connect(_on_piece_death)
+	piece.piece_selected.connect(_on_piece_selected)
+	piece.piece_attack.connect(_on_piece_attack)
+	piece.mouse_on_attack.connect(_on_mouse_on_attack)
+	piece.mouse_out_attack.connect(_on_mouse_out_attack)
+	piece.piece_death.connect(_on_piece_death)
+
+#計分
+func calculate_score(player) -> void:
+	pass
 
 #endregion
 
@@ -66,6 +99,8 @@ func add_piece_to_hand(piece_type, player) -> void:
 
 #選取棋子
 func _on_piece_selected(piece):
+	if not player_turn == piece.player:
+		return
 	if not piece_selected: #若目前沒有選定的棋子
 		select_piece(piece)
 	else: #若目前已有選定的棋子
@@ -133,6 +168,8 @@ func select_piece(piece):
 		piece_selected = piece
 		piece_selected.select(true)
 	else: #取消選定
+		if piece_selected == null:
+			return
 		piece_selected.select(false)
 		piece_selected = null
 
@@ -178,7 +215,7 @@ func swap_piece_in_hand(piece1, piece2) -> void:
 
 #endregion
 
-#region 工具
+#region 判斷
 
 #判斷棋子是否在棋盤上
 func is_on_board(location: Vector2i) -> bool:
@@ -204,12 +241,32 @@ var piece_type = [
 
 #加入棋子
 func _on_button_pressed() -> void:
-	var random_index = randi() % piece_type.size()
-	var piece_type = piece_type[random_index]
-	add_piece_to_hand(piece_type, 0)
+	draw_piece(0)
+
 func _on_button_2_pressed() -> void:
-	var random_index = randi() % piece_type.size()
-	var piece_type = piece_type[random_index]
-	add_piece_to_hand(piece_type, 1)
-	
+	draw_piece(1)
+
+#切換回合
+func _on_turn_end_button_pressed() -> void:
+	end_turn()
+
+#生成測試用牌堆
+func create_test_deck(player : int) -> void:
+	deck.append([])
+	for i in range(deck_size):
+		var random_index = randi() % piece_type.size()
+		var type = piece_type[random_index]
+		
+		var new_piece = piece_scene.instantiate()
+		new_piece.player = player
+		new_piece.type = type
+
+		new_piece.piece_selected.connect(_on_piece_selected)
+		new_piece.piece_attack.connect(_on_piece_attack)
+		new_piece.mouse_on_attack.connect(_on_mouse_on_attack)
+		new_piece.mouse_out_attack.connect(_on_mouse_out_attack)
+		new_piece.piece_death.connect(_on_piece_death)
+		
+		deck[player].append(new_piece)
+
 #endregion

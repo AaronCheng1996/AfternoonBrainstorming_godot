@@ -31,8 +31,8 @@ func _process(delta: float) -> void:
 	pass
 
 #外觀
-func init(piece_name: int) -> void:
-	icon_path.texture = load(DataHandler.assets[piece_name])
+func load_icon() -> void:
+	icon_path.texture = load(DataHandler.assets[type])
 	if player == 0:
 		player_effect.texture = load("res://img/piece/player/red_filter.png")
 	else:
@@ -60,10 +60,14 @@ func _on_icon_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_left"):
 		emit_signal("piece_selected", self)
 
+#受到傷害時
 func _on_damaged() -> void:
+	#預留：受傷動畫
 	pass
 
+#死亡時
 func _on_death() -> void:
+	#預留：死亡動畫
 	emit_signal("piece_death", self)
 
 #攻擊鍵

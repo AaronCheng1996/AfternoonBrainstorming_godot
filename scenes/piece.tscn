@@ -27,6 +27,9 @@ tracks/0/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_27a3y"]
+resource_name = "damaged"
+
 [sub_resource type="Animation" id="Animation_sab8m"]
 resource_name = "select"
 length = 0.5
@@ -43,9 +46,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [false, true]
 }
-
-[sub_resource type="Animation" id="Animation_27a3y"]
-resource_name = "damaged"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xt36v"]
 _data = {

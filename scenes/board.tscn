@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://du428wt07wtcc"]
 
 [ext_resource type="Script" path="res://script/control.gd" id="1_ogsvn"]
+[ext_resource type="PackedScene" uid="uid://brpgbxa0bq0fe" path="res://scenes/component/tilemap_component.tscn" id="2_p1muq"]
 [ext_resource type="Texture2D" uid="uid://bryypwdb4ppkn" path="res://img/board/board_slot.png" id="2_u2t6a"]
 [ext_resource type="Texture2D" uid="uid://c6x273lnsmbb7" path="res://img/board/hand_slot.png" id="3_6j2kn"]
 [ext_resource type="Texture2D" uid="uid://fr2fg45dg8co" path="res://img/board/selected_slot.png" id="4_2auoy"]
-[ext_resource type="Script" path="res://script/tile_map.gd" id="5_27d20"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bfj3p"]
 texture = ExtResource("2_u2t6a")
@@ -61,20 +61,34 @@ offset_right = 967.0
 offset_bottom = 721.0
 text = "add piece"
 
+[node name="TurnEndButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 824.0
+offset_top = 350.0
+offset_right = 970.0
+offset_bottom = 394.0
+text = "turn end"
+
 [node name="Board" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 768.0
 offset_bottom = 768.0
 color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 
-[node name="TileMap" type="TileMap" parent="Board"]
-position = Vector2(24, 24)
+[node name="TileMap" parent="Board" instance=ExtResource("2_p1muq")]
+
+[node name="slot" type="TileMapLayer" parent="Board/TileMap"]
+use_parent_material = true
 tile_set = SubResource("TileSet_7sx3d")
 rendering_quadrant_size = 90
-format = 2
-layer_1/name = "Layer1"
-layer_2/name = "Layer2"
-script = ExtResource("5_27d20")
+
+[node name="attack_target" type="TileMapLayer" parent="Board/TileMap"]
+use_parent_material = true
+tile_set = SubResource("TileSet_7sx3d")
+
+[node name="select" type="TileMapLayer" parent="Board/TileMap"]
+use_parent_material = true
+tile_set = SubResource("TileSet_7sx3d")
 
 [node name="Pieces" type="Node2D" parent="Board"]
 
@@ -84,4 +98,5 @@ script = ExtResource("5_27d20")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="TurnEndButton" to="." method="_on_turn_end_button_pressed"]
 [connection signal="gui_input" from="Board" to="Board/TileMap" method="_on_board_gui_input"]
