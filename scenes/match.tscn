@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://du428wt07wtcc"]
+[gd_scene load_steps=11 format=3 uid="uid://du428wt07wtcc"]
 
-[ext_resource type="Script" path="res://script/control.gd" id="1_k7rh2"]
+[ext_resource type="Script" path="res://script/match.gd" id="1_k7rh2"]
 [ext_resource type="PackedScene" uid="uid://brpgbxa0bq0fe" path="res://scenes/component/tilemap_component.tscn" id="2_j5k1m"]
 [ext_resource type="Texture2D" uid="uid://bryypwdb4ppkn" path="res://img/board/board_slot.png" id="3_4sdxq"]
 [ext_resource type="Texture2D" uid="uid://c6x273lnsmbb7" path="res://img/board/hand_slot.png" id="4_mx45s"]
@@ -27,6 +27,9 @@ sources/0 = SubResource("TileSetAtlasSource_bfj3p")
 sources/1 = SubResource("TileSetAtlasSource_neurl")
 sources/2 = SubResource("TileSetAtlasSource_yyrd2")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o21ag"]
+blend_mode = 1
+
 [node name="Match" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -45,37 +48,15 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.219501, 0.219501, 0.219501, 1)
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 824.0
-offset_top = 42.0
-offset_right = 970.0
-offset_bottom = 86.0
-text = "add piece"
-
-[node name="Button2" type="Button" parent="."]
-layout_mode = 0
-offset_left = 821.0
-offset_top = 677.0
-offset_right = 967.0
-offset_bottom = 721.0
-text = "add piece"
-
-[node name="TurnEndButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 824.0
-offset_top = 350.0
-offset_right = 970.0
-offset_bottom = 394.0
-text = "turn end"
-
 [node name="Board" type="ColorRect" parent="."]
 layout_mode = 0
-offset_right = 768.0
+offset_right = 1024.0
 offset_bottom = 768.0
 color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 
 [node name="TileMap" parent="Board" instance=ExtResource("2_j5k1m")]
+position = Vector2(152, 24)
+layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 458752, 1, 0, 458753, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 327683, 0, 0, 262147, 0, 0, 196611, 0, 0, 131076, 0, 0, 131075, 0, 0, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 262148, 0, 0, 327684, 0, 0, 327685, 0, 0, 196612, 0, 0)
 
 [node name="slot" type="TileMapLayer" parent="Board/TileMap"]
 use_parent_material = true
@@ -96,7 +77,14 @@ tile_set = SubResource("TileSet_7sx3d")
 
 [node name="Player2" type="Node2D" parent="Board/Pieces"]
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
-[connection signal="pressed" from="TurnEndButton" to="." method="_on_turn_end_button_pressed"]
+[node name="TurnEndButton" type="Button" parent="."]
+material = SubResource("CanvasItemMaterial_o21ag")
+layout_mode = 0
+offset_left = 825.0
+offset_top = 600.0
+offset_right = 971.0
+offset_bottom = 644.0
+text = "turn end"
+
 [connection signal="gui_input" from="Board" to="Board/TileMap" method="_on_board_gui_input"]
+[connection signal="pressed" from="TurnEndButton" to="." method="_on_turn_end_button_pressed"]

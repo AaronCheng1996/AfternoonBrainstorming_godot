@@ -16,7 +16,7 @@ var hand_size = 8
 var starter_hand_count = 4
 var hand_piece_array := []
 #棋子座標修正
-var icon_offset := Vector2(-16, -28)
+var icon_offset := Vector2(112, -28)
 #選定的棋子
 var piece_selected = null
 #當前回合
@@ -136,6 +136,7 @@ func _on_tile_clicked(location) -> void:
 			move_piece_in_hand(piece_selected, location)
 		piece_selected.select(false)
 		piece_selected = null
+		tilemap.piece_select = null
 
 #滑鼠在攻擊鍵上
 func _on_mouse_on_attack(piece):
@@ -164,14 +165,17 @@ func select_piece(piece):
 	if piece != null: #選定
 		if piece_selected != null: #若原本有其他選定的目標，清除選定特效
 			piece_selected.select(false)
+			tilemap.piece_select = null
 		#選定目標，並為格子加上選定特效
 		piece_selected = piece
 		piece_selected.select(true)
+		tilemap.piece_select = piece
 	else: #取消選定
 		if piece_selected == null:
 			return
 		piece_selected.select(false)
 		piece_selected = null
+		tilemap.piece_select = null
 
 #移動場上棋子
 func move_piece(piece, location) -> void:

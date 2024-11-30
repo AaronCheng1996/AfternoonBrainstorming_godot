@@ -5,6 +5,7 @@ var gird_size = 4
 var hand_size = 8
 var dic = {}
 var mouse_on_button = false
+var piece_select = null
 
 func _ready() -> void:
 	#生成棋盤
@@ -21,9 +22,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	reset(2)
-	var tile = local_to_map(get_local_mouse_position())
-	if dic.has(str(tile)):
-		set_cell(2, tile, 2, Vector2i(0, 0), 0)
+	if piece_select:
+		set_cell(2, piece_select.location, 1, Vector2i(0, 0), 0)
+		var tile = local_to_map(get_local_mouse_position())
+		if dic.has(str(tile)) and not tile == piece_select.location:
+			set_cell(2, tile, 2, Vector2i(0, 0), 0)
 
 #顯示攻擊對象
 func show_attack_target(targets: Array) -> void:
