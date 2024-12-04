@@ -7,6 +7,7 @@ var dic = {}
 var mouse_on_button = false
 var piece_select = null
 
+
 func _ready() -> void:
 	#生成棋盤
 	for x in gird_size:
@@ -20,12 +21,14 @@ func _ready() -> void:
 		dic[str(Vector2(x, 7))] = { "type": "hand" }
 		set_cell(0, Vector2(x, 7), 1, Vector2i(0, 0), 0)
 
+
 func _process(delta: float) -> void:
 	reset(2)
 	if piece_select:
 		set_cell(2, piece_select.location, 1, Vector2i(0, 0), 0)
 		var tile = local_to_map(get_local_mouse_position())
-		if dic.has(str(tile)) and not tile == piece_select.location:
+		#有選定棋子，且目的為可移動範圍
+		if dic.has(str(tile)) and not tile == piece_select.location and (tile.y == piece_select.player * 7 or (tile.y != 0 and tile.y != 7)):
 			set_cell(2, tile, 2, Vector2i(0, 0), 0)
 
 #顯示攻擊對象

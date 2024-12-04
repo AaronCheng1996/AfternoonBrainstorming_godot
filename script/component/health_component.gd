@@ -5,18 +5,24 @@ signal death()
 signal damaged()
 
 #生命
-@export var MAX_HEALTH := 10
+@export var MAX_HEALTH : int = 10
 var health : int
 #護盾
-@export var MAX_SHIELD := 0
+@export var DEAFULT_SHIELD : int = 0
 var shield : int
 
 func _ready() -> void:
 	health = MAX_HEALTH
-	shield = MAX_SHIELD
+	shield = DEAFULT_SHIELD
+
+#補血
+func heal(heal: int) -> void:
+	health += heal
+	if health > MAX_HEALTH:
+		health = MAX_HEALTH
 
 #承受傷害
-func take_damaged(attack: int):
+func take_damaged(attack: int) -> bool:
 	emit_signal("damaged")
 	#盾先承受，生命再承受
 	if shield >= attack:
@@ -27,3 +33,5 @@ func take_damaged(attack: int):
 	#若生命降為0，則死亡
 	if health <= 0:
 		emit_signal("death")
+		return true
+	return false

@@ -16,10 +16,10 @@ func _on_btn_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_btn_pvp_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/match.tscn\")
+	get_tree().change_scene_to_file(\"res://scenes/deck_build.tscn\")
 
 func _on_btn_cpu_pressed() -> void:
-	get_tree().change_scene_to_file(\"res://scenes/match.tscn\")
+	get_tree().change_scene_to_file(\"res://scenes/deck_build.tscn\")
 "
 
 [node name="Main" type="Node2D"]

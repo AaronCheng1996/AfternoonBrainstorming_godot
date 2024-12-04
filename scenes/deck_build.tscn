@@ -10,3 +10,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_67xhq")
+
+[node name="btn_start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 682.0
+offset_right = 990.0
+offset_bottom = 742.0
+text = "Start"
+
+[node name="Cards" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = 62.0
+offset_right = 350.0
+offset_bottom = 562.0
+grow_horizontal = 2
+columns = 3
+
+[connection signal="pressed" from="btn_start" to="." method="_on_start_button_pressed"]

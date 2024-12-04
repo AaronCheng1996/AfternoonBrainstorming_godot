@@ -37,9 +37,9 @@ func _ready() -> void:
 		hand_piece_array[player].fill(0)
 		
 		#測試用 牌庫陣列
-		create_test_deck(player)
+		#create_test_deck(player)
 		
-		for j in range(starter_hand_count):
+		for i in range(starter_hand_count):
 			draw_piece(player)
 	
 	tilemap.tile_selected.connect(_on_tile_clicked)
@@ -50,6 +50,9 @@ func _process(delta: float) -> void:
 	pass
 
 #region 流程
+
+func set_deck(new_deck: Array) -> void:
+	deck = new_deck
 
 #回合開始
 func start_turn(player) -> void:
@@ -69,6 +72,8 @@ func end_turn() -> void:
 func draw_piece(player) -> void:
 	if hand_piece_array[player].count(0) <= 0: #手上沒有空間
 		return
+	if deck.size() == 0:
+		return
 	if deck[player].size() == 0: #空牌庫
 		return
 	
@@ -78,15 +83,17 @@ func draw_piece(player) -> void:
 	else:
 		p2_pieces.add_child(piece)
 	var empty = hand_piece_array[player].find(0)
-	piece.load_icon()
+	piece.outfit_component.set_player_effect(player)
 	piece.global_position = tilemap.map_to_local(Vector2(empty, player * 7)) + icon_offset
 	piece.location = Vector2(empty, player * 7)
 	hand_piece_array[player][empty] = piece
 	#連結
-	piece.piece_selected.connect(_on_piece_selected)
-	piece.piece_attack.connect(_on_piece_attack)
-	piece.mouse_on_attack.connect(_on_mouse_on_attack)
-	piece.mouse_out_attack.connect(_on_mouse_out_attack)
+	piece.outfit_component.piece_selected.connect(_on_piece_selected)
+	piece.outfit_component.piece_attack.connect(_on_piece_attack)
+	piece.outfit_component.mouse_in_icon.connect(_on_mouse_in_icon)
+	piece.outfit_component.mouse_out_icon.connect(_on_mouse_out_icon)
+	piece.outfit_component.mouse_in_attack.connect(_on_mouse_in_attack)
+	piece.outfit_component.mouse_out_attack.connect(_on_mouse_out_attack)
 	piece.piece_death.connect(_on_piece_death)
 
 #計分
@@ -129,17 +136,25 @@ func _on_tile_clicked(location) -> void:
 	if piece_selected.location == location:
 		return
 	
-	if not piece_selected.is_on_board():
+	if not is_on_board(piece_selected.location):
 		if is_on_board(location):
 			move_piece_to_board(piece_selected, location)
 		else:
 			move_piece_in_hand(piece_selected, location)
-		piece_selected.select(false)
+		piece_selected.outfit_component.select(false, is_on_board(piece_selected.location))
 		piece_selected = null
 		tilemap.piece_select = null
 
 #滑鼠在攻擊鍵上
-func _on_mouse_on_attack(piece):
+func _on_mouse_in_icon(piece):
+	pass
+
+#滑鼠離開攻擊鍵上
+func _on_mouse_out_icon(piece):
+	pass
+
+#滑鼠在攻擊鍵上
+func _on_mouse_in_attack(piece):
 	var target := []
 	if piece.player == 0:
 		target = p2_pieces.get_children()
@@ -164,16 +179,16 @@ func _on_piece_death(piece):
 func select_piece(piece):
 	if piece != null: #選定
 		if piece_selected != null: #若原本有其他選定的目標，清除選定特效
-			piece_selected.select(false)
+			piece_selected.outfit_component.select(false, is_on_board(piece_selected.location))
 			tilemap.piece_select = null
 		#選定目標，並為格子加上選定特效
 		piece_selected = piece
-		piece_selected.select(true)
+		piece_selected.outfit_component.select(true, is_on_board(piece_selected.location))
 		tilemap.piece_select = piece
 	else: #取消選定
 		if piece_selected == null:
 			return
-		piece_selected.select(false)
+		piece_selected.outfit_component.select(false, is_on_board(piece_selected.location))
 		piece_selected = null
 		tilemap.piece_select = null
 
@@ -253,24 +268,4 @@ func _on_button_2_pressed() -> void:
 #切換回合
 func _on_turn_end_button_pressed() -> void:
 	end_turn()
-
-#生成測試用牌堆
-func create_test_deck(player : int) -> void:
-	deck.append([])
-	for i in range(deck_size):
-		var random_index = randi() % piece_type.size()
-		var type = piece_type[random_index]
-		
-		var new_piece = piece_scene.instantiate()
-		new_piece.player = player
-		new_piece.type = type
-
-		new_piece.piece_selected.connect(_on_piece_selected)
-		new_piece.piece_attack.connect(_on_piece_attack)
-		new_piece.mouse_on_attack.connect(_on_mouse_on_attack)
-		new_piece.mouse_out_attack.connect(_on_mouse_out_attack)
-		new_piece.piece_death.connect(_on_piece_death)
-		
-		deck[player].append(new_piece)
-
 #endregion
