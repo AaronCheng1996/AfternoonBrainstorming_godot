@@ -7,6 +7,7 @@ signal piece_death(piece)
 @onready var outfit_component = $OutfitComponent
 
 var location : Vector2i
+var is_on_board : bool
 var player : int
 
 func _ready() -> void:

@@ -114,7 +114,7 @@ func _on_piece_selected(piece):
 		if piece_selected == piece: #若再選定一次自己則取消選定
 			select_piece(null)
 		else: #轉而選定其他的棋子
-			if (!is_on_board(piece.location) and !is_on_board(piece_selected.location)) and piece.player == piece_selected.player:
+			if not (piece.is_on_board or piece_selected.is_on_board) and piece.player == piece_selected.player:
 				swap_piece_in_hand(piece, piece_selected)
 				select_piece(null)
 			else:
@@ -141,15 +141,15 @@ func _on_tile_clicked(location) -> void:
 			move_piece_to_board(piece_selected, location)
 		else:
 			move_piece_in_hand(piece_selected, location)
-		piece_selected.outfit_component.select(false, is_on_board(piece_selected.location))
+		piece_selected.outfit_component.select(false, piece_selected.is_on_board)
 		piece_selected = null
 		tilemap.piece_select = null
 
-#滑鼠在攻擊鍵上
+#滑鼠在棋子圖示上
 func _on_mouse_in_icon(piece):
 	pass
 
-#滑鼠離開攻擊鍵上
+#滑鼠離開棋子圖示上
 func _on_mouse_out_icon(piece):
 	pass
 
@@ -171,6 +171,10 @@ func _on_piece_death(piece):
 	board_piece_dic[str(piece.location)] = 0
 	piece.queue_free()
 
+#切換回合
+func _on_turn_end_button_pressed() -> void:
+	end_turn()
+
 #endregion
 
 #region 選定/移動
@@ -179,16 +183,16 @@ func _on_piece_death(piece):
 func select_piece(piece):
 	if piece != null: #選定
 		if piece_selected != null: #若原本有其他選定的目標，清除選定特效
-			piece_selected.outfit_component.select(false, is_on_board(piece_selected.location))
+			piece_selected.outfit_component.select(false, piece_selected.is_on_board)
 			tilemap.piece_select = null
 		#選定目標，並為格子加上選定特效
 		piece_selected = piece
-		piece_selected.outfit_component.select(true, is_on_board(piece_selected.location))
+		piece_selected.outfit_component.select(true, piece_selected.is_on_board)
 		tilemap.piece_select = piece
 	else: #取消選定
 		if piece_selected == null:
 			return
-		piece_selected.outfit_component.select(false, is_on_board(piece_selected.location))
+		piece_selected.outfit_component.select(false, piece_selected.is_on_board)
 		piece_selected = null
 		tilemap.piece_select = null
 
@@ -209,6 +213,7 @@ func move_piece_to_board(piece, location) -> void:
 	board_piece_dic[str(location)] = piece
 	piece.global_position = tilemap.map_to_local(location) + icon_offset
 	piece.location = location
+	piece.is_on_board = true
 
 #移動手上的棋子順序
 func move_piece_in_hand(piece, location) -> void:
@@ -242,30 +247,5 @@ func is_on_board(location: Vector2i) -> bool:
 		if location.y >= 2 and location.y <= 5:
 			return true
 	return false
-	
-#endregion
 
-#region 測試
-#生成棋子種類佇列
-var piece_type = [
-	DataHandler.PieceNames.WHITE_ASS,
-	DataHandler.PieceNames.WHITE_CUBE,
-	DataHandler.PieceNames.WHITE_DIAMOND,
-	DataHandler.PieceNames.WHITE_DLOZ,
-	DataHandler.PieceNames.WHITE_HEX,
-	DataHandler.PieceNames.WHITE_SPHERE,
-	DataHandler.PieceNames.WHITE_TRAP,
-	DataHandler.PieceNames.WHITE_TRI
-]
-
-#加入棋子
-func _on_button_pressed() -> void:
-	draw_piece(0)
-
-func _on_button_2_pressed() -> void:
-	draw_piece(1)
-
-#切換回合
-func _on_turn_end_button_pressed() -> void:
-	end_turn()
 #endregion

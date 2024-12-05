@@ -54,5 +54,6 @@ func create_test_deck(player : int) -> void:
 		
 		var new_piece = piece_scene.instantiate()
 		new_piece.player = player
+		new_piece.is_on_board = false
 
 		deck[player].append(new_piece)
