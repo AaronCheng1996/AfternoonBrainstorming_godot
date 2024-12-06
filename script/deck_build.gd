@@ -1,6 +1,6 @@
 extends Control
 
-@onready var piece_scene = preload("res://scenes/piece.tscn")
+@onready var piece_scene = preload("res://scenes/Resource/piece.tscn")
 @onready var card_scene = preload("res://scenes/piece_card.tscn")
 @onready var card_grid = $Cards
 @onready var btn_start = $btn_start
@@ -47,7 +47,7 @@ func _on_start_button_pressed() -> void:
 	get_tree().root.add_child(match_scene)
 
 
-func create_test_deck(player : int) -> void:
+func create_test_deck(player: int) -> void:
 	for i in range(deck_size):
 		var random_index = randi() % piece_type.size()
 		var type = piece_type[random_index]

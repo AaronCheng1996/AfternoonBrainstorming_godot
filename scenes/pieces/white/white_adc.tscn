@@ -1,0 +1,73 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2qlgob5kwf4k"]
+
+[ext_resource type="Script" path="res://script/pieces/white/white_adc.gd" id="1_qalac"]
+[ext_resource type="PackedScene" uid="uid://tahtsvfotixd" path="res://scenes/component/health_component.tscn" id="2_ordr4"]
+[ext_resource type="PackedScene" uid="uid://4gn77audskrs" path="res://scenes/component/attack_component.tscn" id="3_854di"]
+[ext_resource type="PackedScene" uid="uid://bx028wy2lu25i" path="res://scenes/component/outfit_component.tscn" id="4_2ocmb"]
+[ext_resource type="PackedScene" uid="uid://c83kbyxqmarvi" path="res://scenes/component/score_component.tscn" id="5_6m11n"]
+[ext_resource type="PackedScene" uid="uid://d2lqpgvgq4oh3" path="res://scenes/component/buff_component.tscn" id="6_fnqi1"]
+[ext_resource type="Texture2D" uid="uid://cnitia133lmjr" path="res://img/piece/standerd/white_tri.png" id="7_h1epa"]
+
+[node name="WhiteADC" type="Node2D" node_paths=PackedStringArray("health_component", "attack_component", "outfit_component", "score_component", "buff_component")]
+script = ExtResource("1_qalac")
+health_component = NodePath("HealthComponent")
+attack_component = NodePath("AttackComponent")
+outfit_component = NodePath("OutfitComponent")
+score_component = NodePath("ScoreComponent")
+buff_component = NodePath("BuffComponent")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_ordr4")]
+unique_name_in_owner = true
+
+[node name="AttackComponent" parent="." instance=ExtResource("3_854di")]
+unique_name_in_owner = true
+DEFAULT_ATK = 4
+ATK_PATTERN = 1
+
+[node name="OutfitComponent" parent="." node_paths=PackedStringArray("ICON", "CONTROL_PANEL", "MOVE_BUTTON", "ATTACK_BUTTON") instance=ExtResource("4_2ocmb")]
+unique_name_in_owner = true
+ICON = NodePath("../Icon")
+CONTROL_PANEL = NodePath("../ControlPanel")
+MOVE_BUTTON = NodePath("../ControlPanel/MoveButton")
+ATTACK_BUTTON = NodePath("../ControlPanel/AttackButton")
+
+[node name="ScoreComponent" parent="." instance=ExtResource("5_6m11n")]
+unique_name_in_owner = true
+
+[node name="BuffComponent" parent="." instance=ExtResource("6_fnqi1")]
+unique_name_in_owner = true
+
+[node name="Icon" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 88.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_h1epa")
+
+[node name="ControlPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 80.0
+offset_bottom = 40.0
+
+[node name="MoveButton" type="Button" parent="ControlPanel"]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 40.0
+offset_bottom = 32.0
+text = "移動"
+
+[node name="AttackButton" type="Button" parent="ControlPanel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 1.0
+offset_right = 80.0
+offset_bottom = 32.0
+text = "攻擊"

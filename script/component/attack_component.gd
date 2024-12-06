@@ -1,6 +1,10 @@
 extends Node2D
 class_name AttackComponent
 
+signal start_attack(piece: Piece)
+signal on_hit(target: Piece)
+signal on_kill(target: Piece)
+
 #基礎攻擊與攻擊方式
 @export var DEFAULT_ATK := 5
 var atk : int
@@ -11,27 +15,29 @@ var gird_size = 4
 
 func _ready() -> void:
 	atk = DEFAULT_ATK
-	
-#調整攻擊力
-func add_atk(add : int) -> void:
-	atk += add
-	if atk < 0:
-		atk = 0
 
 #發動攻擊
-func hit(piece) -> void:
-	if piece:
-		if piece.health_component:
-			piece.health_component.take_damaged(atk)
+func hit(target) -> void:
+	if not target:
+		return
+	if not target.health_component:
+		return
+	
+	emit_signal("on_hit", target)
+	if atk > 0:
+		if target.health_component.take_damaged(atk):
+			emit_signal("on_kill", target)
 
 #發動攻擊
 func attack(pieces: Array) -> void:
 	if not pieces: #是否為null
 		return
+	
+	var attacker = get_parent()
+	emit_signal("start_attack", get_parent())
+	
 	if pieces.size() == 0: #是否存在敵方棋子
 		return
-		
-	var attacker = get_parent()
 	
 	#最近/最遠
 	var targets = []

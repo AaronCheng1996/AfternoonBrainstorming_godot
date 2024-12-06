@@ -1,47 +1,60 @@
 extends Node2D
 class_name OutfitComponent
 
-signal piece_selected(piece)
-signal piece_attack(piece)
-signal mouse_in_attack(piece)
-signal mouse_out_attack(piece)
-signal mouse_in_icon(piece)
-signal mouse_out_icon(piece)
+signal piece_selected(piece: Piece)
+signal piece_attack(piece: Piece)
+signal mouse_in_attack(piece: Piece)
+signal mouse_out_attack(piece: Piece)
+signal mouse_in_icon(piece: Piece)
+signal mouse_out_icon(piece: Piece)
 
-@export var texture_rect : TextureRect = null
-@export var player_effect : TextureRect = null
-@export var control_panel : Control = null
-@export var move_button : Button = null
-@export var attack_button : Button = null
-@export var icon_offset : Vector2 = Vector2(0, 0)
+@onready var player_effect = $PlayerEffect
+
+@export var ICON : TextureRect
+@export var CONTROL_PANEL : Control
+@export var MOVE_BUTTON : Button
+@export var ATTACK_BUTTON : Button
 @export var effect_offset : Vector2 = Vector2(0, 12)
 
 func _ready() -> void:
 	#非選定狀態時隱藏
-	control_panel.visible = false
-	#連接圖示
-	texture_rect.global_position += icon_offset
-	texture_rect.gui_input.connect(_on_icon_gui_input)
-	texture_rect.mouse_entered.connect(_on_icon_mouse_entered)
-	texture_rect.mouse_exited.connect(_on_icon_mouse_exited)
-	#連接攻擊鍵
-	attack_button.pressed.connect(_on_attack_button_pressed)
-	attack_button.mouse_entered.connect(_on_attack_button_mouse_entered)
-	attack_button.mouse_exited.connect(_on_attack_button_mouse_exited)
+	if CONTROL_PANEL:
+		CONTROL_PANEL.visible = false
+	#圖示
+	if ICON:
+		ICON.gui_input.connect(_on_icon_gui_input)
+		ICON.mouse_entered.connect(_on_icon_mouse_entered)
+		ICON.mouse_exited.connect(_on_icon_mouse_exited)
+	#攻擊鍵
+	if ATTACK_BUTTON:
+		ATTACK_BUTTON.pressed.connect(_on_attack_button_pressed)
+		ATTACK_BUTTON.mouse_entered.connect(_on_attack_button_mouse_entered)
+		ATTACK_BUTTON.mouse_exited.connect(_on_attack_button_mouse_exited)
+	#移動鍵
+	enable_move(false)
 
 #套用玩家特效
 func set_player_effect(player: int) -> void:
 	player_effect.position += effect_offset
 	if player == 0:
 		player_effect.texture = load("res://img/piece/player/red_filter.png")
-	else:
+	if player == 1:
 		player_effect.texture = load("res://img/piece/player/blue_filter.png")
 
 #被選取時
-func select(is_selected: bool, is_on_board: bool) -> void:
-	#選取動畫
-	if is_on_board:
-		control_panel.visible = is_selected	
+func show_control_panel(show: bool) -> void:
+	if CONTROL_PANEL:
+		CONTROL_PANEL.visible = show
+
+#無效攻擊
+func enable_attack(enable) -> void:
+	if ATTACK_BUTTON:
+		ATTACK_BUTTON.disabled = !enable
+
+#無效移動
+func enable_move(enable) -> void:
+	if MOVE_BUTTON:
+		MOVE_BUTTON.disabled = !enable
 
 #圖示互動
 func _on_icon_gui_input(event: InputEvent) -> void:
@@ -63,3 +76,7 @@ func _on_attack_button_mouse_entered() -> void:
 
 func _on_attack_button_mouse_exited() -> void:
 	emit_signal("mouse_out_attack", get_parent())
+
+#移動鍵互動
+func _on_move_button_pressed() -> void:
+	pass # Replace with function body.

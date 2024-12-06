@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 			set_cell(2, tile, 2, Vector2i(0, 0), 0)
 
 #顯示攻擊對象
-func show_attack_target(targets: Array) -> void:
+func highlight_tiles(targets: Array) -> void:
 	for target in targets:
 		set_cell(1, target, 1, Vector2i(0, 0), 0)
 
