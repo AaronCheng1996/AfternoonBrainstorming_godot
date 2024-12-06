@@ -1,6 +1,5 @@
 extends Control
 
-@onready var piece_scene = preload("res://scenes/Resource/piece.tscn")
 @onready var card_scene = preload("res://scenes/piece_card.tscn")
 @onready var card_grid = $Cards
 @onready var btn_start = $btn_start
@@ -11,14 +10,14 @@ var deck := []
 var offset = Vector2(0, 0)
 
 var piece_type = [
-	DataHandler.PieceNames.WHITE_ASS,
-	DataHandler.PieceNames.WHITE_CUBE,
-	DataHandler.PieceNames.WHITE_DIAMOND,
-	DataHandler.PieceNames.WHITE_DLOZ,
-	DataHandler.PieceNames.WHITE_HEX,
-	DataHandler.PieceNames.WHITE_SPHERE,
-	DataHandler.PieceNames.WHITE_TRAP,
-	DataHandler.PieceNames.WHITE_TRI
+	"res://scenes/pieces/white/white_adc.tscn",
+	"res://scenes/pieces/white/white_ap.tscn",
+	"res://scenes/pieces/white/white_apt.tscn",
+	"res://scenes/pieces/white/white_ass.tscn",
+	"res://scenes/pieces/white/white_hf.tscn",
+	"res://scenes/pieces/white/white_lf.tscn", 
+	"res://scenes/pieces/white/white_sp.tscn", 
+	"res://scenes/pieces/white/white_tank.tscn",
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -50,7 +49,7 @@ func _on_start_button_pressed() -> void:
 func create_test_deck(player: int) -> void:
 	for i in range(deck_size):
 		var random_index = randi() % piece_type.size()
-		var type = piece_type[random_index]
+		var piece_scene = load(piece_type[random_index])
 		
 		var new_piece = piece_scene.instantiate()
 		new_piece.player = player

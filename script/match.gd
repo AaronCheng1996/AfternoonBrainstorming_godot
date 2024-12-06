@@ -4,6 +4,7 @@ extends Control
 @onready var p1_pieces = $Board/Pieces/Player1
 @onready var p2_pieces = $Board/Pieces/Player2
 @onready var tilemap = $Board/TileMap
+@onready var score_label = $ScoreLabel
 #牌庫
 var deck_size : int = 12
 var deck := []
@@ -71,12 +72,12 @@ func end_turn() -> void:
 		if board_piece_dic[index] is int:
 			continue
 		var piece = board_piece_dic[index]
+		#計分
+		score += piece.get_score(player_turn)
+		score_label.text = str(score)
 		#棋子執行回合結束效果
 		piece.on_turn_end(player_turn)
-		if piece.player != player_turn: #只計算當前回合的人
-			continue
-		#計分
-		score += piece.get_score()
+		
 	#解除所有鎖定
 	select_piece(null)
 	#換邊開始回合
@@ -138,12 +139,8 @@ func _on_piece_selected(piece: Piece) -> void:
 
 #棋子發動攻擊
 func _on_piece_attack(piece: Piece) -> void:
-	var target := []
-	if piece.player == 0:
-		target = p2_pieces.get_children()
-	else:
-		target = p1_pieces.get_children()
-	piece.attack(target)
+	var targets = get_attackable_pieces(piece)
+	piece.attack(targets)
 
 #選取格子時
 func _on_tile_clicked(location: Vector2i) -> void:
@@ -171,12 +168,8 @@ func _on_mouse_out_icon(piece: Piece) -> void:
 
 #滑鼠在攻擊鍵上，顯示攻擊範圍
 func _on_mouse_in_attack(piece: Piece) -> void:
-	var target := []
-	if piece.player == 0:
-		target = p2_pieces.get_children()
-	else:
-		target = p1_pieces.get_children()
-	tilemap.highlight_tiles(piece.get_target_location(target))
+	var targets = get_attackable_pieces(piece)
+	tilemap.highlight_tiles(piece.get_target_location(targets))
 
 #滑鼠離開攻擊鍵上，不再顯示攻擊範圍
 func _on_mouse_out_attack(piece: Piece) -> void:
@@ -253,7 +246,10 @@ func move_piece_in_hand(piece: Piece, location: Vector2i) -> void:
 	piece.global_position = tilemap.map_to_local(location) + icon_offset
 	piece.location = location
 
+#交換兩個棋子
 func swap_piece_in_hand(piece1: Piece, piece2: Piece) -> void:
+	if piece1.is_on_board or piece2.is_on_board: #場上的棋子不能交換
+		return
 	if piece1.player != player_turn or piece2.player != player_turn: #不能移動對手的棋子
 		return
 	var temp = piece1
@@ -276,5 +272,16 @@ func is_on_board(location: Vector2i) -> bool:
 		if location.y >= 2 and location.y <= 5:
 			return true
 	return false
+
+#可能攻擊對象
+func get_attackable_pieces(piece: Piece) -> Array:
+	var targets := []
+	targets.append_array(p1_pieces.get_children())
+	targets.append_array(p2_pieces.get_children())
+	#只可攻擊場上棋子
+	targets = targets.filter(func(target):
+		return target.is_on_board
+	)
+	return targets
 
 #endregion

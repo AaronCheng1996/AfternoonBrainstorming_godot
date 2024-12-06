@@ -86,5 +86,16 @@ offset_right = 971.0
 offset_bottom = 644.0
 text = "turn end"
 
+[node name="ScoreLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 120.0
+offset_right = 552.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 60
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="gui_input" from="Board" to="Board/TileMap" method="_on_board_gui_input"]
 [connection signal="pressed" from="btn_turn_end" to="." method="_on_turn_end_button_pressed"]

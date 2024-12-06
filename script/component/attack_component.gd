@@ -17,28 +17,23 @@ func _ready() -> void:
 	atk = DEFAULT_ATK
 
 #發動攻擊
-func hit(target) -> void:
+func hit(target: Piece) -> void:
 	if not target:
-		return
-	if not target.health_component:
 		return
 	
 	emit_signal("on_hit", target)
 	if atk > 0:
-		if target.health_component.take_damaged(atk):
+		if target.take_damaged(atk):
 			emit_signal("on_kill", target)
 
 #發動攻擊
 func attack(pieces: Array) -> void:
+	emit_signal("start_attack", get_parent())
 	if not pieces: #是否為null
 		return
-	
-	var attacker = get_parent()
-	emit_signal("start_attack", get_parent())
-	
 	if pieces.size() == 0: #是否存在敵方棋子
 		return
-	
+	var attacker = get_parent()
 	#最近/最遠
 	var targets = []
 	if ATK_PATTERN == PatternNames.NEAREST:
