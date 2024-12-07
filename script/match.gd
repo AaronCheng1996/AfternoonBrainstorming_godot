@@ -1,8 +1,8 @@
 extends Control
 #棋子
 @onready var board = $board
-@onready var p0_pieces = $board/Pieces/Player0
-@onready var p1_pieces = $board/Pieces/Player1
+@onready var p0_pieces = $board/TileMap/Pieces/Player0
+@onready var p1_pieces = $board/TileMap/Pieces/Player1
 @onready var tilemap = $board/TileMap
 @onready var score_label = $board/score_label
 @onready var p0_end_button = $board/btn_turn_end_0
@@ -21,8 +21,6 @@ var hand_piece_array := []
 #墓園
 var graveyard := []
 
-#棋子座標修正
-var icon_offset := Vector2(112, -28)
 #選定的棋子
 var piece_selected : Piece = null
 #當前回合
@@ -85,7 +83,7 @@ func end_turn() -> void:
 			score_color = "blue"
 		else:
 			score_color = "white"
-		score_label.text = "[font_size=60][center][color={0}]{1}[/color][/center][/font_size]".format([score_color, str(abs(score))])
+		score_label.text = Global.set_font_center(Global.set_font_color(Global.set_font_size(str(abs(score)), "60"), score_color))
 		#棋子執行回合結束效果
 		piece.on_turn_end(player_turn)
 		
@@ -118,7 +116,7 @@ func draw_piece(player: int) -> void:
 		p1_pieces.add_child(piece)
 	var empty = hand_piece_array[player].find(0)
 	
-	piece.global_position = tilemap.map_to_local(Vector2(empty, player * 7)) + icon_offset
+	piece.position = tilemap.map_to_local(Vector2(empty, player * 7))
 	piece.location = Vector2(empty, player * 7)
 	hand_piece_array[player][empty] = piece
 	#設定外觀與連結
@@ -185,7 +183,7 @@ func _on_mouse_out_icon(piece: Piece) -> void:
 
 #滑鼠在攻擊鍵上，顯示攻擊範圍
 func _on_mouse_in_attack(piece: Piece) -> void:
-	if piece.outfit_component.ATTACK_BUTTON.disabled:
+	if piece.outfit_component.attack_button.disabled:
 		return
 	var targets = get_attackable_pieces(piece)
 	tilemap.highlight_tiles(piece.get_target_location(targets))
@@ -241,7 +239,7 @@ func move_piece(piece: Piece, location: Vector2i) -> void:
 	
 	board_piece_dic[str(piece.location)] = 0
 	board_piece_dic[str(location)] = piece
-	piece.global_position = tilemap.map_to_local(location) + icon_offset
+	piece.position = tilemap.map_to_local(location)
 	piece.location = location
 
 #將手上的棋子放置到場上
@@ -252,7 +250,7 @@ func move_piece_to_board(piece: Piece, location: Vector2i) -> void:
 		return
 	hand_piece_array[piece.player][piece.location.x] = 0
 	board_piece_dic[str(location)] = piece
-	piece.global_position = tilemap.map_to_local(location) + icon_offset
+	piece.position = tilemap.map_to_local(location)
 	piece.location = location
 	piece.is_on_board = true
 	piece.on_piece_set()
@@ -267,7 +265,7 @@ func move_piece_in_hand(piece: Piece, location: Vector2i) -> void:
 		return
 	hand_piece_array[piece.player][piece.location.x] = 0
 	hand_piece_array[piece.player][location.x] = piece
-	piece.global_position = tilemap.map_to_local(location) + icon_offset
+	piece.position = tilemap.map_to_local(location)
 	piece.location = location
 
 #交換兩個棋子
@@ -281,8 +279,8 @@ func swap_piece_in_hand(piece1: Piece, piece2: Piece) -> void:
 	var temp_p2_location = piece2.location
 	hand_piece_array[piece1.player][temp_p1_location.x] = piece2
 	hand_piece_array[piece1.player][temp_p2_location.x] = temp
-	piece1.global_position = tilemap.map_to_local(temp_p2_location) + icon_offset
-	piece2.global_position = tilemap.map_to_local(temp_p1_location) + icon_offset
+	piece1.position = tilemap.map_to_local(temp_p2_location)
+	piece2.position = tilemap.map_to_local(temp_p1_location)
 	piece1.location = temp_p2_location
 	piece2.location = temp_p1_location
 

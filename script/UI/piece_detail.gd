@@ -18,8 +18,8 @@ func show_piece_detail(piece: Piece) -> void:
 		if piece.icon:
 			piece_icon.texture = piece.icon.texture
 		#名稱、敘述
-		lbl_piece_name.text = set_font_size(set_font_center(piece.show_name), str(20))
-		lbl_piece_description.text = set_font_size(set_font_center(piece.description), str(16))
+		lbl_piece_name.text = Global.set_font_size(Global.set_font_center(piece.show_name), str(20))
+		lbl_piece_description.text = Global.set_font_size(Global.set_font_center(piece.description), str(16))
 		#最大生命、得分、攻擊力、攻擊模式
 		if piece.health_component:
 			max_health_state.default_value = piece.health_component.DEAFULT_MAX_HEALTH
@@ -36,7 +36,7 @@ func show_piece_detail(piece: Piece) -> void:
 		if piece.attack_component:
 			attack_state.default_value = piece.attack_component.DEFAULT_ATK
 			attack_state.value = piece.attack_component.atk
-			
+			pattern_state.icon_mode = true
 			#補上pattern_state圖示
 			attack_state.refresh_value_text()
 			pattern_state.refresh_value_text()
@@ -45,10 +45,3 @@ func show_piece_detail(piece: Piece) -> void:
 			pattern_state.visible = false
 	else:
 		visible = false
-	
-#置中文字
-func set_font_center(text: String) -> String:
-	return "[center]{0}[/center]".format([text])
-
-func set_font_size(text: String, size: String) -> String:
-	return "[font_size={0}]{1}[/font_size]".format([size, text])

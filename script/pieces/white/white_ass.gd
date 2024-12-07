@@ -7,4 +7,5 @@ func _init() -> void:
 
 #棋子放置時
 func on_piece_set() -> void:
+	refresh()
 	pass

@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 		if piece_select.player != current_player: #排除對方棋子
 			return
 		if piece_select.outfit_component: #排除在場上且不能移動時
-			if piece_select.outfit_component.MOVE_BUTTON.disabled and is_on_board(piece_select.location):
+			if piece_select.outfit_component.move_button.disabled and is_on_board(piece_select.location):
 				return
 		#顯示可動目標
 		if dic.has(str(tile)) and (tile.y == piece_select.player * 7 or (tile.y != 0 and tile.y != 7)):

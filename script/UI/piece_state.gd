@@ -3,7 +3,10 @@ class_name PieceState
 
 @onready var icon = $icon
 @onready var txt_value = $txt_value
+@onready var txt_icon = $txt_value/txt_icon
+@export var icon_mode : bool = false
 @export var icon_texture : CompressedTexture2D
+@export var txt_icon_texture : CompressedTexture2D
 var value : int = 0
 var default_value : int = 0
 
@@ -12,20 +15,11 @@ func _ready() -> void:
 		icon.texture = icon_texture
 
 func refresh_value_text() -> void:
-	if txt_value:
-		var text = str(value)
-		if value > default_value:
-			text = set_font_color(text, "green")
-		elif value < default_value:
-			text = set_font_color(text, "red")
-		txt_value.text = set_font_center(set_font_size(text, "20"))
-
-#置中文字
-func set_font_center(text: String) -> String:
-	return "[center]{0}[/center]".format([text])
-
-func set_font_size(text: String, size: String) -> String:
-	return "[font_size={0}]{1}[/font_size]".format([size, text])
-
-func set_font_color(text: String, color: String) -> String:
-	return "[color={0}]{1}[/color]".format([color, text])
+	if not icon_mode:
+		if txt_value:
+			var text = str(value)
+			text = Global.set_font_color(text, Global.get_font_color(value, default_value))
+			txt_value.text = Global.set_font_center(Global.set_font_size(text, "20"))
+	else:
+		if txt_icon_texture:
+			txt_icon.texture = txt_icon_texture

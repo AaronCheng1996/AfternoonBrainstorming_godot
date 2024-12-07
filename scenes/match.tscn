@@ -37,11 +37,11 @@ color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 [node name="TileMap" parent="board" instance=ExtResource("2_j5k1m")]
 position = Vector2(152, 24)
 
-[node name="Pieces" type="Node2D" parent="board"]
+[node name="Pieces" type="Node2D" parent="board/TileMap"]
 
-[node name="Player0" type="Node2D" parent="board/Pieces"]
+[node name="Player0" type="Node2D" parent="board/TileMap/Pieces"]
 
-[node name="Player1" type="Node2D" parent="board/Pieces"]
+[node name="Player1" type="Node2D" parent="board/TileMap/Pieces"]
 
 [node name="btn_turn_end_0" type="Button" parent="board"]
 material = SubResource("CanvasItemMaterial_qim31")
@@ -73,6 +73,7 @@ text = "[font_size=60px][center][color={0}]0[/color][/center][/font_size]"
 
 [node name="piece_detail" parent="board" instance=ExtResource("6_byp26")]
 unique_name_in_owner = true
+visible = false
 offset_left = 730.0
 offset_top = 234.0
 offset_right = 730.0

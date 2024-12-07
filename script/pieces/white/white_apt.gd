@@ -5,11 +5,14 @@ func _init() -> void:
 	show_name = "白色六邊形"
 	description = "[b]攻擊後[/b]：為自己及最近友方\n附加 2 點護盾"
 
-func _process(delta: float) -> void:
+func refresh() -> void:
+	super.refresh()
 	if attack_component:
-		description = "[b]攻擊後[/b]：為自己及最近友方\n附加 {0} 點護盾".format([attack_component.atk])
+		var text = str(attack_component.atk)
+		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
+		description = "[b]攻擊後[/b]：為自己及最近友方\n附加 {0} 點護盾".format([text])
 
-#攻擊改為最近友方附加兩點護盾
+#攻擊時為最近友方附加兩點護盾
 func attack(targets: Array) -> void:
 	if attack_component:
 		#給友方盾

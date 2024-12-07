@@ -24,6 +24,7 @@ func on_piece_set() -> void:
 		stun_debuff.duration = 1
 		stun_debuff.tag.append("debuff")
 		buff_component.add_buff(stun_debuff)
+	refresh()
 
 #回合開始時
 func on_turn_start(player_turn: int) -> void:
@@ -73,17 +74,22 @@ func get_target_location(pieces: Array) -> Array:
 #補血
 func heal(heal: int) -> int:
 	if health_component:
-		return health_component.heal(heal)
+		var is_over_healed = health_component.heal(heal)
+		refresh()
+		return is_over_healed
 	else:
 		return 0
 #獲得護盾
 func shielded(value: int) -> void:
 	if health_component:
-		return health_component.shielded(value)
+		health_component.shielded(value)
+		refresh()
 #承受傷害
 func take_damaged(damage: int) -> bool:
 	if health_component:
-		return health_component.take_damaged(damage)
+		var is_killed = health_component.take_damaged(damage)
+		refresh()
+		return is_killed
 	else:
 		return false
 
@@ -92,15 +98,26 @@ func take_damaged(damage: int) -> bool:
 func add_buff(buff: Buff) -> void:
 	if buff_component:
 		buff_component.add_buff(buff)
+		refresh()
 #移除buff
 func remove_buff(buff: Buff) -> void:
 	if buff_component:
 		buff_component.remove_buff(buff)
+		refresh()
 #經過一回合
 func tick() -> void:
 	if buff_component:
 		buff_component.tick()
+		refresh()
 #清除buff
 func clear_buffs() -> void:
 	if buff_component:
 		buff_component.clear_buffs()
+		refresh()
+
+#更新顯示數值
+func refresh() -> void:
+	if not outfit_component:
+		return
+	if attack_component:
+		outfit_component.refresh_value(attack_component.atk, attack_component.DEFAULT_ATK)

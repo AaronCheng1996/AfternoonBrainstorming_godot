@@ -22,32 +22,32 @@ func _ready() -> void:
 
 #補血
 func heal(heal: int) -> int:
-	emit_signal("on_heal", heal)
 	var over_heal = health + heal - max_health
 	if over_heal > 0:
-		emit_signal("on_over_heal", over_heal)
 		health = max_health
+		emit_signal("on_over_heal", over_heal)
 		shielded(over_heal / 2)
 		return over_heal
 	else:
 		health += heal
 		return 0
+	emit_signal("on_heal", heal)
 
 #獲得護盾
 func shielded(value: int) -> void:
-	emit_signal("on_shielded", value)
 	shield += value
+	emit_signal("on_shielded", value)
 
 #承受傷害
 func take_damaged(damage: int) -> bool:
-	#預留動畫位置
-	emit_signal("damage_taken", damage)
 	#盾先承受，生命再承受
 	if shield >= damage:
 		shield -= damage
 	else:
 		health -= (damage - shield)
 		shield = 0
+	#預留動畫位置
+	emit_signal("damage_taken", damage)
 	#若生命降為0，則死亡
 	if health <= 0:
 		#預留動畫位置

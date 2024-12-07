@@ -11,13 +11,19 @@ offset_bottom = 30.0
 color = Color(0.344076, 0.344076, 0.344076, 1)
 
 [node name="icon" type="TextureRect" parent="."]
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 27.0
-offset_bottom = 27.0
+custom_minimum_size = Vector2(30, 30)
+offset_right = 30.0
+offset_bottom = 30.0
 
 [node name="txt_value" type="RichTextLabel" parent="."]
 offset_left = 30.0
 offset_right = 80.0
 offset_bottom = 30.0
 bbcode_enabled = true
+
+[node name="txt_icon" type="TextureRect" parent="txt_value"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_left = 10.0
+offset_right = 40.0
+offset_bottom = 30.0

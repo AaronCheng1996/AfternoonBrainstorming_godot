@@ -24,12 +24,9 @@ DEAFULT_MAX_HEALTH = 2
 unique_name_in_owner = true
 ATK_PATTERN = 2
 
-[node name="OutfitComponent" parent="." node_paths=PackedStringArray("ICON", "CONTROL_PANEL", "MOVE_BUTTON", "ATTACK_BUTTON") instance=ExtResource("4_wmy4f")]
+[node name="OutfitComponent" parent="." node_paths=PackedStringArray("ICON") instance=ExtResource("4_wmy4f")]
 unique_name_in_owner = true
 ICON = NodePath("../Icon")
-CONTROL_PANEL = NodePath("../ControlPanel")
-MOVE_BUTTON = NodePath("../ControlPanel/MoveButton")
-ATTACK_BUTTON = NodePath("../ControlPanel/AttackButton")
 
 [node name="ScoreComponent" parent="." instance=ExtResource("5_664xx")]
 unique_name_in_owner = true
@@ -43,31 +40,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 88.0
-offset_bottom = 88.0
+offset_left = -48.0
+offset_top = -60.0
+offset_right = 48.0
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_4dvv1")
-
-[node name="ControlPanel" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 80.0
-offset_bottom = 40.0
-
-[node name="MoveButton" type="Button" parent="ControlPanel"]
-layout_mode = 0
-offset_top = 1.0
-offset_right = 40.0
-offset_bottom = 32.0
-text = "移動"
-
-[node name="AttackButton" type="Button" parent="ControlPanel"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 1.0
-offset_right = 80.0
-offset_bottom = 32.0
-text = "攻擊"
