@@ -13,22 +13,35 @@ script = ExtResource("1_67xhq")
 
 [node name="btn_start" type="Button" parent="."]
 layout_mode = 0
-offset_left = 790.0
-offset_top = 682.0
-offset_right = 990.0
-offset_bottom = 742.0
+offset_left = 784.0
+offset_top = 692.0
+offset_right = 984.0
+offset_bottom = 752.0
 text = "Start"
 
-[node name="Cards" type="GridContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -350.0
-offset_top = 62.0
-offset_right = 350.0
-offset_bottom = 562.0
-grow_horizontal = 2
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 30.0
+offset_right = 986.0
+offset_bottom = 680.0
+color = Color(0.187176, 0.187176, 0.187176, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="background"]
+custom_minimum_size = Vector2(756, 630)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 750.0
+offset_bottom = 640.0
+
+[node name="details" type="GridContainer" parent="background/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 columns = 3
+
+[node name="pieces" type="Node2D" parent="."]
+visible = false
 
 [connection signal="pressed" from="btn_start" to="." method="_on_start_button_pressed"]

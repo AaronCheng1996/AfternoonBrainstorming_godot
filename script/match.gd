@@ -1,10 +1,13 @@
 extends Control
 #棋子
-@onready var board = $Board
-@onready var p1_pieces = $Board/Pieces/Player1
-@onready var p2_pieces = $Board/Pieces/Player2
-@onready var tilemap = $Board/TileMap
-@onready var score_label = $ScoreLabel
+@onready var board = $board
+@onready var p0_pieces = $board/Pieces/Player0
+@onready var p1_pieces = $board/Pieces/Player1
+@onready var tilemap = $board/TileMap
+@onready var score_label = $board/score_label
+@onready var p0_end_button = $board/btn_turn_end_0
+@onready var p1_end_button = $board/btn_turn_end_1
+@onready var piece_detail = %piece_detail
 #牌庫
 var deck_size : int = 12
 var deck := []
@@ -23,8 +26,9 @@ var icon_offset := Vector2(112, -28)
 #選定的棋子
 var piece_selected : Piece = null
 #當前回合
-var player_turn : int = 0
+var player_turn : int = 1
 #分數
+var score_color : String = "white"
 var score : int = 0
 
 #生成
@@ -46,7 +50,7 @@ func _ready() -> void:
 			draw_piece(player)
 	
 	tilemap.tile_selected.connect(_on_tile_clicked)
-	start_turn(0)
+	start_turn(player_turn)
 
 #region 流程
 
@@ -56,6 +60,7 @@ func set_deck(new_deck: Array) -> void:
 
 #回合開始
 func start_turn(player: int) -> void:
+	tilemap.current_player = player
 	#所有場上棋子
 	for index in board_piece_dic:
 		if board_piece_dic[index] is int:
@@ -74,17 +79,27 @@ func end_turn() -> void:
 		var piece = board_piece_dic[index]
 		#計分
 		score += piece.get_score(player_turn)
-		score_label.text = str(score)
+		if score < 0:
+			score_color = "red"
+		elif score > 0:
+			score_color = "blue"
+		else:
+			score_color = "white"
+		score_label.text = "[font_size=60][center][color={0}]{1}[/color][/center][/font_size]".format([score_color, str(abs(score))])
 		#棋子執行回合結束效果
 		piece.on_turn_end(player_turn)
 		
 	#解除所有鎖定
 	select_piece(null)
 	#換邊開始回合
-	if player_turn == 0:
-		player_turn = 1
-	else:
+	if player_turn == 1:
 		player_turn = 0
+		p0_end_button.disabled = false
+		p1_end_button.disabled = true
+	else:
+		player_turn = 1
+		p0_end_button.disabled = true
+		p1_end_button.disabled = false
 	start_turn(player_turn)
 
 #抽牌
@@ -98,9 +113,9 @@ func draw_piece(player: int) -> void:
 	
 	var piece = deck[player].pop_front()
 	if player == 0:
-		p1_pieces.add_child(piece)
+		p0_pieces.add_child(piece)
 	else:
-		p2_pieces.add_child(piece)
+		p1_pieces.add_child(piece)
 	var empty = hand_piece_array[player].find(0)
 	
 	piece.global_position = tilemap.map_to_local(Vector2(empty, player * 7)) + icon_offset
@@ -160,14 +175,18 @@ func _on_tile_clicked(location: Vector2i) -> void:
 
 #滑鼠在棋子圖示上，顯示詳細資料
 func _on_mouse_in_icon(piece: Piece) -> void:
+	piece_detail.show_piece_detail(piece)
 	pass
 
 #滑鼠離開棋子圖示上，不再顯示詳細資料
 func _on_mouse_out_icon(piece: Piece) -> void:
+	piece_detail.show_piece_detail(piece_selected)
 	pass
 
 #滑鼠在攻擊鍵上，顯示攻擊範圍
 func _on_mouse_in_attack(piece: Piece) -> void:
+	if piece.outfit_component.ATTACK_BUTTON.disabled:
+		return
 	var targets = get_attackable_pieces(piece)
 	tilemap.highlight_tiles(piece.get_target_location(targets))
 
@@ -182,8 +201,12 @@ func _on_piece_death(piece: Piece) -> void:
 	piece.queue_free()
 
 #切換回合按鍵
-func _on_turn_end_button_pressed() -> void:
+func _on_btn_turn_end_1_pressed() -> void:
 	end_turn()
+
+func _on_btn_turn_end_0_pressed() -> void:
+	end_turn()
+
 
 #endregion
 
@@ -199,6 +222,7 @@ func select_piece(piece: Piece) -> void:
 		piece_selected = piece
 		piece_selected.select_effect(true, piece_selected.is_on_board and piece_selected.player == player_turn)
 		tilemap.piece_select = piece
+		piece_detail.show_piece_detail(piece_selected)
 	else: #取消選定
 		if piece_selected == null:
 			return
@@ -276,12 +300,12 @@ func is_on_board(location: Vector2i) -> bool:
 #可能攻擊對象
 func get_attackable_pieces(piece: Piece) -> Array:
 	var targets := []
+	targets.append_array(p0_pieces.get_children())
 	targets.append_array(p1_pieces.get_children())
-	targets.append_array(p2_pieces.get_children())
 	#只可攻擊場上棋子
 	targets = targets.filter(func(target):
 		return target.is_on_board
 	)
 	return targets
-
+	
 #endregion

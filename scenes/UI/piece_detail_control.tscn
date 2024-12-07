@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://etsr5kw1bffc"]
+
+[ext_resource type="PackedScene" uid="uid://dmcb5d8o0ctte" path="res://scenes/UI/piece_detail.tscn" id="1_nkobh"]
+
+[node name="Control" type="Control"]
+custom_minimum_size = Vector2(240, 300)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 240.0
+offset_bottom = 300.0
+
+[node name="piece_detail" parent="." instance=ExtResource("1_nkobh")]
+visible = true

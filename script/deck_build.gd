@@ -1,15 +1,13 @@
 extends Control
 
-@onready var card_scene = preload("res://scenes/piece_card.tscn")
-@onready var card_grid = $Cards
+@onready var piece_detail = preload("res://scenes/UI/piece_detail.tscn")
+@onready var piece_grid = $background/ScrollContainer/details
 @onready var btn_start = $btn_start
+@onready var pieces = $pieces
 
 var deck_size = 12
 var deck := []
-
-var offset = Vector2(0, 0)
-
-var piece_type = [
+var piece_types = [
 	"res://scenes/pieces/white/white_adc.tscn",
 	"res://scenes/pieces/white/white_ap.tscn",
 	"res://scenes/pieces/white/white_apt.tscn",
@@ -29,10 +27,15 @@ func _ready() -> void:
 		#測試用
 		create_test_deck(i)
 	
-	for i in range(12):
-		var new_card = card_scene.instantiate()
-		new_card.global_position = Vector2((i % 3) * 230, (i / 3) * 120) + offset
-		card_grid.add_child(new_card)
+	var count = 0
+	for i in range(piece_types.size()):
+		var piece_scene = load(piece_types[i])
+		var new_piece : Piece = piece_scene.instantiate()
+		pieces.add_child(new_piece)
+		var new_piece_detail = piece_detail.instantiate()
+		piece_grid.add_child(new_piece_detail)
+		new_piece_detail.show_piece_detail(new_piece)
+		#new_piece_detail.position = Vector2(10 + (i % 3) * 250, 10 + (i / 3) * 310)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -48,9 +51,8 @@ func _on_start_button_pressed() -> void:
 
 func create_test_deck(player: int) -> void:
 	for i in range(deck_size):
-		var random_index = randi() % piece_type.size()
-		var piece_scene = load(piece_type[random_index])
-		
+		var random_index = randi() % piece_types.size()
+		var piece_scene = load(piece_types[random_index])
 		var new_piece = piece_scene.instantiate()
 		new_piece.player = player
 		new_piece.is_on_board = false

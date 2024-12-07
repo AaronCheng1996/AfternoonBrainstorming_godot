@@ -1,8 +1,13 @@
 extends Piece
 class_name WhiteSP
 
+func _init() -> void:
+	show_name = "白色鑽石"
+
+"""
 #回合結束時
 func on_turn_end(player_turn: int) -> void:
+	
 	if player_turn != player:
 		return
 	#增加得分buff
@@ -21,3 +26,4 @@ func on_turn_end(player_turn: int) -> void:
 			score_buff.tag.append_array(["buff"])
 			buff_component.add_buff(score_buff)
 	tick()
+"""

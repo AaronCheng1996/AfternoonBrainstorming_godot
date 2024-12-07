@@ -2,7 +2,8 @@ extends Node2D
 class_name Piece
 
 var tag := []
-var description : String
+var show_name : String = ""
+var description : String = ""
 var location : Vector2i
 var is_on_board : bool
 var player : int
@@ -12,6 +13,7 @@ var player : int
 @export var outfit_component : OutfitComponent
 @export var score_component : ScoreComponent
 @export var buff_component : BuffComponent
+@onready var icon = $Icon
 
 #棋子放置時
 func on_piece_set() -> void:

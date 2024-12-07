@@ -33,6 +33,7 @@ ATTACK_BUTTON = NodePath("../ControlPanel/AttackButton")
 
 [node name="ScoreComponent" parent="." instance=ExtResource("5_qxrs3")]
 unique_name_in_owner = true
+DEAFULT_SCORE = 2
 
 [node name="BuffComponent" parent="." instance=ExtResource("6_dsc6p")]
 unique_name_in_owner = true

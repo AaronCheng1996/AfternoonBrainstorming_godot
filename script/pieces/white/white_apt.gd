@@ -1,6 +1,14 @@
 extends Piece
 class_name WhiteAPT
 
+func _init() -> void:
+	show_name = "白色六邊形"
+	description = "[b]攻擊後[/b]：為自己及最近友方\n附加 2 點護盾"
+
+func _process(delta: float) -> void:
+	if attack_component:
+		description = "[b]攻擊後[/b]：為自己及最近友方\n附加 {0} 點護盾".format([attack_component.atk])
+
 #攻擊改為最近友方附加兩點護盾
 func attack(targets: Array) -> void:
 	if attack_component:

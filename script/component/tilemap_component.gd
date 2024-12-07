@@ -4,8 +4,8 @@ signal tile_selected(tile)
 var gird_size = 4
 var hand_size = 8
 var dic = {}
-var mouse_on_button = false
-var piece_select = null
+var piece_select : Piece = null
+var current_player : int = -1
 
 
 func _ready() -> void:
@@ -24,11 +24,18 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	reset(2)
-	if piece_select:
+	if piece_select: #有選定棋子，顯示可動目標
 		set_cell(2, piece_select.location, 1, Vector2i(0, 0), 0)
 		var tile = local_to_map(get_local_mouse_position())
-		#有選定棋子，且目的為可移動範圍
-		if dic.has(str(tile)) and not tile == piece_select.location and (tile.y == piece_select.player * 7 or (tile.y != 0 and tile.y != 7)):
+		if tile == piece_select.location: #排除自己
+			return
+		if piece_select.player != current_player: #排除對方棋子
+			return
+		if piece_select.outfit_component: #排除在場上且不能移動時
+			if piece_select.outfit_component.MOVE_BUTTON.disabled and is_on_board(piece_select.location):
+				return
+		#顯示可動目標
+		if dic.has(str(tile)) and (tile.y == piece_select.player * 7 or (tile.y != 0 and tile.y != 7)):
 			set_cell(2, tile, 2, Vector2i(0, 0), 0)
 
 #顯示攻擊對象
@@ -51,3 +58,10 @@ func _on_board_gui_input(event: InputEvent) -> void:
 		var tile = local_to_map(get_local_mouse_position())
 		if dic.has(str(tile)):
 			emit_signal("tile_selected", tile)
+
+#判斷是否在棋盤上
+func is_on_board(location: Vector2i) -> bool:
+	if location.x >= 2 and location.x <= 5:
+		if location.y >= 2 and location.y <= 5:
+			return true
+	return false
