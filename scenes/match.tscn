@@ -36,12 +36,7 @@ color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 
 [node name="TileMap" parent="board" instance=ExtResource("2_j5k1m")]
 position = Vector2(152, 24)
-
-[node name="Pieces" type="Node2D" parent="board/TileMap"]
-
-[node name="Player0" type="Node2D" parent="board/TileMap/Pieces"]
-
-[node name="Player1" type="Node2D" parent="board/TileMap/Pieces"]
+layer_0/tile_data = PackedInt32Array(131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 327683, 0, 0, 262147, 0, 0, 196611, 0, 0, 131075, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0, 327684, 0, 0, 327685, 0, 0, 262149, 0, 0, 196613, 0, 0, 131077, 0, 0, 458759, 1, 0, 458758, 1, 0, 458757, 1, 0, 458756, 1, 0, 458755, 1, 0, 458754, 1, 0, 458753, 1, 0, 458752, 1, 0, 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0)
 
 [node name="btn_turn_end_0" type="Button" parent="board"]
 material = SubResource("CanvasItemMaterial_qim31")
@@ -78,6 +73,13 @@ offset_left = 730.0
 offset_top = 234.0
 offset_right = 730.0
 offset_bottom = 234.0
+
+[node name="Pieces" type="Node2D" parent="board"]
+position = Vector2(152, 24)
+
+[node name="Player0" type="Node2D" parent="board/Pieces"]
+
+[node name="Player1" type="Node2D" parent="board/Pieces"]
 
 [connection signal="gui_input" from="board" to="board/TileMap" method="_on_board_gui_input"]
 [connection signal="pressed" from="board/btn_turn_end_0" to="." method="_on_btn_turn_end_0_pressed"]

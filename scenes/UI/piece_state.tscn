@@ -14,10 +14,16 @@ offset_bottom = 21.0
 scale = Vector2(1.00549, 1)
 color = Color(0.344076, 0.344076, 0.344076, 1)
 
+[node name="icon_background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 25.0
+offset_bottom = 21.0
+color = Color(0.310617, 0.310617, 0.310617, 1)
+
 [node name="icon" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(20, 20)
-offset_left = 5.0
-offset_right = 25.0
+offset_left = 3.0
+offset_right = 23.0
 offset_bottom = 20.0
 
 [node name="txt_value" type="RichTextLabel" parent="."]
@@ -29,7 +35,7 @@ bbcode_enabled = true
 [node name="txt_icon" type="TextureRect" parent="txt_value"]
 custom_minimum_size = Vector2(19, 19)
 layout_mode = 0
-offset_left = 8.0
+offset_left = 7.0
 offset_top = 1.0
-offset_right = 28.0
+offset_right = 27.0
 offset_bottom = 21.0

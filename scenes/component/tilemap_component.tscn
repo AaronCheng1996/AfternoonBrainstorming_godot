@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bryypwdb4ppkn" path="res://img/board/board_slot.png" id="1_x5r3n"]
 [ext_resource type="Texture2D" uid="uid://c6x273lnsmbb7" path="res://img/board/hand_slot.png" id="2_p2775"]
-[ext_resource type="Texture2D" uid="uid://fr2fg45dg8co" path="res://img/board/selected_slot.png" id="3_vslbp"]
+[ext_resource type="Texture2D" uid="uid://b4fp68beb2e0m" path="res://img/board/selected_slot.png" id="3_vslbp"]
 [ext_resource type="Script" path="res://script/component/tilemap_component.gd" id="4_c5xs7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bfj3p"]
@@ -19,6 +19,8 @@ texture_region_size = Vector2i(80, 80)
 texture = ExtResource("3_vslbp")
 texture_region_size = Vector2i(80, 80)
 0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_7sx3d"]
 tile_size = Vector2i(90, 90)

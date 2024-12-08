@@ -10,3 +10,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c6geh")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 10.0
+color = Color(0.129558, 0.129558, 0.129558, 1)
+
+[node name="buffer" type="ColorRect" parent="background"]
+layout_mode = 0
+offset_right = 90.0
+offset_bottom = 10.0
+color = Color(1, 0.561065, 0.243833, 1)
+
+[node name="health" type="ColorRect" parent="background"]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 10.0
+scale = Vector2(1, 1.03448)
+color = Color(0.912867, 0.100591, 0.209747, 1)

@@ -21,7 +21,6 @@ func refresh_value_text() -> void:
 			text = Global.set_font_color(text, Global.get_font_color(value, default_value))
 			txt_value.text = Global.set_font_center(Global.set_font_size(text, "14"))
 	else:
-		print(txt_icon_texture)
 		if txt_icon_texture:
 			txt_value.text = ""
 			txt_icon.texture = txt_icon_texture

@@ -1,8 +1,8 @@
 extends Control
 #棋子
 @onready var board = $board
-@onready var p0_pieces = $board/TileMap/Pieces/Player0
-@onready var p1_pieces = $board/TileMap/Pieces/Player1
+@onready var p0_pieces = $board/Pieces/Player0
+@onready var p1_pieces = $board/Pieces/Player1
 @onready var tilemap = $board/TileMap
 @onready var score_label = $board/score_label
 @onready var p0_end_button = $board/btn_turn_end_0
