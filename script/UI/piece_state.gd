@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name PieceState
 
 @onready var icon = $icon
@@ -6,7 +6,7 @@ class_name PieceState
 @onready var txt_icon = $txt_value/txt_icon
 @export var icon_mode : bool = false
 @export var icon_texture : CompressedTexture2D
-@export var txt_icon_texture : CompressedTexture2D
+var txt_icon_texture : CompressedTexture2D
 var value : int = 0
 var default_value : int = 0
 
@@ -19,7 +19,9 @@ func refresh_value_text() -> void:
 		if txt_value:
 			var text = str(value)
 			text = Global.set_font_color(text, Global.get_font_color(value, default_value))
-			txt_value.text = Global.set_font_center(Global.set_font_size(text, "20"))
+			txt_value.text = Global.set_font_center(Global.set_font_size(text, "14"))
 	else:
+		print(txt_icon_texture)
 		if txt_icon_texture:
+			txt_value.text = ""
 			txt_icon.texture = txt_icon_texture

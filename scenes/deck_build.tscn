@@ -24,16 +24,16 @@ layout_mode = 0
 offset_left = 210.0
 offset_top = 30.0
 offset_right = 986.0
-offset_bottom = 680.0
+offset_bottom = 660.0
 color = Color(0.187176, 0.187176, 0.187176, 1)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="background"]
-custom_minimum_size = Vector2(756, 630)
+custom_minimum_size = Vector2(756, 610)
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
-offset_right = 750.0
-offset_bottom = 640.0
+offset_right = 766.0
+offset_bottom = 620.0
 
 [node name="details" type="GridContainer" parent="background/ScrollContainer"]
 layout_mode = 2

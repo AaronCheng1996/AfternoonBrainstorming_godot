@@ -2,28 +2,34 @@
 
 [ext_resource type="Script" path="res://script/UI/piece_state.gd" id="1_3qc31"]
 
-[node name="piece_state" type="Node2D"]
+[node name="piece_state" type="Control"]
+custom_minimum_size = Vector2(60, 21)
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_3qc31")
 
 [node name="background" type="ColorRect" parent="."]
-offset_right = 80.0
-offset_bottom = 30.0
+offset_right = 60.0
+offset_bottom = 21.0
+scale = Vector2(1.00549, 1)
 color = Color(0.344076, 0.344076, 0.344076, 1)
 
 [node name="icon" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(30, 30)
-offset_right = 30.0
-offset_bottom = 30.0
+custom_minimum_size = Vector2(20, 20)
+offset_left = 5.0
+offset_right = 25.0
+offset_bottom = 20.0
 
 [node name="txt_value" type="RichTextLabel" parent="."]
-offset_left = 30.0
-offset_right = 80.0
-offset_bottom = 30.0
+offset_left = 25.0
+offset_right = 60.0
+offset_bottom = 20.0
 bbcode_enabled = true
 
 [node name="txt_icon" type="TextureRect" parent="txt_value"]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(19, 19)
 layout_mode = 0
-offset_left = 10.0
-offset_right = 40.0
-offset_bottom = 30.0
+offset_left = 8.0
+offset_top = 1.0
+offset_right = 28.0
+offset_bottom = 21.0

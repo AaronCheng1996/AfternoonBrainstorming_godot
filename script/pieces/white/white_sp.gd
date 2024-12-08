@@ -3,6 +3,7 @@ class_name WhiteSP
 
 func _init() -> void:
 	show_name = "白色鑽石"
+	description = "計分時額外獲得 1 分"
 
 """
 #回合結束時
