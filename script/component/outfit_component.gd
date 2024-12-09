@@ -8,11 +8,11 @@ signal mouse_out_attack(piece: Piece)
 signal mouse_in_icon(piece: Piece)
 signal mouse_out_icon(piece: Piece)
 
-@onready var player_effect = $player_effect
-@onready var txt_value = $txt_value
-@onready var control_panel = $ControlPanel
-@onready var move_button = $ControlPanel/btn_move
-@onready var attack_button = $ControlPanel/btn_attack
+@onready var player_effect: TextureRect = $player_effect
+@onready var txt_value: RichTextLabel = $txt_value
+@onready var control_panel: Control = $ControlPanel
+@onready var move_button: Button = $ControlPanel/btn_move
+@onready var attack_button: Button = $ControlPanel/btn_attack
 
 @export var ICON : TextureRect
 

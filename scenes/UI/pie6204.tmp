@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmcb5d8o0ctte"]
+[gd_scene load_steps=9 format=3 uid="uid://dmcb5d8o0ctte"]
 
 [ext_resource type="Script" path="res://script/UI/piece_detail.gd" id="1_bogq2"]
 [ext_resource type="Texture2D" uid="uid://oeaknkmvxh4s" path="res://img/piece/standerd/white_cube.png" id="1_mtc4j"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bi8utgqs2qcd5" path="res://img/UI/heart.png" id="4_717k8"]
 [ext_resource type="Texture2D" uid="uid://dlt2ub7m3rl5x" path="res://img/UI/sword.png" id="5_fx6sp"]
 [ext_resource type="Texture2D" uid="uid://bfggacbdcsml5" path="res://img/UI/target.png" id="6_rcjdd"]
-[ext_resource type="Texture2D" uid="uid://hsilqv8ksxq5" path="res://img/UI/shield.png" id="7_h670n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_penoc"]
 bg_color = Color(0.0383972, 0.0383972, 0.0383971, 1)
@@ -74,58 +73,23 @@ layout_mode = 2
 icon_mode = true
 icon_texture = ExtResource("6_rcjdd")
 
-[node name="Control" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 45.0
-offset_top = 110.0
-offset_right = 195.0
-offset_bottom = 140.0
-
-[node name="shield_effect" type="ColorRect" parent="Control"]
+[node name="health_bar" type="ProgressBar" parent="."]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 8.0
-offset_right = 137.0
-offset_bottom = 22.0
-color = Color(0.584314, 0.415686, 0.235294, 1)
-
-[node name="health_bar" type="ProgressBar" parent="Control"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 10.0
-offset_right = 135.0
-offset_bottom = 20.0
+offset_left = 60.0
+offset_top = 120.0
+offset_right = 180.0
+offset_bottom = 130.0
 theme_override_styles/background = SubResource("StyleBoxFlat_penoc")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xjtl6")
 value = 60.0
 show_percentage = false
 
-[node name="health" type="Label" parent="Control"]
+[node name="health" type="Label" parent="."]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 8.0
-offset_right = 135.0
-offset_bottom = 22.0
-theme_override_font_sizes/font_size = 10
-text = "10 / 10"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="shield_icon" type="TextureRect" parent="Control"]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 27.0
-offset_bottom = 27.0
-texture = ExtResource("7_h670n")
-
-[node name="shield" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 27.0
-offset_bottom = 27.0
-theme_override_font_sizes/font_size = 12
-text = "5"
+offset_left = 60.0
+offset_top = 119.0
+offset_right = 180.0
+offset_bottom = 131.0
+theme_override_font_sizes/font_size = 8
 horizontal_alignment = 1
 vertical_alignment = 1

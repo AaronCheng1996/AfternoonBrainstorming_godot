@@ -1,9 +1,9 @@
 extends Control
 
 @onready var piece_detail = preload("res://scenes/UI/piece_detail.tscn")
-@onready var piece_grid = $background/ScrollContainer/details
-@onready var btn_start = $btn_start
 @onready var pieces = $pieces
+@onready var piece_grid: GridContainer = $background/ScrollContainer/piece_grid
+@onready var btn_start: Button = $btn_start
 
 var deck_size = 12
 var deck := []

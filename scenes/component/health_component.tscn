@@ -1,6 +1,61 @@
-[gd_scene load_steps=2 format=3 uid="uid://tahtsvfotixd"]
+[gd_scene load_steps=5 format=3 uid="uid://tahtsvfotixd"]
 
 [ext_resource type="Script" path="res://script/component/health_component.gd" id="1_qgv7i"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4cavw"]
+bg_color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0aix1"]
+bg_color = Color(0.965296, 0.513742, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3425"]
+bg_color = Color(0.705882, 0.184314, 0.211765, 1)
+
 [node name="HealthComponent" type="Node2D"]
 script = ExtResource("1_qgv7i")
+
+[node name="health_display" type="Control" parent="."]
+z_index = 30
+layout_mode = 3
+anchors_preset = 0
+offset_left = -40.0
+offset_top = -60.0
+offset_right = 40.0
+offset_bottom = -54.0
+
+[node name="shield_effect" type="ColorRect" parent="health_display"]
+layout_mode = 1
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 82.0
+offset_bottom = 8.0
+color = Color(0.584314, 0.415686, 0.235294, 1)
+
+[node name="hurtbar" type="ProgressBar" parent="health_display"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_4cavw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0aix1")
+value = 70.0
+show_percentage = false
+
+[node name="healthbar" type="ProgressBar" parent="health_display"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_x3425")
+value = 40.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="health_display"]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="timeout" from="health_display/Timer" to="." method="_on_timer_timeout"]

@@ -1,13 +1,14 @@
 extends Control
-#棋子
-@onready var board = $board
+
 @onready var p0_pieces = $board/Pieces/Player0
 @onready var p1_pieces = $board/Pieces/Player1
-@onready var tilemap = $board/TileMap
-@onready var score_label = $board/score_label
-@onready var p0_end_button = $board/btn_turn_end_0
-@onready var p1_end_button = $board/btn_turn_end_1
-@onready var piece_detail = %piece_detail
+@onready var board: ColorRect = $board
+@onready var tilemap: TileMap = $board/TileMap
+@onready var p0_end_button: Button = $board/btn_turn_end_0
+@onready var p1_end_button: Button = $board/btn_turn_end_1
+@onready var piece_detail: PieceDetail = %piece_detail
+@onready var pieces: Node2D = $board/Pieces
+@onready var score_label: RichTextLabel = $board/score_label
 #牌庫
 var deck_size : int = 12
 var deck := []
@@ -154,6 +155,7 @@ func _on_piece_selected(piece: Piece) -> void:
 func _on_piece_attack(piece: Piece) -> void:
 	var targets = get_attackable_pieces(piece)
 	piece.attack(targets)
+	piece_detail.show_piece_detail(piece)
 
 #選取格子時
 func _on_tile_clicked(location: Vector2i) -> void:

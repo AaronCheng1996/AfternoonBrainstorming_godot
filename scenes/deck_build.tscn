@@ -35,7 +35,7 @@ offset_top = 10.0
 offset_right = 766.0
 offset_bottom = 620.0
 
-[node name="details" type="GridContainer" parent="background/ScrollContainer"]
+[node name="piece_grid" type="GridContainer" parent="background/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10

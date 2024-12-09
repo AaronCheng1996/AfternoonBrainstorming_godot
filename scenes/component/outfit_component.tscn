@@ -19,6 +19,7 @@ offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_ysa7d")
+metadata/_edit_use_anchors_ = true
 
 [node name="txt_value" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(20, 20)
@@ -27,6 +28,7 @@ offset_top = 13.0
 offset_right = 33.0
 offset_bottom = 33.0
 bbcode_enabled = true
+metadata/_edit_use_anchors_ = true
 
 [node name="ControlPanel" type="Control" parent="."]
 z_index = 10
@@ -42,6 +44,7 @@ offset_right = 120.0
 offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="btn_move" type="Button" parent="ControlPanel"]
 z_index = 20
@@ -50,6 +53,7 @@ offset_top = 32.0
 offset_right = 40.0
 offset_bottom = 63.0
 text = "移動"
+metadata/_edit_use_anchors_ = true
 
 [node name="btn_attack" type="Button" parent="ControlPanel"]
 z_index = 20
@@ -57,6 +61,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 31.0
 text = "攻擊"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="mouse_entered" from="ControlPanel/btn_move" to="." method="_on_btn_move_mouse_entered"]
 [connection signal="pressed" from="ControlPanel/btn_move" to="." method="_on_btn_move_pressed"]

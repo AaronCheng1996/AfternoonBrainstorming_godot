@@ -13,7 +13,7 @@ var player : int
 @export var outfit_component : OutfitComponent
 @export var score_component : ScoreComponent
 @export var buff_component : BuffComponent
-@onready var icon = $Icon
+@onready var icon: TextureRect = $Icon
 
 #棋子放置時
 func on_piece_set() -> void:
