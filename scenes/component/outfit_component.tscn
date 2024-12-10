@@ -22,6 +22,7 @@ texture = ExtResource("2_ysa7d")
 metadata/_edit_use_anchors_ = true
 
 [node name="txt_value" type="RichTextLabel" parent="."]
+visible = false
 custom_minimum_size = Vector2(20, 20)
 offset_left = 13.0
 offset_top = 13.0

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://script/deck_build.gd" id="1_67xhq"]
 
 [node name="DeckBuild" type="Control"]
+custom_minimum_size = Vector2(1024, 768)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +11,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_67xhq")
+
+[node name="background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.219608, 0.219608, 0.219608, 1)
 
 [node name="btn_start" type="Button" parent="."]
 layout_mode = 0
@@ -19,7 +29,7 @@ offset_right = 984.0
 offset_bottom = 752.0
 text = "Start"
 
-[node name="background" type="ColorRect" parent="."]
+[node name="grid_background" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = 210.0
 offset_top = 30.0
@@ -27,7 +37,7 @@ offset_right = 986.0
 offset_bottom = 660.0
 color = Color(0.187176, 0.187176, 0.187176, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="background"]
+[node name="ScrollContainer" type="ScrollContainer" parent="grid_background"]
 custom_minimum_size = Vector2(756, 610)
 layout_mode = 0
 offset_left = 10.0
@@ -35,7 +45,7 @@ offset_top = 10.0
 offset_right = 766.0
 offset_bottom = 620.0
 
-[node name="piece_grid" type="GridContainer" parent="background/ScrollContainer"]
+[node name="piece_grid" type="GridContainer" parent="grid_background/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
@@ -43,5 +53,57 @@ columns = 3
 
 [node name="pieces" type="Node2D" parent="."]
 visible = false
+
+[node name="decks" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 1024.0
+offset_bottom = 768.0
+mouse_filter = 2
+
+[node name="select_highlight" type="ColorRect" parent="decks"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 395.0
+offset_right = 185.0
+offset_bottom = 655.0
+color = Color(1, 0.783972, 0.38366, 1)
+
+[node name="deck_background_1" type="ColorRect" parent="decks"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 400.0
+offset_right = 180.0
+offset_bottom = 650.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="deck_grid_1" type="GridContainer" parent="decks/deck_background_1"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 130.0
+offset_bottom = 247.0
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 1
+columns = 2
+
+[node name="deck_background_0" type="ColorRect" parent="decks"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 130.0
+offset_right = 180.0
+offset_bottom = 380.0
+color = Color(0.188235, 0.188235, 0.188235, 1)
+
+[node name="deck_grid_0" type="GridContainer" parent="decks/deck_background_0"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 130.0
+offset_bottom = 247.0
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 1
+columns = 2
 
 [connection signal="pressed" from="btn_start" to="." method="_on_start_button_pressed"]

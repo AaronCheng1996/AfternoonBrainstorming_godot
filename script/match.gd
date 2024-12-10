@@ -32,6 +32,7 @@ var score : int = 0
 
 #生成
 func _ready() -> void:
+	print(get_tree().root.get_children())
 	#生成棋盤陣列
 	for x in gird_size:
 		for y in gird_size:
@@ -44,10 +45,12 @@ func _ready() -> void:
 		hand_piece_array[player].fill(0)
 		#生成墓地
 		graveyard.append([])
-		#抽上起手牌
-		for i in range(starter_hand_count):
-			draw_piece(player)
-	
+	#抽上起手牌
+	for i in range(starter_hand_count - 1):
+		draw_piece(1)
+	for i in range(starter_hand_count):
+		draw_piece(0)
+
 	tilemap.tile_selected.connect(_on_tile_clicked)
 	start_turn(player_turn)
 
@@ -85,6 +88,21 @@ func end_turn() -> void:
 		else:
 			score_color = "white"
 		score_label.text = Global.set_font_center(Global.set_font_color(Global.set_font_size(str(abs(score)), "60"), score_color))
+		#得分超過 10 則獲勝
+		if abs(score) >= 10:
+			var winner = -1
+			if score > 0:
+				winner = 0
+			else:
+				winner = 1
+			#獲取當前主場景
+			var current_scene = get_tree().current_scene
+			if current_scene:
+				current_scene.queue_free()  #移除當前場景
+			#加載並切換到新場景
+			var end_scene = preload("res://scenes/end.tscn").instantiate()
+			end_scene.set_winner(winner)
+			get_tree().root.add_child(end_scene)
 		#棋子執行回合結束效果
 		piece.on_turn_end(player_turn)
 		

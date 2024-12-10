@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oeaknkmvxh4s"
-path="res://.godot/imported/white_cube.png-b1c17b70418809bfab05091e220a726c.ctex"
+uid="uid://cyjfgfvota27x"
+path="res://.godot/imported/Tesseract-removebg.png-3e175e02bf386d3eb82cc2401a19c6c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/piece/3D/white_cube.png"
-dest_files=["res://.godot/imported/white_cube.png-b1c17b70418809bfab05091e220a726c.ctex"]
+source_file="res://img/UI/Tesseract-removebg.png"
+dest_files=["res://.godot/imported/Tesseract-removebg.png-3e175e02bf386d3eb82cc2401a19c6c0.ctex"]
 
 [params]
 

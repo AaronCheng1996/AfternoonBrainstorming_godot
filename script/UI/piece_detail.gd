@@ -1,21 +1,24 @@
 extends Control
 class_name PieceDetail
 
+signal piece_selected(piece: Piece)
+
 @onready var lbl_piece_name: RichTextLabel = $lbl_piece_name
 @onready var lbl_piece_description: RichTextLabel = $lbl_piece_description
 @onready var piece_icon: TextureRect = $piece_icon
 
-@onready var health_bar: ProgressBar = $Control/health_bar
-@onready var health: Label = $Control/health
-@onready var shield_icon: TextureRect = $Control/shield_icon
-@onready var shield: Label = $Control/shield
-@onready var shield_effect: ColorRect = $Control/shield_effect
+@onready var health_bar: ProgressBar = $HealthStates/health_bar
+@onready var health: Label = $HealthStates/health
+@onready var shield_icon: TextureRect = $HealthStates/shield_icon
+@onready var shield: Label = $HealthStates/shield
+@onready var shield_effect: ColorRect = $HealthStates/shield_effect
 
 @onready var max_health_state: PieceState = $States/max_health_state
 @onready var pattern_state: PieceState = $States/pattern_state
 @onready var attack_state: PieceState = $States/attack_state
 
 enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST}
+var piece_data: Piece
 
 #顯示棋子細節
 func show_piece_detail(piece: Piece) -> void:
@@ -23,6 +26,7 @@ func show_piece_detail(piece: Piece) -> void:
 		visible = false
 		return
 	
+	piece_data = piece
 	visible = true
 	#圖示
 	if piece.icon:
@@ -76,3 +80,11 @@ func show_piece_detail(piece: Piece) -> void:
 	else:
 		attack_state.visible = false
 		pattern_state.visible = false
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("mouse_left"):
+		emit_signal("piece_selected", piece_data)
+
+
+func _on_background_gui_input(event: InputEvent) -> void:
+	pass # Replace with function body.
