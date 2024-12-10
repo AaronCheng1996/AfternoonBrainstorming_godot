@@ -24,7 +24,11 @@ var piece_types = [
 
 func _ready() -> void:
 	print(get_tree().root.get_children())
-	btn_start.disabled = true
+	#生成該局種子碼
+	Global.seed = 12345
+	Global.rng = RandomNumberGenerator.new()
+	Global.rng.seed = Global.seed
+	#正式開始遊戲
 	#建立牌組
 	for i in range(2):
 		deck.append([])
@@ -66,9 +70,10 @@ func _on_start_button_pressed() -> void:
 		current_scene.queue_free()  #移除當前場景
 	#加載並切換到新場景
 	var match_scene = preload("res://scenes/match.tscn").instantiate()
+	deck[0] = shuffle_deck(deck[0])
+	deck[1] = shuffle_deck(deck[1])
 	match_scene.set_deck(deck)
 	get_tree().root.add_child(match_scene)
-
 
 func _on_piece_selected(piece: Piece) -> void:
 	if deck[0].size() >= 12 and deck[1].size() >= 12:
@@ -101,3 +106,14 @@ func show_deck() -> void:
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.custom_minimum_size = Vector2(40, 40)
 		deck_grid_1.add_child(icon)
+
+#Fisher-Yates洗牌
+func shuffle_deck(deck: Array) -> Array:
+	var shuffled_deck = deck.duplicate()
+	for i in range(shuffled_deck.size() - 1, 0, -1):
+		#使用 rng 生成隨機索引
+		var j = Global.rng.randi_range(0, i)
+		var temp = shuffled_deck[i]
+		shuffled_deck[i] = shuffled_deck[j]
+		shuffled_deck[j] = temp
+	return shuffled_deck

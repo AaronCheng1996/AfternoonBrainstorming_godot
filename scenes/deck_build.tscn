@@ -27,6 +27,7 @@ offset_left = 784.0
 offset_top = 692.0
 offset_right = 984.0
 offset_bottom = 752.0
+disabled = true
 text = "Start"
 
 [node name="grid_background" type="ColorRect" parent="."]

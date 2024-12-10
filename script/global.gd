@@ -1,10 +1,14 @@
 extends Node
 
+#region 通用變數
+#種子碼、隨機數產生器
+var seed : int
+var rng : RandomNumberGenerator
+#endregion
+
 
 #region 通用函式
-
 #region 文字
-
 #置中文字
 func set_font_center(text: String) -> String:
 	return "[center]{0}[/center]".format([text])
@@ -21,7 +25,5 @@ func get_font_color(value: int, default_value: int) -> String:
 	elif value < default_value:
 		return "red"
 	return "white"
-	
 #endregion
-
 #endregion
