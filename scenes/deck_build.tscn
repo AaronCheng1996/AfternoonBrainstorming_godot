@@ -107,4 +107,7 @@ theme_override_constants/h_separation = 30
 theme_override_constants/v_separation = 1
 columns = 2
 
+[node name="temp" type="Node2D" parent="decks"]
+visible = false
+
 [connection signal="pressed" from="btn_start" to="." method="_on_start_button_pressed"]

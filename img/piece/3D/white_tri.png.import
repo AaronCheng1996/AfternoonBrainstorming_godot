@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clxrkxsifur4w"
-path="res://.godot/imported/white_dloz_v2.png-54536f1e61ebb8dfb816e626e186e206.ctex"
+uid="uid://cnitia133lmjr"
+path="res://.godot/imported/white_tri.png-d18ebd7b515a021c8ef477ee5c8dd2c6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/piece/standerd/white_dloz_v2.png"
-dest_files=["res://.godot/imported/white_dloz_v2.png-54536f1e61ebb8dfb816e626e186e206.ctex"]
+source_file="res://img/piece/standerd/white_tri.png"
+dest_files=["res://.godot/imported/white_tri.png-d18ebd7b515a021c8ef477ee5c8dd2c6.ctex"]
 
 [params]
 

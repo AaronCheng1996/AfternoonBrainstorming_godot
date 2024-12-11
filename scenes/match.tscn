@@ -26,6 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.219501, 0.219501, 0.219501, 1)
 
 [node name="board" type="ColorRect" parent="."]
@@ -63,6 +64,7 @@ offset_left = 472.0
 offset_top = 115.0
 offset_right = 552.0
 offset_bottom = 198.0
+mouse_filter = 2
 bbcode_enabled = true
 text = "[font_size=60px][center][color={0}]0[/color][/center][/font_size]"
 
@@ -73,6 +75,7 @@ offset_left = 730.0
 offset_top = 234.0
 offset_right = 730.0
 offset_bottom = 234.0
+mouse_filter = 2
 
 [node name="Pieces" type="Node2D" parent="board"]
 position = Vector2(152, 24)

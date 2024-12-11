@@ -13,14 +13,16 @@ var player : int
 @export var outfit_component : OutfitComponent
 @export var score_component : ScoreComponent
 @export var buff_component : BuffComponent
-@onready var icon: TextureRect = $Icon
+
+func _ready() -> void:
+	refresh()
 
 #棋子放置時
 func on_piece_set() -> void:
 	if buff_component:
 		var stun_debuff = Stun.new()
-		stun_debuff.name = "Sleep"
-		stun_debuff.description = "This piece is sleeping.\n Can't attack and gain score"
+		stun_debuff.name = Global.data.buff.sleep.name
+		stun_debuff.description = Global.data.buff.sleep.description
 		stun_debuff.duration = 1
 		stun_debuff.tag.append("debuff")
 		buff_component.add_buff(stun_debuff)

@@ -25,26 +25,12 @@ unique_name_in_owner = true
 DEFAULT_ATK = 2
 ATK_PATTERN = 4
 
-[node name="OutfitComponent" parent="." node_paths=PackedStringArray("ICON") instance=ExtResource("4_e7vq5")]
+[node name="OutfitComponent" parent="." instance=ExtResource("4_e7vq5")]
 unique_name_in_owner = true
-ICON = NodePath("../Icon")
+icon_texture = ExtResource("7_qh2c3")
 
 [node name="ScoreComponent" parent="." instance=ExtResource("5_syl4w")]
 unique_name_in_owner = true
 
 [node name="BuffComponent" parent="." instance=ExtResource("6_1vp2i")]
 unique_name_in_owner = true
-
-[node name="Icon" type="TextureRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -60.0
-offset_right = 48.0
-offset_bottom = 36.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_qh2c3")

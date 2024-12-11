@@ -4,8 +4,7 @@ class_name Buff
 var name: String
 var description: String
 var duration: int = INF
-var tag := []
-
+var icon_path: CompressedTexture2D
 
 func apply_buff(target) -> void:
 	pass

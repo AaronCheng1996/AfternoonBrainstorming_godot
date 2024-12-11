@@ -13,19 +13,17 @@ signal mouse_out_icon(piece: Piece)
 @onready var control_panel: Control = $ControlPanel
 @onready var move_button: Button = $ControlPanel/btn_move
 @onready var attack_button: Button = $ControlPanel/btn_attack
-
-@export var ICON : TextureRect
+@onready var icon: TextureRect = $Icon
+@export var icon_texture : CompressedTexture2D
 
 func _ready() -> void:
 	#非選定狀態時隱藏
 	if control_panel:
 		control_panel.visible = false
 	#圖示
-	if ICON:
-		ICON.gui_input.connect(_on_icon_gui_input)
-		ICON.mouse_entered.connect(_on_icon_mouse_entered)
-		ICON.mouse_exited.connect(_on_icon_mouse_exited)
-	#移動鍵
+	if icon_texture:
+		icon.texture = icon_texture
+	#移動鍵s
 	enable_move(false)
 
 #套用玩家特效

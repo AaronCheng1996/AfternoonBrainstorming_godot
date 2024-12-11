@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyoqy6p4tv88c"]
+[gd_scene load_steps=7 format=3 uid="uid://cyoqy6p4tv88c"]
 
 [ext_resource type="Script" path="res://script/Resource/piece.gd" id="1_2x5g0"]
 [ext_resource type="PackedScene" uid="uid://tahtsvfotixd" path="res://scenes/component/health_component.tscn" id="2_62wqe"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bx028wy2lu25i" path="res://scenes/component/outfit_component.tscn" id="4_axbvv"]
 [ext_resource type="PackedScene" uid="uid://c83kbyxqmarvi" path="res://scenes/component/score_component.tscn" id="5_pe6g3"]
 [ext_resource type="PackedScene" uid="uid://d2lqpgvgq4oh3" path="res://scenes/component/buff_component.tscn" id="6_sj276"]
-[ext_resource type="Texture2D" uid="uid://cnitia133lmjr" path="res://img/piece/standerd/white_tri.png" id="8_waqrq"]
 
 [node name="Piece" type="Node2D" node_paths=PackedStringArray("health_component", "attack_component", "outfit_component", "score_component", "buff_component")]
 script = ExtResource("1_2x5g0")
@@ -22,26 +21,11 @@ unique_name_in_owner = true
 [node name="AttackComponent" parent="." instance=ExtResource("3_nqchm")]
 unique_name_in_owner = true
 
-[node name="OutfitComponent" parent="." node_paths=PackedStringArray("ICON") instance=ExtResource("4_axbvv")]
+[node name="OutfitComponent" parent="." instance=ExtResource("4_axbvv")]
 unique_name_in_owner = true
-ICON = NodePath("../Icon")
 
 [node name="ScoreComponent" parent="." instance=ExtResource("5_pe6g3")]
 unique_name_in_owner = true
 
 [node name="BuffComponent" parent="." instance=ExtResource("6_sj276")]
 unique_name_in_owner = true
-
-[node name="Icon" type="TextureRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -48.0
-offset_right = 48.0
-offset_bottom = 48.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_waqrq")

@@ -70,7 +70,8 @@ offset_right = 1024.0
 offset_bottom = 500.0
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 120
-text = "午後激盪"
+text = "Afternoon
+Brainstorm"
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -4,11 +4,17 @@ extends Node
 #種子碼、隨機數產生器
 var seed : int
 var rng : RandomNumberGenerator
+#遊戲敘述
+var data := {}
 #endregion
 
-
 #region 通用函式
-#region 文字
+func _ready() -> void:
+	var open_err = FileAccess.open("res://setting/description.json", FileAccess.READ)
+	var json_object = JSON.new()
+	var parse_err = json_object.parse(open_err.get_as_text())
+	data = json_object.get_data()
+#region 文字特效
 #置中文字
 func set_font_center(text: String) -> String:
 	return "[center]{0}[/center]".format([text])

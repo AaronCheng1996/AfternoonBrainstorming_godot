@@ -29,8 +29,8 @@ func show_piece_detail(piece: Piece) -> void:
 	piece_data = piece
 	visible = true
 	#圖示
-	if piece.icon:
-		piece_icon.texture = piece.icon.texture
+	if piece.outfit_component.icon:
+		piece_icon.texture = piece.outfit_component.icon.texture
 	#名稱、敘述
 	lbl_piece_name.text = Global.set_font_size(Global.set_font_center(piece.show_name), str(20))
 	lbl_piece_description.text = Global.set_font_size(Global.set_font_center(piece.description), str(16))
@@ -84,7 +84,3 @@ func show_piece_detail(piece: Piece) -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_left"):
 		emit_signal("piece_selected", piece_data)
-
-
-func _on_background_gui_input(event: InputEvent) -> void:
-	pass # Replace with function body.

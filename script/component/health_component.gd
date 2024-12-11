@@ -36,7 +36,10 @@ func _process(delta: float) -> void:
 	if healthbar.max_value != max_health:
 		healthbar.max_value = max_health
 	if healthbar.value != health:
-		healthbar.value = health
+		if health <= 0:
+			healthbar.value = 0
+		else:
+			healthbar.value = health
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property(hurtbar, "value", healthbar.value, 0.3)
@@ -77,11 +80,13 @@ func take_damaged(damage: int) -> bool:
 	emit_signal("damage_taken", damage)
 	#若生命降為0，則死亡
 	if health <= 0:
-		#預留動畫位置
-		emit_signal("death", get_parent())
+		health = 0
 		return true
 	return false
 
 #血條顯示時間長
 func _on_timer_timeout() -> void:
 	health_display.visible = false
+	if health <= 0:
+		#預留動畫位置
+		emit_signal("death", get_parent())

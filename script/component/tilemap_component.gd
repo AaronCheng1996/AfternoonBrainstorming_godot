@@ -12,11 +12,11 @@ func _ready() -> void:
 	#生成棋盤
 	for x in gird_size:
 		for y in gird_size:
-			dic[str(Vector2(x + 2, y + 2))] = { "type": "default" }
+			dic[str(Vector2(x + 2, y + 2))] = "board"
 	#生成手上空間
 	for x in hand_size:
-		dic[str(Vector2(x, 0))] = { "type": "hand" }
-		dic[str(Vector2(x, 7))] = { "type": "hand" }
+		dic[str(Vector2(x, 0))] = "hand"
+		dic[str(Vector2(x, 7))] = "hand"
 
 
 func _process(delta: float) -> void:
