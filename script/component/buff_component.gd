@@ -4,10 +4,12 @@ class_name BuffComponent
 signal on_buff_apply(buff: Buff)
 signal on_buff_remove(buff: Buff)
 var active_buffs: Array = []
+var history_buffs: Array = []
 
 #賦予buff
 func add_buff(buff: Buff) -> void:
 	active_buffs.append(buff)
+	history_buffs.append(buff)
 	buff.apply_buff(get_parent())
 	emit_signal("on_buff_apply", buff)
 

@@ -12,20 +12,18 @@ func refresh() -> void:
 		description = Global.data.piece.white.apt.format([text])
 
 #攻擊時為最近友方附加兩點護盾
-func attack(targets: Array) -> void:
+func attack(pieces: Array) -> void:
 	if attack_component:
-		#給友方盾
-		var allys = targets.filter(filter_ally_piece)
-		allys = attack_component.find_target(location, allys, true)
+		pieces = pieces.filter(filter_piece_on_board)
+		#給自己附加護盾
+		health_component.shielded(attack_component.atk)
+		#給友方附加護盾
+		var allys = pieces.filter(filter_ally_piece)
+		allys = attack_component.find_nearest_target(location, allys)
 		if allys.size() == 0:
 			return
-		var random_index = randi() % allys.size()
-		allys[random_index].shielded(attack_component.atk)
+		var random_index = Global.rng.randi_range(0, allys.size() - 1)
+		allys[random_index].shielded(attack_component.atk, self)
 		#敵方
-		var enemys = targets.filter(filter_opponent_piece)
+		var enemys = pieces.filter(filter_opponent_piece)
 		attack_component.attack(enemys)
-
-#自己附加兩點護盾
-func _on_attack_component_start_attack(piece: Piece) -> void:
-	if health_component:
-		health_component.shielded(attack_component.atk)

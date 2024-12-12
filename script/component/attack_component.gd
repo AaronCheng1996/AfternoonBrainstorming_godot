@@ -8,8 +8,7 @@ signal on_kill(target: Piece)
 #基礎攻擊與攻擊方式
 @export var DEFAULT_ATK := 5
 var atk : int
-enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST}
-@export var ATK_PATTERN : PatternNames
+@export var ATK_PATTERN : Global.PatternNames
 
 var gird_size = 4
 
@@ -20,10 +19,9 @@ func _ready() -> void:
 func hit(target: Piece) -> void:
 	if not target:
 		return
-	
 	emit_signal("on_hit", target)
 	if atk > 0:
-		if target.take_damaged(atk):
+		if target.take_damaged(atk, get_parent()):
 			emit_signal("on_kill", target)
 
 #發動攻擊
@@ -36,13 +34,13 @@ func attack(pieces: Array) -> void:
 	var attacker = get_parent()
 	#最近/最遠
 	var targets = []
-	if ATK_PATTERN == PatternNames.NEAREST:
-		targets = find_target(attacker.location, pieces, true)
-	elif ATK_PATTERN == PatternNames.FAREST:
-		targets = find_target(attacker.location, pieces, false)
+	if ATK_PATTERN == Global.PatternNames.NEAREST:
+		targets = find_nearest_target(attacker.location, pieces)
+	elif ATK_PATTERN == Global.PatternNames.FAREST:
+		targets = find_farest_target(attacker.location, pieces)
 	#處理最近/最遠傷害
 	if targets.size() > 0:
-		var random_index = randi() % targets.size()
+		var random_index = Global.rng.randi_range(0, targets.size() - 1)
 		hit(targets[random_index])
 		return
 	#AOE
@@ -56,10 +54,10 @@ func get_target_location(pieces: Array) -> Array:
 	var attacker = get_parent()
 	#最近/最遠
 	var targets = []
-	if ATK_PATTERN == PatternNames.NEAREST:
-		targets = find_target(attacker.location, pieces, true)
-	elif ATK_PATTERN == PatternNames.FAREST:
-		targets = find_target(attacker.location, pieces, false)
+	if ATK_PATTERN == Global.PatternNames.NEAREST:
+		targets = find_nearest_target(attacker.location, pieces)
+	elif ATK_PATTERN == Global.PatternNames.FAREST:
+		targets = find_farest_target(attacker.location, pieces)
 	if targets.size() > 0:
 		for piece in targets:
 			target_location.append(piece.location)
@@ -77,40 +75,53 @@ func in_attack_range(location, target_location) -> bool:
 	var x = target_location.x
 	var y = target_location.y
 	match ATK_PATTERN:
-		PatternNames.CROSS: #十字
+		Global.PatternNames.CROSS: #十字
 			return abs(x - location.x) + abs(y - location.y) == 1
-		PatternNames.CROSS_LARGE: #大十字
+		Global.PatternNames.CROSS_LARGE: #大十字
 			return x == location.x or y == location.y
-		PatternNames.X: #X型
+		Global.PatternNames.X: #X型
 			return abs(x - location.x) == 1 and abs(y - location.y) == 1
-		PatternNames.X_LARGE: #大X型
+		Global.PatternNames.X_LARGE: #大X型
 			return abs(x - location.x) == abs(y - location.y)
-		PatternNames.NEARBY: #九宮格內
+		Global.PatternNames.NEARBY: #九宮格內
 			return abs(x - location.x) <= 1 and abs(y - location.y) <= 1
 	return false
 
-#尋找目標(最近/最遠)單位
-func find_target(location, pieces: Array, is_find_near: bool) -> Array:
-	var target = 0
-	if is_find_near:
-		target = INF
+#尋找目標最近單位
+func find_nearest_target(location, pieces: Array) -> Array:
+	var target = INF
 	var distances = []
 	distances.resize(pieces.size())
 	distances.fill(0)
-	#找出最大/最小值
+	#找出最小值
 	for i in range(pieces.size()):
 		var distance = abs(pieces[i].location.x - location.x) + abs(pieces[i].location.y - location.y)
 		distances[i] = distance #紀錄每個目標的距離
-		if is_find_near: #找出最小值
-			if distance < target:
-				target = distance
-		else: #找出大值
-			if distance > target:
-				target = distance
-	#選出最大/最小等距的目標
+		#找出最小值
+		if distance < target:
+			target = distance
+	#選出最小等距的目標
 	var result = []
 	for i in range(pieces.size()):
 		if distances[i] == target:
 			result.append(pieces[i])
-	
+	return result
+#尋找目標最遠單位
+func find_farest_target(location, pieces: Array) -> Array:
+	var target = 0
+	var distances = []
+	distances.resize(pieces.size())
+	distances.fill(0)
+	#找出最大值
+	for i in range(pieces.size()):
+		var distance = abs(pieces[i].location.x - location.x) + abs(pieces[i].location.y - location.y)
+		distances[i] = distance #紀錄每個目標的距離
+		#找出大值
+		if distance > target:
+			target = distance
+	#選出最大等距的目標
+	var result = []
+	for i in range(pieces.size()):
+		if distances[i] == target:
+			result.append(pieces[i])
 	return result

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crvia50onog4r"
-path="res://.godot/imported/white_ass.png-ae579e3c90630c98af1b5ede730a7447.ctex"
+path="res://.godot/imported/white_ass.png-8cc0edef0fb9e51c9c3c99ddfe6c5b21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/piece/standerd/white_ass.png"
-dest_files=["res://.godot/imported/white_ass.png-ae579e3c90630c98af1b5ede730a7447.ctex"]
+source_file="res://img/piece/3D/white_ass.png"
+dest_files=["res://.godot/imported/white_ass.png-8cc0edef0fb9e51c9c3c99ddfe6c5b21.ctex"]
 
 [params]
 

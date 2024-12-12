@@ -20,27 +20,10 @@ layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_bogq2")
 
-[node name="true_background" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 240.0
-offset_bottom = 300.0
-mouse_filter = 2
-color = Color(0.168627, 0.168627, 0.168627, 1)
-
-[node name="highlight" type="ColorRect" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 240.0
-offset_bottom = 300.0
-mouse_filter = 2
-color = Color(0.556953, 0.556953, 0.556953, 1)
-
 [node name="background" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 235.0
-offset_bottom = 295.0
+offset_right = 240.0
+offset_bottom = 300.0
 mouse_filter = 2
 color = Color(0.169245, 0.169245, 0.169245, 1)
 
@@ -154,5 +137,3 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

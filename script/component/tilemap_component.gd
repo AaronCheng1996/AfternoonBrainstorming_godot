@@ -5,7 +5,7 @@ var gird_size = 4
 var hand_size = 8
 var dic = {}
 var piece_select : Piece = null
-var current_player : int = -1
+var current_turn : int = -1
 
 
 func _ready() -> void:
@@ -26,13 +26,13 @@ func _process(delta: float) -> void:
 		var tile = local_to_map(get_local_mouse_position())
 		if tile == piece_select.location: #排除自己
 			return
-		if piece_select.player != current_player: #排除對方棋子
+		if piece_select.piece_owner.id != current_turn: #排除對方棋子
 			return
 		if piece_select.outfit_component: #排除在場上且不能移動時
 			if piece_select.outfit_component.move_button.disabled and is_on_board(piece_select.location):
 				return
 		#顯示可動目標
-		if dic.has(str(tile)) and (tile.y == piece_select.player * 7 or (tile.y != 0 and tile.y != 7)):
+		if dic.has(str(tile)) and (tile.y == piece_select.piece_owner.id * 7 or (tile.y != 0 and tile.y != 7)):
 			set_cell(2, tile, 2, Vector2i(0, 0), 0)
 
 #顯示攻擊對象

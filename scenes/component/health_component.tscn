@@ -56,7 +56,6 @@ value = 40.0
 show_percentage = false
 
 [node name="Timer" type="Timer" parent="health_display"]
-wait_time = 0.6
 one_shot = true
 
 [connection signal="timeout" from="health_display/Timer" to="." method="_on_timer_timeout"]

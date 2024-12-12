@@ -6,6 +6,6 @@ func _init() -> void:
 	description = Global.data.piece.white.ass
 
 #棋子放置時
-func on_piece_set() -> void:
+func on_piece_set(pieces: Array) -> void:
 	refresh()
 	pass

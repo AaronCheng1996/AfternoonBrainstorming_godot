@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cns34qv46v458"
-path="res://.godot/imported/white_trap.png-c561d816e230ef748fe4ce8b80f86c4d.ctex"
+path="res://.godot/imported/white_trap.png-b417200fa533709fcdd70b83fa13f1ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/piece/standerd/white_trap.png"
-dest_files=["res://.godot/imported/white_trap.png-c561d816e230ef748fe4ce8b80f86c4d.ctex"]
+source_file="res://img/piece/3D/white_trap.png"
+dest_files=["res://.godot/imported/white_trap.png-b417200fa533709fcdd70b83fa13f1ed.ctex"]
 
 [params]
 

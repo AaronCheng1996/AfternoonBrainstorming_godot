@@ -7,6 +7,8 @@ signal piece_selected(piece: Piece)
 @onready var lbl_piece_description: RichTextLabel = $lbl_piece_description
 @onready var piece_icon: TextureRect = $piece_icon
 
+@onready var highlight: ColorRect = $highlight
+
 @onready var health_bar: ProgressBar = $HealthStates/health_bar
 @onready var health: Label = $HealthStates/health
 @onready var shield_icon: TextureRect = $HealthStates/shield_icon
@@ -17,8 +19,10 @@ signal piece_selected(piece: Piece)
 @onready var pattern_state: PieceState = $States/pattern_state
 @onready var attack_state: PieceState = $States/attack_state
 
-enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST}
 var piece_data: Piece
+var lbl_name_size = 20
+var lbl_description_size = 16
+@export var show_highlight : bool = true
 
 #顯示棋子細節
 func show_piece_detail(piece: Piece) -> void:
@@ -32,8 +36,8 @@ func show_piece_detail(piece: Piece) -> void:
 	if piece.outfit_component.icon:
 		piece_icon.texture = piece.outfit_component.icon.texture
 	#名稱、敘述
-	lbl_piece_name.text = Global.set_font_size(Global.set_font_center(piece.show_name), str(20))
-	lbl_piece_description.text = Global.set_font_size(Global.set_font_center(piece.description), str(16))
+	lbl_piece_name.text = Global.set_font_size(Global.set_font_center(piece.show_name), lbl_name_size)
+	lbl_piece_description.text = Global.set_font_size(Global.set_font_center(piece.description), lbl_description_size)
 	#最大生命、生命
 	if piece.health_component:
 		max_health_state.default_value = piece.health_component.DEAFULT_MAX_HEALTH
@@ -62,19 +66,19 @@ func show_piece_detail(piece: Piece) -> void:
 		attack_state.refresh_value_text()
 		#補上pattern_state圖示
 		match piece.attack_component.ATK_PATTERN:
-			PatternNames.CROSS:
+			Global.PatternNames.CROSS:
 				pattern_state.txt_icon_texture = load("res://img/UI/cross.png")
-			PatternNames.CROSS_LARGE:
+			Global.PatternNames.CROSS_LARGE:
 				pattern_state.txt_icon_texture = load("res://img/UI/large_cross.png")
-			PatternNames.X:
+			Global.PatternNames.X:
 				pattern_state.txt_icon_texture = load("res://img/UI/x.png")
-			PatternNames.X_LARGE:
+			Global.PatternNames.X_LARGE:
 				pattern_state.txt_icon_texture = load("res://img/UI/large_x.png")
-			PatternNames.NEARBY:
+			Global.PatternNames.NEARBY:
 				pattern_state.txt_icon_texture = load("res://img/UI/nearby.png")
-			PatternNames.NEAREST:
+			Global.PatternNames.NEAREST:
 				pattern_state.txt_icon_texture = load("res://img/UI/near.png")
-			PatternNames.FAREST:
+			Global.PatternNames.FAREST:
 				pattern_state.txt_icon_texture = load("res://img/UI/far.png")
 		pattern_state.refresh_value_text()
 	else:
@@ -84,3 +88,10 @@ func show_piece_detail(piece: Piece) -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_left"):
 		emit_signal("piece_selected", piece_data)
+
+func _on_mouse_entered() -> void:
+	if show_highlight:
+		highlight.visible = true
+
+func _on_mouse_exited() -> void:
+	highlight.visible = false

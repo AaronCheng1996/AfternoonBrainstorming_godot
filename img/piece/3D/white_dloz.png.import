@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwaqqrjmfqgk0"
-path="res://.godot/imported/white_dloz.png-8300c1ee50ec17c5d9b8e054981e4072.ctex"
+path="res://.godot/imported/white_dloz.png-92210d5bc799f841411cd7114904714b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/piece/standerd/white_dloz.png"
-dest_files=["res://.godot/imported/white_dloz.png-8300c1ee50ec17c5d9b8e054981e4072.ctex"]
+source_file="res://img/piece/3D/white_dloz.png"
+dest_files=["res://.godot/imported/white_dloz.png-92210d5bc799f841411cd7114904714b.ctex"]
 
 [params]
 

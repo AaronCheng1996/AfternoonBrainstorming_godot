@@ -5,6 +5,9 @@ var name: String
 var description: String
 var duration: int = INF
 var icon_path: CompressedTexture2D
+var tag := []
+var show_value : bool = false
+var value: int = 0
 
 func apply_buff(target) -> void:
 	pass

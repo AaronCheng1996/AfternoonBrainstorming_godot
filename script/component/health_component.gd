@@ -20,6 +20,9 @@ var health : int
 #護盾
 @export var DEAFULT_SHIELD : int = 0
 var shield : int
+#血條動畫時間
+var hurtbar_animation_time : float = 0.3
+var healthbar_wait_time : float = 0.5
 
 func _ready() -> void:
 	health_display.visible = false
@@ -42,7 +45,7 @@ func _process(delta: float) -> void:
 			healthbar.value = health
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-		tween.tween_property(hurtbar, "value", healthbar.value, 0.3)
+		tween.tween_property(hurtbar, "value", healthbar.value, hurtbar_animation_time)
 	#顯示護盾
 	if shield > 0:
 		shield_effect.visible = true
@@ -70,6 +73,7 @@ func shielded(value: int) -> void:
 #承受傷害
 func take_damaged(damage: int) -> bool:
 	health_display.visible = true
+	timer.wait_time = healthbar_wait_time
 	timer.start()
 	#盾先承受，生命再承受
 	if shield >= damage:

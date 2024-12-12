@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqh4e147ib7dn"]
+
+[ext_resource type="Script" path="res://script/Resource/player.gd" id="1_s4m5d"]
+[ext_resource type="PackedScene" uid="uid://d2lqpgvgq4oh3" path="res://scenes/component/buff_component.tscn" id="2_ji1by"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("buff_component")]
+script = ExtResource("1_s4m5d")
+buff_component = NodePath("BuffComponent")
+
+[node name="BuffComponent" parent="." instance=ExtResource("2_ji1by")]

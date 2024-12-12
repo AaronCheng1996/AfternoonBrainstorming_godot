@@ -16,6 +16,8 @@ signal mouse_out_icon(piece: Piece)
 @onready var icon: TextureRect = $Icon
 @export var icon_texture : CompressedTexture2D
 
+var txt_size = 14
+
 func _ready() -> void:
 	#非選定狀態時隱藏
 	if control_panel:
@@ -23,8 +25,8 @@ func _ready() -> void:
 	#圖示
 	if icon_texture:
 		icon.texture = icon_texture
-	#移動鍵s
-	enable_move(false)
+	#按鈕
+	disable_move()
 
 #套用玩家特效
 func set_player_effect(player: int) -> void:
@@ -33,20 +35,28 @@ func set_player_effect(player: int) -> void:
 	if player == 1:
 		player_effect.texture = load("res://img/piece/player/blue_filter.png")
 
-#被選取時
-func show_control_panel(show: bool) -> void:
+#開啟選取特效
+func show_control_panel() -> void:
 	if control_panel:
-		control_panel.visible = show
-
+		control_panel.visible = true
+#關閉選取特效
+func hide_control_panel() -> void:
+	if control_panel:
+		control_panel.visible = false
 #無效攻擊
-func enable_attack(enable) -> void:
+func enable_attack() -> void:
 	if attack_button:
-		attack_button.disabled = !enable
-
+		attack_button.disabled = false
+func disable_attack() -> void:
+	if attack_button:
+		attack_button.disabled = true
 #無效移動
-func enable_move(enable) -> void:
+func enable_move() -> void:
 	if move_button:
-		move_button.disabled = !enable
+		move_button.disabled = false
+func disable_move() -> void:
+	if move_button:
+		move_button.disabled = true
 
 #圖示互動
 func _on_icon_gui_input(event: InputEvent) -> void:
@@ -76,4 +86,4 @@ func _on_btn_move_pressed() -> void:
 func refresh_value(atk: int, default: int) -> void:
 	var text = str(atk)
 	Global.set_font_color(text, Global.get_font_color(atk, default))
-	txt_value.text = Global.set_font_center(Global.set_font_size(text, "14"))
+	txt_value.text = Global.set_font_center(Global.set_font_size(text, txt_size))
