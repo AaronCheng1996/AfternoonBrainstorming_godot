@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr86s4dteisbq"
-path="res://.godot/imported/x.png-ab869bf5bfae91e4288f7a89ff0295ce.ctex"
+uid="uid://bayepjar33uq8"
+path="res://.godot/imported/cross.png-8742e753393b2cc7431fa8f103d86606.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/UI/x.png"
-dest_files=["res://.godot/imported/x.png-ab869bf5bfae91e4288f7a89ff0295ce.ctex"]
+source_file="res://img/UI/attack_pattern/cross.png"
+dest_files=["res://.godot/imported/cross.png-8742e753393b2cc7431fa8f103d86606.ctex"]
 
 [params]
 

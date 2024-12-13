@@ -6,7 +6,6 @@ extends Control
 var winner : int
 
 func _ready() -> void:
-	print(get_tree().root.get_children())
 	lbl_winner.text = "player {0} win!".format([str(winner)])
 
 func set_winner(the_winner: int) -> void:

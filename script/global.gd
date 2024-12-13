@@ -8,7 +8,7 @@ var type_limit = 2
 var first_turn = 1
 var starter_hand_count : int = 4
 #棋子
-enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST}
+enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST, ALL}
 #buff
 enum BuffTag {DEBUFF, BUFF, RED}
 #顯示

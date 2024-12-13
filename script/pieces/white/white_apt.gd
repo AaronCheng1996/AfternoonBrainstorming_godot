@@ -20,10 +20,9 @@ func attack(pieces: Array) -> void:
 		#給友方附加護盾
 		var allys = pieces.filter(filter_ally_piece)
 		allys = attack_component.find_nearest_target(location, allys)
-		if allys.size() == 0:
-			return
-		var random_index = Global.rng.randi_range(0, allys.size() - 1)
-		allys[random_index].shielded(attack_component.atk, self)
+		if allys.size() > 0:
+			var random_index = Global.rng.randi_range(0, allys.size() - 1)
+			allys[random_index].shielded(attack_component.atk, self)
 		#敵方
 		var enemys = pieces.filter(filter_opponent_piece)
 		attack_component.attack(enemys)

@@ -7,7 +7,7 @@ extends Control
 @onready var piece_detail: PieceDetail = %piece_detail
 @onready var pieces: Node2D = $board/Pieces
 @onready var score_label: RichTextLabel = $board/score_label
-@onready var timer: Timer = $Timer
+@onready var message: Label = $message
 
 """
 #hint1：player0遊戲中顯示為player2，為上方玩家；player1遊戲中顯示為player1，下方玩家。
@@ -29,7 +29,6 @@ var score_color : String = Global.default_score_color
 var score : int = 0
 
 func _ready() -> void:
-	print(get_tree().root.get_children())
 	#確認是否有兩位玩家，若無則回到主頁
 	if not player_list.size() == 2:
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
@@ -92,24 +91,23 @@ func end_turn() -> void:
 		else:
 			score_color = Global.default_score_color
 		score_label.text = Global.set_font_center(Global.set_font_color(Global.set_font_size(str(abs(score)), score_size), score_color))
-		#得分超過 10 則獲勝
-		if abs(score) >= 10:
-			var winner = -1
-			if score > 0:
-				winner = 0
-			else:
-				winner = 1
-			#獲取當前主場景
-			var current_scene = get_tree().current_scene
-			if current_scene:
-				current_scene.queue_free()  #移除當前場景
-			#加載並切換到新場景
-			var end_scene = preload("res://scenes/end.tscn").instantiate()
-			end_scene.set_winner(winner)
-			get_tree().root.add_child(end_scene)
 		#棋子執行回合結束效果
 		piece.on_turn_end(current_turn, pieces.get_children())
-		
+	#得分超過 10 則獲勝
+	if abs(score) >= 10:
+		var winner = -1
+		if score > 0:
+			winner = 0
+		else:
+			winner = 1
+		#獲取當前主場景
+		var current_scene = get_tree().current_scene
+		if current_scene:
+			current_scene.queue_free()  #移除當前場景
+		#加載並切換到新場景
+		var end_scene = preload("res://scenes/end.tscn").instantiate()
+		end_scene.set_winner(winner)
+		get_tree().root.add_child(end_scene)
 	#解除所有鎖定
 	select_piece(null)
 	#換邊開始回合
@@ -125,9 +123,9 @@ func end_turn() -> void:
 
 #抽牌
 func draw_piece(player: Player) -> void:
-	if player.hand.count(0) <= 0: #手上沒有空間
-		return
 	if player.deck.size() == 0: #空牌庫
+		return
+	if player.hand.count(0) <= 0: #手上沒有空間
 		return
 	
 	var piece = player.deck.pop_front()
@@ -171,6 +169,7 @@ func _on_piece_selected(piece: Piece) -> void:
 #棋子發動攻擊
 func _on_piece_attack(piece: Piece) -> void:
 	if piece.piece_owner.attack_count <= 0: #檢查是否有
+		message.pop_message("沒有攻擊次數")
 		return
 	piece.piece_owner.attack_count -= 1 #消耗一次攻擊次數
 	#發動攻擊

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdta3vs4l88ga"
-path="res://.godot/imported/nearby.png-3cb219b8b45e4740180b0672b3e51b7b.ctex"
+path="res://.godot/imported/nearby.png-3c990c84c0c8c87ea6c961fce4ac515d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/UI/nearby.png"
-dest_files=["res://.godot/imported/nearby.png-3cb219b8b45e4740180b0672b3e51b7b.ctex"]
+source_file="res://img/UI/attack_pattern/nearby.png"
+dest_files=["res://.godot/imported/nearby.png-3c990c84c0c8c87ea6c961fce4ac515d.ctex"]
 
 [params]
 

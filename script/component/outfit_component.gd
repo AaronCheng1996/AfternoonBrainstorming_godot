@@ -21,7 +21,7 @@ var txt_size = 14
 func _ready() -> void:
 	#非選定狀態時隱藏
 	if control_panel:
-		control_panel.visible = false
+		control_panel.hide()
 	#圖示
 	if icon_texture:
 		icon.texture = icon_texture
@@ -38,11 +38,11 @@ func set_player_effect(player: int) -> void:
 #開啟選取特效
 func show_control_panel() -> void:
 	if control_panel:
-		control_panel.visible = true
+		control_panel.show()
 #關閉選取特效
 func hide_control_panel() -> void:
 	if control_panel:
-		control_panel.visible = false
+		control_panel.hide()
 #無效攻擊
 func enable_attack() -> void:
 	if attack_button:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://du428wt07wtcc"]
+[gd_scene load_steps=7 format=3 uid="uid://du428wt07wtcc"]
 
 [ext_resource type="Script" path="res://script/match.gd" id="1_k7rh2"]
 [ext_resource type="PackedScene" uid="uid://brpgbxa0bq0fe" path="res://scenes/component/tilemap_component.tscn" id="2_j5k1m"]
+[ext_resource type="PackedScene" uid="uid://cstmwutw6iead" path="res://scenes/UI/popup_message.tscn" id="4_fxsfu"]
 [ext_resource type="PackedScene" uid="uid://dmcb5d8o0ctte" path="res://scenes/UI/piece_detail.tscn" id="6_byp26"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qim31"]
@@ -80,6 +81,9 @@ show_highlight = false
 
 [node name="Pieces" type="Node2D" parent="board"]
 position = Vector2(152, 24)
+
+[node name="message" parent="." instance=ExtResource("4_fxsfu")]
+layout_mode = 0
 
 [connection signal="gui_input" from="board" to="board/TileMap" method="_on_board_gui_input"]
 [connection signal="pressed" from="board/btn_turn_end_0" to="." method="_on_btn_turn_end_0_pressed"]

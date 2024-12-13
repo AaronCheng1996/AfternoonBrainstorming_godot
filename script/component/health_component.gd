@@ -25,7 +25,7 @@ var hurtbar_animation_time : float = 0.3
 var healthbar_wait_time : float = 0.5
 
 func _ready() -> void:
-	health_display.visible = false
+	health_display.hide()
 	max_health = DEAFULT_MAX_HEALTH
 	health = max_health
 	shield = DEAFULT_SHIELD
@@ -48,9 +48,9 @@ func _process(delta: float) -> void:
 		tween.tween_property(hurtbar, "value", healthbar.value, hurtbar_animation_time)
 	#顯示護盾
 	if shield > 0:
-		shield_effect.visible = true
+		shield_effect.show()
 	else:
-		shield_effect.visible = false
+		shield_effect.hide()
 	
 #補血
 func heal(heal: int) -> int:
@@ -72,7 +72,7 @@ func shielded(value: int) -> void:
 
 #承受傷害
 func take_damaged(damage: int) -> bool:
-	health_display.visible = true
+	health_display.show()
 	timer.wait_time = healthbar_wait_time
 	timer.start()
 	#盾先承受，生命再承受
@@ -90,7 +90,7 @@ func take_damaged(damage: int) -> bool:
 
 #血條顯示時間長
 func _on_timer_timeout() -> void:
-	health_display.visible = false
+	health_display.hide()
 	if health <= 0:
 		#預留動畫位置
 		emit_signal("death", get_parent())

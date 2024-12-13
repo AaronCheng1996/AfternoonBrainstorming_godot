@@ -27,11 +27,11 @@ var lbl_description_size = 16
 #顯示棋子細節
 func show_piece_detail(piece: Piece) -> void:
 	if not piece: #棋子不存在
-		visible = false
+		hide()
 		return
 	
 	piece_data = piece
-	visible = true
+	show()
 	#圖示
 	if piece.outfit_component.icon:
 		piece_icon.texture = piece.outfit_component.icon.texture
@@ -49,16 +49,16 @@ func show_piece_detail(piece: Piece) -> void:
 		health.text = "{0} / {1}".format([str(piece.health_component.health), str(piece.health_component.max_health)])
 		#護盾
 		if piece.health_component.shield > 0:
-			shield_icon.visible = true
-			shield.visible = true
-			shield_effect.visible = true
+			shield_icon.show()
+			shield.show()
+			shield_effect.show()
 			shield.text = str(piece.health_component.shield)
 		else:
-			shield_icon.visible = false
-			shield.visible = false
-			shield_effect.visible = false
+			shield_icon.hide()
+			shield.hide()
+			shield_effect.hide()
 	else:
-		max_health_state.visible = false
+		max_health_state.hide()
 	#攻擊力、攻擊模式
 	if piece.attack_component:
 		attack_state.default_value = piece.attack_component.DEFAULT_ATK
@@ -67,23 +67,25 @@ func show_piece_detail(piece: Piece) -> void:
 		#補上pattern_state圖示
 		match piece.attack_component.ATK_PATTERN:
 			Global.PatternNames.CROSS:
-				pattern_state.txt_icon_texture = load("res://img/UI/cross.png")
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/cross.png")
 			Global.PatternNames.CROSS_LARGE:
-				pattern_state.txt_icon_texture = load("res://img/UI/large_cross.png")
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/large_cross.png")
 			Global.PatternNames.X:
-				pattern_state.txt_icon_texture = load("res://img/UI/x.png")
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/x.png")
 			Global.PatternNames.X_LARGE:
-				pattern_state.txt_icon_texture = load("res://img/UI/large_x.png")
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/large_x.png")
 			Global.PatternNames.NEARBY:
-				pattern_state.txt_icon_texture = load("res://img/UI/nearby.png")
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/nearby.png")
 			Global.PatternNames.NEAREST:
-				pattern_state.txt_icon_texture = load("res://img/UI/near.png")
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/near.png")
 			Global.PatternNames.FAREST:
-				pattern_state.txt_icon_texture = load("res://img/UI/far.png")
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/far.png")
+			Global.PatternNames.ALL:
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/all.png")
 		pattern_state.refresh_value_text()
 	else:
-		attack_state.visible = false
-		pattern_state.visible = false
+		attack_state.hide()
+		pattern_state.hide()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_left"):
@@ -91,7 +93,7 @@ func _on_gui_input(event: InputEvent) -> void:
 
 func _on_mouse_entered() -> void:
 	if show_highlight:
-		highlight.visible = true
+		highlight.show()
 
 func _on_mouse_exited() -> void:
-	highlight.visible = false
+	highlight.hide()

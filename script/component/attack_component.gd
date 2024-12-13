@@ -85,6 +85,8 @@ func in_attack_range(location, target_location) -> bool:
 			return abs(x - location.x) == abs(y - location.y)
 		Global.PatternNames.NEARBY: #九宮格內
 			return abs(x - location.x) <= 1 and abs(y - location.y) <= 1
+		Global.PatternNames.ALL: #全圖
+			return true
 	return false
 
 #尋找目標最近單位

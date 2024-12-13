@@ -9,6 +9,7 @@ extends Control
 
 @onready var piece_grid: GridContainer = $piece_list/grid_background/ScrollContainer/piece_grid
 @onready var btn_start: Button = $btn_start
+@onready var message: Label = $message
 
 @onready var deck_background_0: ColorRect = $decks/deck_background_0
 @onready var deck_background_1: ColorRect = $decks/deck_background_1
@@ -28,7 +29,6 @@ var piece_types = [
 	"res://scenes/pieces/white/white_sp.tscn", 
 	"res://scenes/pieces/white/white_tank.tscn",
 ]
-var seed = 12345
 
 var select_highlight_offset = Vector2(-5, -5)
 var deck_icon_size = Vector2(40, 40)
@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 	elif player_list[1].deck.size() < Global.deck_size:
 		current_turn = 1
 	else:
-		select_highlight.visible = false
+		select_highlight.hide()
 	#當前選牌玩家特效
 	if current_turn == 1:
 		select_highlight.position = deck_background_1.position + select_highlight_offset
@@ -92,11 +92,13 @@ func _on_start_button_pressed() -> void:
 
 #玩家選牌
 func _on_piece_selected(piece: Piece) -> void:
-	if player_list[0].deck.size() >= Global.deck_size and player_list[1].deck.size() >= Global.deck_size: #雙方玩家手牌未滿
+	if player_list[0].deck.size() >= Global.deck_size and player_list[1].deck.size() >= Global.deck_size: #雙方玩家手牌已滿
+		message.pop_message("牌庫已滿")
 		return
 	if not player_list[current_turn].deck_piece_type.has(piece.show_name): #紀錄玩家持有該棋子數量
 		player_list[current_turn].deck_piece_type[piece.show_name] = 0
 	if player_list[current_turn].deck_piece_type[piece.show_name] >= Global.type_limit: #該棋子數量已達上限
+		message.pop_message("該牌數量已達上限")
 		return
 	#將棋子新增至玩家牌組
 	var new_piece = piece.duplicate()

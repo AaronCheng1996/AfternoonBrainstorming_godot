@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://n3l57c5exf2t"]
+[gd_scene load_steps=3 format=3 uid="uid://n3l57c5exf2t"]
 
 [ext_resource type="Script" path="res://script/deck_build.gd" id="1_67xhq"]
+[ext_resource type="PackedScene" uid="uid://cstmwutw6iead" path="res://scenes/UI/popup_message.tscn" id="2_pahay"]
 
 [node name="DeckBuild" type="Control"]
 custom_minimum_size = Vector2(1024, 768)
@@ -120,10 +121,7 @@ columns = 2
 [node name="temp" type="Node2D" parent="decks"]
 visible = false
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="message" parent="." instance=ExtResource("2_pahay")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-bbcode_enabled = true
 
 [connection signal="pressed" from="btn_start" to="." method="_on_start_button_pressed"]
