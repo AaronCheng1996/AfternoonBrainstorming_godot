@@ -22,10 +22,11 @@ offset_bottom = 21.0
 color = Color(0.310617, 0.310617, 0.310617, 1)
 
 [node name="icon" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(19, 19)
 layout_mode = 0
 offset_left = 3.0
-offset_right = 23.0
+offset_top = 1.0
+offset_right = 22.0
 offset_bottom = 20.0
 
 [node name="txt_value" type="RichTextLabel" parent="."]

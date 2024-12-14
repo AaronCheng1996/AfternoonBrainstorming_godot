@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dmcb5d8o0ctte"]
+[gd_scene load_steps=11 format=3 uid="uid://dmcb5d8o0ctte"]
 
 [ext_resource type="Script" path="res://script/UI/piece_detail.gd" id="1_bogq2"]
 [ext_resource type="Texture2D" uid="uid://oeaknkmvxh4s" path="res://img/piece/standerd/white_cube.png" id="1_mtc4j"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dlt2ub7m3rl5x" path="res://img/UI/sword.png" id="5_fx6sp"]
 [ext_resource type="Texture2D" uid="uid://bfggacbdcsml5" path="res://img/UI/target.png" id="6_rcjdd"]
 [ext_resource type="Texture2D" uid="uid://hsilqv8ksxq5" path="res://img/UI/shield.png" id="7_h670n"]
+[ext_resource type="PackedScene" uid="uid://bx20ali1hrkoi" path="res://scenes/UI/buff_list.tscn" id="8_vntqj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_penoc"]
 bg_color = Color(0.0383972, 0.0383972, 0.0383971, 1)
@@ -152,6 +153,13 @@ theme_override_font_sizes/font_size = 12
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Buffs" parent="." instance=ExtResource("8_vntqj")]
+offset_left = 5.0
+offset_top = 276.0
+offset_right = 235.0
+offset_bottom = 295.0
+columns = 12
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

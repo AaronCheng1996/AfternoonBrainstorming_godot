@@ -19,6 +19,8 @@ signal piece_selected(piece: Piece)
 @onready var pattern_state: PieceState = $States/pattern_state
 @onready var attack_state: PieceState = $States/attack_state
 
+@onready var buff_icon_list: BuffIconList = $Buffs
+
 var piece_data: Piece
 var lbl_name_size = 20
 var lbl_description_size = 16
@@ -86,6 +88,9 @@ func show_piece_detail(piece: Piece) -> void:
 	else:
 		attack_state.hide()
 		pattern_state.hide()
+	#Buff
+	if piece.buff_component:
+		buff_icon_list.show_buffs(piece.buff_component.active_buffs)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_left"):

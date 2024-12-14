@@ -6,19 +6,23 @@ signal on_buff_remove(buff: Buff)
 var active_buffs: Array = []
 var history_buffs: Array = []
 
+@onready var buff_list: BuffIconList = $buff_list
+
 #賦予buff
 func add_buff(buff: Buff) -> void:
 	active_buffs.append(buff)
 	history_buffs.append(buff)
 	buff.apply_buff(get_parent())
 	emit_signal("on_buff_apply", buff)
-
+	buff_list.show_mini_buffs(active_buffs)
+	
 #移除buff
 func remove_buff(buff: Buff) -> void:
 	if buff in active_buffs:
 		buff.remove_buff(get_parent())
 		active_buffs.erase(buff)
 		emit_signal("on_buff_remove", buff)
+		buff_list.show_mini_buffs(active_buffs)
 
 #經過一回合
 func tick() -> void:

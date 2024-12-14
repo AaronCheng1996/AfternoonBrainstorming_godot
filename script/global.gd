@@ -11,10 +11,53 @@ var starter_hand_count : int = 4
 enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST, ALL}
 #buff
 enum BuffTag {DEBUFF, BUFF, RED}
+var buff_icon = {
+	"stun": {
+		"default": "res://img/UI/buff/stun.png",
+		"mini": "res://img/UI/buff_mini/stun_mini.png"
+	},
+	"sleep": {
+		"default": "res://img/UI/buff/sleep.png",
+		"mini": "res://img/UI/buff_mini/sleep_mini.png"
+	},
+	"attack_buff": {
+		"default": "res://img/UI/buff/attack_buff.png",
+		"mini": "res://img/UI/buff_mini/attack_buff_mini.png"
+	},
+	"attack_debuff": {
+		"default": "res://img/UI/buff/attack_debuff.png",
+		"mini": "res://img/UI/buff_mini/attack_debuff_mini.png"
+	},
+	"health_buff": {
+		"default": "res://img/UI/buff/health_buff.png",
+		"mini": "res://img/UI/buff_mini/health_buff_mini.png"
+	},
+	"health_debuff": {
+		"default": "res://img/UI/buff/health_debuff.png",
+		"mini": "res://img/UI/buff_mini/health_debuff_mini.png"
+	},
+	"move": {
+		"default": "res://img/UI/buff/move.png",
+		"mini": "res://img/UI/buff_mini/move_mini.png"
+	},
+	"rage": {
+		"default": "res://img/UI/buff/rage.png",
+		"mini": "res://img/UI/buff_mini/rage_mini.png"
+	},
+	"blue_charge": {
+		"default": "res://img/UI/buff/blue_charge.png",
+		"mini": "res://img/UI/buff_mini/blue_charge_mini.png"
+	},
+	"rune": {
+		"default": "res://img/UI/buff/rune.png",
+		"mini": "res://img/UI/buff_mini/rune_mini.png"
+	}
+}
 #顯示
 var default_score_color : String = "white"
 var p0_score_color : String = "red"
 var p1_score_color : String = "blue"
+
 #endregion
 
 #region 通用變數
@@ -23,6 +66,9 @@ var seed : int
 var rng = RandomNumberGenerator.new()
 #遊戲敘述
 var data := {}
+#玩家資訊
+var player_list := []
+var winner : int = -1
 #endregion
 
 #region 通用函式

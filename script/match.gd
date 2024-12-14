@@ -100,26 +100,20 @@ func end_turn() -> void:
 			winner = 0
 		else:
 			winner = 1
-		#獲取當前主場景
-		var current_scene = get_tree().current_scene
-		if current_scene:
-			current_scene.queue_free()  #移除當前場景
-		#加載並切換到新場景
-		var end_scene = preload("res://scenes/end.tscn").instantiate()
-		end_scene.set_winner(winner)
-		get_tree().root.add_child(end_scene)
-	#解除所有鎖定
-	select_piece(null)
-	#換邊開始回合
-	if current_turn == 1:
-		current_turn = 0
-		p0_end_button.disabled = false
-		p1_end_button.disabled = true
+		win(winner)
 	else:
-		current_turn = 1
-		p0_end_button.disabled = true
-		p1_end_button.disabled = false
-	start_turn(player_list[current_turn])
+		#解除所有鎖定
+		select_piece(null)
+		#換邊開始回合
+		if current_turn == 1:
+			current_turn = 0
+			p0_end_button.disabled = false
+			p1_end_button.disabled = true
+		else:
+			current_turn = 1
+			p0_end_button.disabled = true
+			p1_end_button.disabled = false
+		start_turn(player_list[current_turn])
 
 #抽牌
 func draw_piece(player: Player) -> void:
@@ -147,6 +141,14 @@ func draw_piece(player: Player) -> void:
 	if piece.get_node_or_null("HealthComponent"):
 		piece.health_component.death.connect(_on_piece_death)
 
+#勝利
+func win(winner: int) -> void:
+	#加載並切換到新場景
+	var end_scene = preload("res://scenes/end.tscn").instantiate()
+	end_scene.set_winner(winner)
+	get_parent().add_child(end_scene)
+	get_parent().remove_child(self)
+
 #endregion
 
 #region 觸發
@@ -169,7 +171,7 @@ func _on_piece_selected(piece: Piece) -> void:
 #棋子發動攻擊
 func _on_piece_attack(piece: Piece) -> void:
 	if piece.piece_owner.attack_count <= 0: #檢查是否有
-		message.pop_message("沒有攻擊次數")
+		message.pop_message(Global.data.message.no_attack)
 		return
 	piece.piece_owner.attack_count -= 1 #消耗一次攻擊次數
 	#發動攻擊
@@ -310,7 +312,6 @@ func swap_piece_in_hand(piece1: Piece, piece2: Piece) -> void:
 #endregion
 
 #region 判斷
-
 #判斷棋子是否在棋盤上
 func is_on_board(location: Vector2i) -> bool:
 	if location.x >= 2 and location.x <= 5:

@@ -17,8 +17,7 @@ func _on_btn_quit_pressed() -> void:
 
 func _on_btn_pvp_pressed() -> void:
 	var deck_scene = preload(\"res://scenes/deck_build.tscn\").instantiate()
-	get_tree().current_scene = deck_scene
-	get_tree().root.add_child(deck_scene)
+	self.add_child(deck_scene)
 
 func _on_btn_cpu_pressed() -> void:
 	get_tree().change_scene_to_file(\"res://scenes/deck_build.tscn\")
@@ -63,7 +62,7 @@ offset_bottom = 610.0
 text = "Quit
 "
 
-[node name="Label" type="Label" parent="."]
+[node name="topic" type="Label" parent="."]
 layout_mode = 0
 offset_right = 1024.0
 offset_bottom = 500.0

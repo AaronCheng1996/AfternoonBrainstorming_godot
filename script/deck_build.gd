@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 	elif player_list[1].deck.size() < Global.deck_size:
 		current_turn = 1
 	else:
-		select_highlight.hide()
+		select_highlight.visible = false
 	#當前選牌玩家特效
 	if current_turn == 1:
 		select_highlight.position = deck_background_1.position + select_highlight_offset
@@ -81,24 +81,21 @@ func _on_start_button_pressed() -> void:
 	#洗牌
 	for i in range(2):
 		player_list[i].deck = shuffle_deck(player_list[i].deck)
-	#獲取當前主場景
-	var current_scene = get_tree().current_scene
-	if current_scene:
-		current_scene.queue_free()  #移除當前場景
 	#加載並切換到新場景
 	var match_scene = preload("res://scenes/match.tscn").instantiate()
 	match_scene.set_player(player_list)
-	get_tree().root.add_child(match_scene)
+	get_parent().add_child(match_scene)
+	get_parent().remove_child(self)
 
 #玩家選牌
 func _on_piece_selected(piece: Piece) -> void:
 	if player_list[0].deck.size() >= Global.deck_size and player_list[1].deck.size() >= Global.deck_size: #雙方玩家手牌已滿
-		message.pop_message("牌庫已滿")
+		message.pop_message(Global.data.message.deck_full)
 		return
 	if not player_list[current_turn].deck_piece_type.has(piece.show_name): #紀錄玩家持有該棋子數量
 		player_list[current_turn].deck_piece_type[piece.show_name] = 0
 	if player_list[current_turn].deck_piece_type[piece.show_name] >= Global.type_limit: #該棋子數量已達上限
-		message.pop_message("該牌數量已達上限")
+		message.pop_message(Global.data.message.piece_limit)
 		return
 	#將棋子新增至玩家牌組
 	var new_piece = piece.duplicate()

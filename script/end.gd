@@ -12,4 +12,4 @@ func set_winner(the_winner: int) -> void:
 	winner = the_winner + 1
 
 func _on_btn_next_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main.tscn")
+	get_parent().remove_child(self)

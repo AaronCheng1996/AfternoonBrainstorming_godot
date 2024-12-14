@@ -25,6 +25,7 @@ func on_piece_set(pieces: Array) -> void:
 		stun_debuff.name = Global.data.buff.sleep.name
 		stun_debuff.description = Global.data.buff.sleep.description
 		stun_debuff.duration = 1
+		stun_debuff.icon_path = Global.buff_icon.sleep
 		stun_debuff.tag.append(Global.BuffTag.DEBUFF)
 		buff_component.add_buff(stun_debuff)
 	refresh()
