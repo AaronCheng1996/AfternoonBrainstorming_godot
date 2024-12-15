@@ -9,6 +9,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+@warning_ignore(\"unused_parameter\")
 func _process(delta: float) -> void:
 	pass
 
@@ -66,7 +67,6 @@ text = "Quit
 layout_mode = 0
 offset_right = 1024.0
 offset_bottom = 500.0
-theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 120
 text = "Afternoon
 Brainstorm"

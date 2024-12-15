@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnitia133lmjr"
-path="res://.godot/imported/white_tri.png-d18ebd7b515a021c8ef477ee5c8dd2c6.ctex"
+uid="uid://0a3011qqckwu"
+path="res://.godot/imported/filter.png-9b917c3b43f260810d84cd7cbd7d3d55.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://img/piece/standerd/white_tri.png"
-dest_files=["res://.godot/imported/white_tri.png-d18ebd7b515a021c8ef477ee5c8dd2c6.ctex"]
+source_file="res://img/piece/player/filter.png"
+dest_files=["res://.godot/imported/filter.png-9b917c3b43f260810d84cd7cbd7d3d55.ctex"]
 
 [params]
 

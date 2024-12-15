@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://4gn77audskrs" path="res://scenes/component/attack_component.tscn" id="3_eefat"]
 [ext_resource type="PackedScene" uid="uid://bx028wy2lu25i" path="res://scenes/component/outfit_component.tscn" id="4_s2odf"]
 [ext_resource type="PackedScene" uid="uid://c83kbyxqmarvi" path="res://scenes/component/score_component.tscn" id="5_6t4r7"]
+[ext_resource type="Texture2D" uid="uid://2bun5eec1hjm" path="res://img/piece/standerd/white.png" id="5_apx14"]
 [ext_resource type="PackedScene" uid="uid://d2lqpgvgq4oh3" path="res://scenes/component/buff_component.tscn" id="6_ssxeb"]
-[ext_resource type="Texture2D" uid="uid://cwaqqrjmfqgk0" path="res://img/piece/standerd/white_dloz.png" id="7_pw2nb"]
 
 [node name="WhiteLF" type="Node2D" node_paths=PackedStringArray("health_component", "attack_component", "outfit_component", "score_component", "buff_component")]
 script = ExtResource("1_2h1lk")
@@ -26,7 +26,8 @@ DEFAULT_ATK = 3
 
 [node name="OutfitComponent" parent="." instance=ExtResource("4_s2odf")]
 unique_name_in_owner = true
-icon_texture = ExtResource("7_pw2nb")
+icon_texture = ExtResource("5_apx14")
+frame = 6
 
 [node name="ScoreComponent" parent="." instance=ExtResource("5_6t4r7")]
 unique_name_in_owner = true

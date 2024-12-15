@@ -49,9 +49,6 @@ func _ready() -> void:
 	start_turn(player_list[current_turn])
 
 func _process(delta: float) -> void:
-	var space_rid = get_world_2d().space
-	var space_state = PhysicsServer2D.space_get_direct_state(space_rid)
-	
 	if mouse_on_attack and piece_selected:
 		tilemap.reset(1)
 		tilemap.highlight_tiles(piece_selected.get_target_location(pieces.get_children()))

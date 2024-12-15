@@ -8,13 +8,14 @@ signal mouse_out_attack(piece: Piece)
 signal mouse_in_icon(piece: Piece)
 signal mouse_out_icon(piece: Piece)
 
-@onready var player_effect: TextureRect = $player_effect
+@onready var player_effect: Sprite2D = $player_effect
 @onready var txt_value: RichTextLabel = $txt_value
 @onready var control_panel: Control = $ControlPanel
 @onready var move_button: Button = $ControlPanel/btn_move
 @onready var attack_button: Button = $ControlPanel/btn_attack
-@onready var icon: TextureRect = $Icon
+@onready var icon: Sprite2D = $Icon
 @export var icon_texture : CompressedTexture2D
+@export var frame : int = 0
 
 var txt_size = 14
 
@@ -25,15 +26,16 @@ func _ready() -> void:
 	#圖示
 	if icon_texture:
 		icon.texture = icon_texture
+		icon.frame = frame
 	#按鈕
 	disable_move()
 
 #套用玩家特效
 func set_player_effect(player: int) -> void:
 	if player == 0:
-		player_effect.texture = load("res://img/piece/player/red_filter.png")
+		Global.change_color(player_effect, Color.WHITE, Color.RED)
 	if player == 1:
-		player_effect.texture = load("res://img/piece/player/blue_filter.png")
+		Global.change_color(player_effect, Color.WHITE, Color.BLUE)
 
 #開啟選取特效
 func show_control_panel() -> void:

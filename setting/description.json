@@ -14,8 +14,8 @@
 		"white": {
 			"name" : "白色", 
 			"adc": "",
-			"ap": "[b]攻擊附加[/b]：[b]暈眩[/b]",
-			"apt": "[b]攻擊後[/b]：為自己及最近友方\n附加 {0} 點護盾",
+			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]",
+			"apt": "[b]攻擊後[/b]：為自己及最近友方\n附加 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color] ([img]res://img/UI/sword.png[/img])",
 			"ass": "[b]先攻[/b]",
 			"hf": "",
 			"lf": "",

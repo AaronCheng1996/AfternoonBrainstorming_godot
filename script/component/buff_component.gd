@@ -14,7 +14,7 @@ func add_buff(buff: Buff) -> void:
 	history_buffs.append(buff)
 	buff.apply_buff(get_parent())
 	emit_signal("on_buff_apply", buff)
-	buff_list.show_mini_buffs(active_buffs)
+	buff_list.show_buffs(active_buffs)
 	
 #移除buff
 func remove_buff(buff: Buff) -> void:
@@ -22,7 +22,7 @@ func remove_buff(buff: Buff) -> void:
 		buff.remove_buff(get_parent())
 		active_buffs.erase(buff)
 		emit_signal("on_buff_remove", buff)
-		buff_list.show_mini_buffs(active_buffs)
+		buff_list.show_buffs(active_buffs)
 
 #經過一回合
 func tick() -> void:

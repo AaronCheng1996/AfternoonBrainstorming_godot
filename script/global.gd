@@ -103,4 +103,14 @@ func get_health_icon(size = null) -> String:
 		return "[img=" + size + "]res://img/UI/heart.png[/img]"
 	return "[img]res://img/UI/heart.png[/img]"
 #endregion
+#region 圖片特效
+func change_color(picture: Sprite2D, origin: Color, new_color: Color) -> void:
+	var image: Image = picture.texture.get_image()
+	for y in image.get_height():
+		for x in image.get_width():
+			if image.get_pixel(x, y) == origin:
+				image.set_pixel(x, y, new_color)
+	var new_texture = ImageTexture.create_from_image(image)
+	picture.texture = new_texture
+#endregion
 #endregion

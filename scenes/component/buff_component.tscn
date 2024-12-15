@@ -7,7 +7,7 @@
 script = ExtResource("1_776ex")
 
 [node name="buff_list" parent="." instance=ExtResource("2_7a8pp")]
-offset_left = -33.0
-offset_top = -33.0
-offset_right = 33.0
-offset_bottom = -22.0
+offset_left = -40.0
+offset_top = 21.0
+offset_right = 40.0
+offset_bottom = 40.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dmcb5d8o0ctte"]
 
 [ext_resource type="Script" path="res://script/UI/piece_detail.gd" id="1_bogq2"]
-[ext_resource type="Texture2D" uid="uid://oeaknkmvxh4s" path="res://img/piece/standerd/white_cube.png" id="1_mtc4j"]
+[ext_resource type="Texture2D" uid="uid://2bun5eec1hjm" path="res://img/piece/standerd/white.png" id="2_l3ghl"]
 [ext_resource type="PackedScene" uid="uid://dro1g6xf0nis0" path="res://scenes/UI/piece_state.tscn" id="3_aeso3"]
 [ext_resource type="Texture2D" uid="uid://bi8utgqs2qcd5" path="res://img/UI/heart.png" id="4_717k8"]
 [ext_resource type="Texture2D" uid="uid://dlt2ub7m3rl5x" path="res://img/UI/sword.png" id="5_fx6sp"]
@@ -54,14 +54,11 @@ mouse_filter = 2
 bbcode_enabled = true
 text = "Name"
 
-[node name="piece_icon" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 30.0
-offset_right = 168.0
-offset_bottom = 126.0
-mouse_filter = 2
-texture = ExtResource("1_mtc4j")
+[node name="piece_icon" type="Sprite2D" parent="."]
+position = Vector2(119, 80)
+texture = ExtResource("2_l3ghl")
+hframes = 3
+vframes = 3
 
 [node name="lbl_piece_description" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -160,6 +157,17 @@ offset_top = 276.0
 offset_right = 235.0
 offset_bottom = 295.0
 columns = 12
+
+[node name="shader" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.313726)
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

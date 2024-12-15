@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://4gn77audskrs" path="res://scenes/component/attack_component.tscn" id="3_icxd4"]
 [ext_resource type="PackedScene" uid="uid://bx028wy2lu25i" path="res://scenes/component/outfit_component.tscn" id="4_wmy4f"]
 [ext_resource type="PackedScene" uid="uid://c83kbyxqmarvi" path="res://scenes/component/score_component.tscn" id="5_664xx"]
+[ext_resource type="Texture2D" uid="uid://2bun5eec1hjm" path="res://img/piece/standerd/white.png" id="5_rqpnt"]
 [ext_resource type="PackedScene" uid="uid://d2lqpgvgq4oh3" path="res://scenes/component/buff_component.tscn" id="6_qhurs"]
-[ext_resource type="Texture2D" uid="uid://crvia50onog4r" path="res://img/piece/standerd/white_ass.png" id="7_4dvv1"]
 
 [node name="WhiteAss" type="Node2D" node_paths=PackedStringArray("health_component", "attack_component", "outfit_component", "score_component", "buff_component")]
 script = ExtResource("1_s37fy")
@@ -26,7 +26,7 @@ ATK_PATTERN = 2
 
 [node name="OutfitComponent" parent="." instance=ExtResource("4_wmy4f")]
 unique_name_in_owner = true
-icon_texture = ExtResource("7_4dvv1")
+icon_texture = ExtResource("5_rqpnt")
 
 [node name="ScoreComponent" parent="." instance=ExtResource("5_664xx")]
 unique_name_in_owner = true

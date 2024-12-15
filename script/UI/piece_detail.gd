@@ -5,7 +5,7 @@ signal piece_selected(piece: Piece)
 
 @onready var lbl_piece_name: RichTextLabel = $lbl_piece_name
 @onready var lbl_piece_description: RichTextLabel = $lbl_piece_description
-@onready var piece_icon: TextureRect = $piece_icon
+@onready var piece_icon: Sprite2D = $piece_icon
 
 @onready var highlight: ColorRect = $highlight
 
@@ -20,6 +20,7 @@ signal piece_selected(piece: Piece)
 @onready var attack_state: PieceState = $States/attack_state
 
 @onready var buff_icon_list: BuffIconList = $Buffs
+@onready var shader: ColorRect = $shader
 
 var piece_data: Piece
 var lbl_name_size = 20
@@ -37,6 +38,7 @@ func show_piece_detail(piece: Piece) -> void:
 	#圖示
 	if piece.outfit_component.icon:
 		piece_icon.texture = piece.outfit_component.icon.texture
+		piece_icon.frame = piece.outfit_component.icon.frame
 	#名稱、敘述
 	lbl_piece_name.text = Global.set_font_size(Global.set_font_center(piece.show_name), lbl_name_size)
 	lbl_piece_description.text = Global.set_font_size(Global.set_font_center(piece.description), lbl_description_size)
@@ -91,6 +93,12 @@ func show_piece_detail(piece: Piece) -> void:
 	#Buff
 	if piece.buff_component:
 		buff_icon_list.show_buffs(piece.buff_component.active_buffs)
+
+func show_shader():
+	shader.show()
+
+func hide_shader():
+	shader.hide()
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_left"):

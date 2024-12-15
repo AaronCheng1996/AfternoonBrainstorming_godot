@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://n3l57c5exf2t"]
+[gd_scene load_steps=3 format=3 uid="uid://n3l57c5exf2t"]
 
 [ext_resource type="Script" path="res://script/deck_build.gd" id="1_67xhq"]
-[ext_resource type="PackedScene" uid="uid://irl7mxsvdmn7" path="res://scenes/UI/piece_group_button.tscn" id="2_i5tsw"]
 [ext_resource type="PackedScene" uid="uid://cstmwutw6iead" path="res://scenes/UI/popup_message.tscn" id="2_pahay"]
 
 [node name="DeckBuild" type="Control"]
@@ -35,6 +34,7 @@ disabled = true
 text = "Start"
 
 [node name="piece_list" type="Control" parent="."]
+custom_minimum_size = Vector2(776, 660)
 anchors_preset = 0
 offset_left = 210.0
 offset_top = 30.0
@@ -46,7 +46,7 @@ mouse_filter = 2
 visible = false
 position = Vector2(-210, -30)
 
-[node name="background" type="ColorRect" parent="piece_list"]
+[node name="grid_background" type="ColorRect" parent="piece_list"]
 custom_minimum_size = Vector2(776, 630)
 layout_mode = 2
 anchor_right = 1.0
@@ -55,30 +55,24 @@ offset_bottom = -30.0
 mouse_filter = 2
 color = Color(0.187176, 0.187176, 0.187176, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="piece_list/background"]
-custom_minimum_size = Vector2(756, 610)
+[node name="TabContainer" type="TabContainer" parent="piece_list"]
+custom_minimum_size = Vector2(776, 660)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 766.0
-offset_bottom = 620.0
+offset_right = 776.0
+offset_bottom = 630.0
+current_tab = 0
+tabs_position = 1
 
-[node name="piece_grid" type="GridContainer" parent="piece_list/background/ScrollContainer"]
+[node name="White" type="ScrollContainer" parent="piece_list/TabContainer"]
+custom_minimum_size = Vector2(756, 610)
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="piece_grid" type="GridContainer" parent="piece_list/TabContainer/White"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 3
-
-[node name="piece_group" type="GridContainer" parent="piece_list"]
-layout_mode = 0
-offset_top = 630.0
-offset_right = 540.0
-offset_bottom = 660.0
-theme_override_constants/h_separation = 0
-columns = 9
-
-[node name="piece_group_button" parent="piece_list/piece_group" instance=ExtResource("2_i5tsw")]
-layout_mode = 2
 
 [node name="decks" type="Control" parent="."]
 anchors_preset = 0
