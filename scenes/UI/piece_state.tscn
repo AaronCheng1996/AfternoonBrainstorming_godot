@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://script/UI/piece_state.gd" id="1_3qc31"]
 
-[node name="piece_state" type="Control"]
+[node name="PieceState" type="Control"]
 custom_minimum_size = Vector2(60, 21)
 layout_mode = 3
 anchors_preset = 0

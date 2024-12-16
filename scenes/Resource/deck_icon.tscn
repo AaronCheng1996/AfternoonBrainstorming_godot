@@ -40,7 +40,7 @@ _data = {
 "idle": SubResource("Animation_ybsnv")
 }
 
-[node name="Deck_icon" type="Node2D"]
+[node name="DeckIcon" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_httev")

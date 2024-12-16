@@ -1,17 +1,18 @@
 extends Control
 
-@onready var board: ColorRect = $board
-@onready var tilemap: TileMap = $board/TileMap
-@onready var p0_end_button: Button = $board/btn_turn_end_0
-@onready var p1_end_button: Button = $board/btn_turn_end_1
-@onready var piece_detail: PieceDetail = %piece_detail
-@onready var pieces: Node2D = $board/Pieces
-@onready var score_label: RichTextLabel = $board/score_label
-@onready var message: Label = $message
+@onready var board: ColorRect = $Board
+@onready var tilemap: TileMap = $Board/TileMap
+@onready var p0_end_button: Button = $Board/btn_turn_end_0
+@onready var p1_end_button: Button = $Board/btn_turn_end_1
+@onready var piece_detail: PieceDetail = %PieceDetail
+@onready var pieces: Node2D = $Board/Pieces
+@onready var score_label: RichTextLabel = $Board/score_label
+@onready var message: Label = $Message
+@onready var players: Control = $Players
 
 """
-#hint1：player0遊戲中顯示為player2，為上方玩家；player1遊戲中顯示為player1，下方玩家。
-#hint2：由player1先手。
+#note1：player0遊戲中顯示為player2，為上方玩家；player1遊戲中顯示為player1，下方玩家。
+#note2：由player1先手。
 """
 
 var player_list := []
@@ -25,13 +26,16 @@ var mouse_on_attack : bool = false
 var current_turn : int = Global.first_turn
 #分數
 var score_size : int = 60
-var score_color : String = Global.default_score_color
+var score_color : Color = Global.default_score_color
 var score : int = 0
 
 func _ready() -> void:
 	#確認是否有兩位玩家，若無則回到主頁
 	if not player_list.size() == 2:
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
+	for player: Player in player_list:
+		player.get_parent().remove_child(player)
+		players.add_child(player)
 	#抽上起手牌
 	for i in range(Global.starter_hand_count - 1):
 		draw_piece(player_list[current_turn])
@@ -70,7 +74,7 @@ func start_turn(player: Player) -> void:
 		board_piece_dic[index].on_turn_start(current_turn, pieces.get_children())
 	#抽牌
 	draw_piece(player)
-	player.attack_count += 1
+	player.add_attack_count(1)
 
 #回合結束
 func end_turn() -> void:
@@ -170,7 +174,7 @@ func _on_piece_attack(piece: Piece) -> void:
 	if piece.piece_owner.attack_count <= 0: #檢查是否有
 		message.pop_message(Global.data.message.no_attack)
 		return
-	piece.piece_owner.attack_count -= 1 #消耗一次攻擊次數
+	piece.piece_owner.add_attack_count(-1) #消耗一次攻擊次數
 	#發動攻擊
 	piece.attack(pieces.get_children())
 	#更新場面訊息

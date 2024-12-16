@@ -44,7 +44,7 @@ func attack(pieces: Array) -> void:
 		hit(targets[random_index])
 		return
 	#AOE
-	for piece in pieces:
+	for piece: Piece in pieces:
 		if in_attack_range(attacker.location, piece.location):
 			hit(piece)
 
@@ -59,7 +59,7 @@ func get_target_location(pieces: Array) -> Array:
 	elif ATK_PATTERN == Global.PatternNames.FAREST:
 		targets = find_farest_target(attacker.location, pieces)
 	if targets.size() > 0:
-		for piece in targets:
+		for piece: Piece in targets:
 			target_location.append(piece.location)
 		return target_location
 	#AOE

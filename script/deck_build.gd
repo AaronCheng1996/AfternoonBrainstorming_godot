@@ -2,36 +2,34 @@ extends Control
 
 @onready var player = preload("res://scenes/Resource/player.tscn")
 @onready var piece_detail = preload("res://scenes/UI/piece_detail.tscn")
+@onready var piece_group_button = preload("res://scenes/UI/piece_group_button.tscn")
 
-@onready var players: Node2D = $players
-@onready var pieces: Node2D = $piece_list/pieces
-@onready var temp: Node2D = $decks/temp
-@onready var piece_grid: GridContainer = $piece_list/background/ScrollContainer/piece_grid
+@onready var players: Control = $Players
+@onready var pieces: Node2D = $PieceList/Pieces
+@onready var temp: Node2D = $Decks/Temp
+@onready var piece_grid: GridContainer = $PieceList/background/scroll_container/piece_grid
 
 @onready var btn_start: Button = $btn_start
-@onready var message: Label = $message
+@onready var message: Label = $Message
+@onready var piece_group: GridContainer = $PieceList/piece_group
 
-@onready var deck_background_0: ColorRect = $decks/deck_background_0
-@onready var deck_background_1: ColorRect = $decks/deck_background_1
-@onready var deck_grid_0: GridContainer = $decks/deck_background_0/deck_grid_0
-@onready var deck_grid_1: GridContainer = $decks/deck_background_1/deck_grid_1
-@onready var select_highlight: ColorRect = $decks/select_highlight
+@onready var select_highlight: ColorRect = $Decks/select_highlight
+@onready var deck_0: ColorRect = $Decks/deck_background_0
+@onready var deck_1: ColorRect = $Decks/deck_background_1
+@onready var full_deck_0: ColorRect = $Decks/full_deck_background_0
+@onready var full_deck_1: ColorRect = $Decks/full_deck_background_1
+@onready var btn_show_all_0: Button = $Decks/deck_background_0/btn_show_all_0
+@onready var btn_show_all_1: Button = $Decks/deck_background_1/btn_show_all_1
 
 var player_list := []
-var current_turn = 1
-var piece_types = [
-	"res://scenes/pieces/white/white_adc.tscn",
-	"res://scenes/pieces/white/white_ap.tscn",
-	"res://scenes/pieces/white/white_apt.tscn",
-	"res://scenes/pieces/white/white_ass.tscn",
-	"res://scenes/pieces/white/white_hf.tscn",
-	"res://scenes/pieces/white/white_lf.tscn", 
-	"res://scenes/pieces/white/white_sp.tscn", 
-	"res://scenes/pieces/white/white_tank.tscn",
-]
+var current_turn :  = 1
 
-var select_highlight_offset = Vector2(-5, -5)
-var deck_icon_size = Vector2(40, 40)
+var select_highlight_offset : Vector2 = Vector2(-5, -5)
+var player_offset : Vector2 = Vector2(52, 64)
+var deck_col : int = 2
+var full_deck_col : int = 4
+var icon_size : Vector2 = Vector2(62, 62)
+var selected_group : PieceGroupButton = null
 
 #開始遊戲
 func _ready() -> void:
@@ -41,8 +39,34 @@ func _ready() -> void:
 		new_player.id = i
 		player_list.append(new_player)
 		players.add_child(new_player)
+		new_player.position = Vector2(0, 560 * i) + player_offset
+	#建立選牌派別群組
+	set_groups()
 	refresh()
 
+func set_groups() -> void:
+	var group_all := []
+	
+	for group in Global.piece_groups:
+		group_all.append_array(Global.piece_groups[group])
+		var group_data = Global.data.piece[group]
+		var new_group_button = piece_group_button.instantiate()
+		piece_group.add_child(new_group_button)
+		new_group_button.group = Global.piece_groups[group]
+		new_group_button.label_font_color = Color(group_data.color)
+		new_group_button.set_text(group_data.name.replace("色", ""))
+		new_group_button.group_selected.connect(_on_piece_group_button_group_selected)
+		if not selected_group:
+			selected_group = new_group_button
+			new_group_button.selected()
+	
+	var all_group_button = piece_group_button.instantiate()
+	piece_group.add_child(all_group_button)
+	all_group_button.group = group_all
+	all_group_button.label_font_color = Color.GRAY
+	all_group_button.set_text("全")
+	all_group_button.group_selected.connect(_on_piece_group_button_group_selected)
+	
 #刷新畫面資訊
 func refresh() -> void:
 	#選卡順序 先手玩家挑6張 -> 後首玩家挑12張 -> 先手玩家挑6張
@@ -57,30 +81,35 @@ func refresh() -> void:
 		current_turn = -1
 	#當前選牌玩家特效
 	if current_turn == 1:
-		select_highlight.position = deck_background_1.position + select_highlight_offset
+		select_highlight.position = deck_1.position + select_highlight_offset
 	else:
-		select_highlight.position = deck_background_0.position + select_highlight_offset
+		select_highlight.position = deck_0.position + select_highlight_offset
 	#當雙方選完牌組後才能開始遊戲
 	if player_list[0].deck.size() == Global.deck_size and player_list[1].deck.size() == Global.deck_size:
 		btn_start.disabled = false
 	else:
 		btn_start.disabled = true
-	load_piece_grid()
+	load_piece_grid(selected_group.group)
 
 #載入棋子選單
-func load_piece_grid() -> void:
+func load_piece_grid(piece_groups: Array) -> void:
+	#移除先前版面
 	for child in pieces.get_children():
 		pieces.remove_child(child)
 	for child in piece_grid.get_children():
 		piece_grid.remove_child(child)
-	for i in range(piece_types.size()):
-		var piece_scene = load(piece_types[i])
+	#列出每種棋子
+	for piece_group in piece_groups:
+		#建立棋子
+		var piece_scene = load(piece_group)
 		var new_piece : Piece = piece_scene.instantiate()
 		pieces.add_child(new_piece)
+		#建立棋子資料顯示
 		var new_piece_detail : PieceDetail = piece_detail.instantiate()
 		piece_grid.add_child(new_piece_detail)
 		new_piece_detail.show_piece_detail(new_piece)
 		new_piece_detail.piece_selected.connect(_on_piece_selected)
+		#超過上限或已挑完排組
 		if current_turn == -1:
 			new_piece_detail.show_shader()
 			continue
@@ -126,11 +155,17 @@ func _on_piece_selected(piece: Piece) -> void:
 	#新增至牌組顯示
 	var icon = get_icon(new_piece)
 	var i = player_list[current_turn].deck.size() - 1
-	icon.position = Vector2( 40 + 70 * (i % 2), 20 + 40 * (i / 2))
+	var icon_tmp = icon.duplicate()
+	icon.position = Vector2( icon_size.x * (i % full_deck_col), icon_size.y * (i / full_deck_col)) + icon_size / 2
+	icon_tmp.position = Vector2( icon_size.x * (i % deck_col), icon_size.y * (i / deck_col)) + icon_size / 2
 	if current_turn == 0:
-		deck_background_0.add_child(icon)
+		if i < 6:
+			deck_0.add_child(icon_tmp)
+		full_deck_0.add_child(icon)
 	else:
-		deck_background_1.add_child(icon)
+		if i < 6:
+			deck_1.add_child(icon_tmp)
+		full_deck_1.add_child(icon)
 	refresh()
 
 #取得圖示
@@ -154,3 +189,26 @@ func shuffle_deck(deck: Array) -> Array:
 		shuffled_deck[i] = shuffled_deck[j]
 		shuffled_deck[j] = temp_piece
 	return shuffled_deck
+
+
+func _on_show_all_1_pressed() -> void:
+	if full_deck_1.visible:
+		btn_show_all_1.text = ">"
+		full_deck_1.hide()
+	else:
+		btn_show_all_1.text = "<"
+		full_deck_1.show()
+
+func _on_show_all_0_pressed() -> void:
+	if full_deck_0.visible:
+		btn_show_all_0.text = ">"
+		full_deck_0.hide()
+	else:
+		btn_show_all_0.text = "<"
+		full_deck_0.show()
+
+func _on_piece_group_button_group_selected(group: PieceGroupButton) -> void:
+	selected_group.unselected()
+	load_piece_grid(group.group)
+	selected_group = group
+	group.selected()

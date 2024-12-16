@@ -10,9 +10,9 @@ signal piece_selected(piece: Piece)
 @onready var highlight: ColorRect = $highlight
 
 @onready var health_bar: ProgressBar = $HealthStates/health_bar
-@onready var health: Label = $HealthStates/health
+@onready var health: Label = $HealthStates/lbl_health
 @onready var shield_icon: TextureRect = $HealthStates/shield_icon
-@onready var shield: Label = $HealthStates/shield
+@onready var shield: Label = $HealthStates/lbl_shield
 @onready var shield_effect: ColorRect = $HealthStates/shield_effect
 
 @onready var max_health_state: PieceState = $States/max_health_state
@@ -36,7 +36,7 @@ func show_piece_detail(piece: Piece) -> void:
 	piece_data = piece
 	show()
 	#圖示
-	if piece.outfit_component.icon:
+	if piece.outfit_component:
 		piece_icon.texture = piece.outfit_component.icon.texture
 		piece_icon.frame = piece.outfit_component.icon.frame
 	#名稱、敘述

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://script/UI/popup_message.gd" id="1_77m64"]
 
-[node name="message" type="Label"]
+[node name="Message" type="Label"]
 visible = false
 offset_right = 1024.0
 offset_bottom = 300.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://18qmq1c5pdqa"]
 
-[ext_resource type="Script" path="res://script/pieces/white/white_lf.gd" id="1_2h1lk"]
+[ext_resource type="Script" path="res://script/pieces/white/lf.gd" id="1_2h1lk"]
 [ext_resource type="PackedScene" uid="uid://tahtsvfotixd" path="res://scenes/component/health_component.tscn" id="2_pvto4"]
 [ext_resource type="PackedScene" uid="uid://4gn77audskrs" path="res://scenes/component/attack_component.tscn" id="3_eefat"]
 [ext_resource type="PackedScene" uid="uid://bx028wy2lu25i" path="res://scenes/component/outfit_component.tscn" id="4_s2odf"]

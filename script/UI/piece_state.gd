@@ -18,11 +18,8 @@ func _ready() -> void:
 
 func refresh_value_text() -> void:
 	if not icon_mode:
-		if txt_value:
-			var text = str(value)
-			text = Global.set_font_color(text, Global.get_font_color(value, default_value))
-			txt_value.text = Global.set_font_center(Global.set_font_size(text, txt_size))
+		var text = str(value)
+		text = Global.set_font_color(text, Global.get_font_color(value, default_value))
+		txt_value.text = Global.set_font_center(Global.set_font_size(text, txt_size))
 	else:
-		if txt_icon_texture:
-			txt_value.text = ""
-			txt_icon.texture = txt_icon_texture
+		txt_icon.texture = txt_icon_texture

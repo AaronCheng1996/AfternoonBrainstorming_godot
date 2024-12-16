@@ -7,11 +7,14 @@ signal on_shielded(value: int)
 signal damage_taken(value: int)
 signal death(piece: Piece)
 
-@onready var health_display: Control = $health_display
-@onready var hurtbar: ProgressBar = $health_display/hurtbar
-@onready var healthbar: ProgressBar = $health_display/healthbar
-@onready var shield_effect: ColorRect = $health_display/shield_effect
-@onready var timer: Timer = $health_display/Timer
+@onready var health_display: Control = $HealthDisplay
+@onready var hurtbar: ProgressBar = $HealthDisplay/hurtbar
+@onready var healthbar: ProgressBar = $HealthDisplay/healthbar
+@onready var timer: Timer = $HealthDisplay/Timer
+@onready var lbl_health: Label = $HealthDisplay/lbl_health
+@onready var shield_effect: ColorRect = $HealthDisplay/shield_effect
+@onready var shield_icon: TextureRect = $HealthDisplay/shield_icon
+@onready var lbl_shield: Label = $HealthDisplay/shield_icon/lbl_shield
 
 #生命
 @export var DEAFULT_MAX_HEALTH : int = 10
@@ -33,6 +36,7 @@ func _ready() -> void:
 	hurtbar.value = health
 	healthbar.max_value = max_health
 	healthbar.value = health
+	lbl_health.text = "{0} / {1}".format([str(health), str(max_health)])
 
 func _process(delta: float) -> void:
 	#血條動畫
@@ -43,15 +47,27 @@ func _process(delta: float) -> void:
 			healthbar.value = 0
 		else:
 			healthbar.value = health
+		lbl_health.text = "{0} / {1}".format([str(health), str(max_health)])
 		var tween = create_tween()
 		tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
 		tween.tween_property(hurtbar, "value", healthbar.value, hurtbar_animation_time)
 	#顯示護盾
 	if shield > 0:
-		shield_effect.show()
+		show_shield()
 	else:
-		shield_effect.hide()
-	
+		hide_shield()
+
+func show_shield() -> void:
+	shield_effect.show()
+	shield_icon.show()
+	lbl_shield.show()
+	lbl_shield.text = str(shield)
+
+func hide_shield() -> void:
+	shield_effect.hide()
+	shield_icon.hide()
+	lbl_shield.hide()
+
 #補血
 func heal(heal: int) -> int:
 	var over_heal = health + heal - max_health

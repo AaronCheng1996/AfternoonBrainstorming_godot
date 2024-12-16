@@ -8,12 +8,12 @@ signal mouse_out_attack(piece: Piece)
 signal mouse_in_icon(piece: Piece)
 signal mouse_out_icon(piece: Piece)
 
-@onready var player_effect: Sprite2D = $player_effect
 @onready var txt_value: RichTextLabel = $txt_value
 @onready var control_panel: Control = $ControlPanel
 @onready var move_button: Button = $ControlPanel/btn_move
 @onready var attack_button: Button = $ControlPanel/btn_attack
-@onready var icon: Sprite2D = $Icon
+@onready var player_effect: Sprite2D = $click_box/player_effect
+@onready var icon: Sprite2D = $click_box/Icon
 @export var icon_texture : CompressedTexture2D
 @export var frame : int = 0
 
