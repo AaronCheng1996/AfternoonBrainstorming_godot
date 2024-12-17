@@ -107,11 +107,11 @@ text = ">"
 
 [node name="full_deck_background_1" type="ColorRect" parent="Decks"]
 visible = false
-custom_minimum_size = Vector2(248, 186)
+custom_minimum_size = Vector2(124, 186)
 layout_mode = 0
 offset_left = 197.0
 offset_top = 418.0
-offset_right = 445.0
+offset_right = 321.0
 offset_bottom = 604.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
@@ -133,11 +133,11 @@ text = ">"
 
 [node name="full_deck_background_0" type="ColorRect" parent="Decks"]
 visible = false
-custom_minimum_size = Vector2(248, 186)
+custom_minimum_size = Vector2(124, 186)
 layout_mode = 0
 offset_left = 197.0
 offset_top = 154.0
-offset_right = 445.0
+offset_right = 321.0
 offset_bottom = 340.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 

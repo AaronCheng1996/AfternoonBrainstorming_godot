@@ -16,13 +16,11 @@ func attack(pieces: Array) -> void:
 	if attack_component:
 		pieces = pieces.filter(filter_piece_on_board)
 		#給自己附加護盾
-		health_component.shielded(attack_component.atk)
+		shielded(attack_component.atk, self)
 		#給友方附加護盾
-		var allys = pieces.filter(filter_ally_piece)
-		allys = attack_component.find_nearest_target(location, allys)
+		var allys = attack_component.find_nearest_target(location, piece_owner.on_board.filter(filter_ally_piece))
 		if allys.size() > 0:
 			var random_index = Global.rng.randi_range(0, allys.size() - 1)
 			allys[random_index].shielded(attack_component.atk, self)
-		#敵方
-		var enemys = pieces.filter(filter_opponent_piece)
-		attack_component.attack(enemys)
+		#執行攻擊
+		super.attack(pieces)

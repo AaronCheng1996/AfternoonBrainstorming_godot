@@ -2,11 +2,15 @@ extends Control
 
 @onready var board: ColorRect = $Board
 @onready var tilemap: TileMap = $Board/TileMap
+@onready var pieces_in_hand: Node2D = $Pieces
+@onready var pieces_on_board: Node2D = $Board/Pieces
+
 @onready var p0_end_button: Button = $Board/btn_turn_end_0
 @onready var p1_end_button: Button = $Board/btn_turn_end_1
-@onready var piece_detail: PieceDetail = %PieceDetail
-@onready var pieces: Node2D = $Board/Pieces
+@onready var highlight: ColorRect = $Board/highlight
+
 @onready var score_label: RichTextLabel = $Board/score_label
+@onready var piece_detail: PieceDetail = %PieceDetail
 @onready var message: Label = $Message
 @onready var players: Control = $Players
 
@@ -53,9 +57,10 @@ func _ready() -> void:
 	start_turn(player_list[current_turn])
 
 func _process(delta: float) -> void:
+	#顯示被選取的詳細資料
 	if mouse_on_attack and piece_selected:
 		tilemap.reset(1)
-		tilemap.highlight_tiles(piece_selected.get_target_location(pieces.get_children()))
+		tilemap.highlight_tiles(piece_selected.get_target_location(get_all_pieces()))
 
 #region 流程
 
@@ -67,11 +72,9 @@ func set_player(new_player_list: Array) -> void:
 func start_turn(player: Player) -> void:
 	tilemap.current_turn = player.id
 	#所有場上棋子
-	for index in board_piece_dic:
-		if board_piece_dic[index] is int:
-			continue
+	for piece in pieces_on_board.get_children():
 		#棋子執行回合開始效果
-		board_piece_dic[index].on_turn_start(current_turn, pieces.get_children())
+		piece.on_turn_start(current_turn, pieces_on_board.get_children())
 	#抽牌
 	draw_piece(player)
 	player.add_attack_count(1)
@@ -79,10 +82,7 @@ func start_turn(player: Player) -> void:
 #回合結束
 func end_turn() -> void:
 	#所有場上棋子
-	for index in board_piece_dic:
-		if board_piece_dic[index] is int:
-			continue
-		var piece = board_piece_dic[index]
+	for piece in pieces_on_board.get_children():
 		#計分
 		score += piece.get_score(current_turn)
 		if score < 0:
@@ -93,7 +93,7 @@ func end_turn() -> void:
 			score_color = Global.default_score_color
 		score_label.text = Global.set_font_center(Global.set_font_color(Global.set_font_size(str(abs(score)), score_size), score_color))
 		#棋子執行回合結束效果
-		piece.on_turn_end(current_turn, pieces.get_children())
+		piece.on_turn_end(current_turn, pieces_on_board.get_children())
 	#得分超過 10 則獲勝
 	if abs(score) >= 10:
 		var winner = -1
@@ -110,23 +110,25 @@ func end_turn() -> void:
 			current_turn = 0
 			p0_end_button.disabled = false
 			p1_end_button.disabled = true
+			highlight.position.y -= 560
 		else:
 			current_turn = 1
 			p0_end_button.disabled = true
 			p1_end_button.disabled = false
+			highlight.position.y += 560
 		start_turn(player_list[current_turn])
 
 #抽牌
 func draw_piece(player: Player) -> void:
 	if player.deck.size() == 0: #空牌庫
-		return
+		refresh_deck(player)
 	if player.hand.count(0) <= 0: #手上沒有空間
 		return
 	
 	var piece = player.deck.pop_front()
-	pieces.add_child(piece)
+	pieces_in_hand.add_child(piece)
+	#尋找手牌空格
 	var empty = player.hand.find(0)
-	
 	piece.position = tilemap.map_to_local(Vector2(empty, player.id * 7))
 	piece.location = Vector2(empty, player.id * 7)
 	player.hand[empty] = piece
@@ -141,6 +143,12 @@ func draw_piece(player: Player) -> void:
 		piece.outfit_component.mouse_out_attack.connect(_on_mouse_out_attack)
 	if piece.get_node_or_null("HealthComponent"):
 		piece.health_component.death.connect(_on_piece_death)
+
+#重新洗牌
+func refresh_deck(player: Player) -> void:
+	player.deck.append_array(player.grave)
+	player.grave.clear()
+	Global.shuffle_deck(player.deck)
 
 #勝利
 func win(winner: int) -> void:
@@ -176,7 +184,7 @@ func _on_piece_attack(piece: Piece) -> void:
 		return
 	piece.piece_owner.add_attack_count(-1) #消耗一次攻擊次數
 	#發動攻擊
-	piece.attack(pieces.get_children())
+	piece.attack(pieces_on_board.get_children())
 	#更新場面訊息
 	piece_detail.show_piece_detail(piece)
 
@@ -220,7 +228,9 @@ func _on_mouse_out_attack(piece: Piece) -> void:
 #棋子死亡時，新增棋子至墓地並將其從場上移除
 func _on_piece_death(piece: Piece) -> void:
 	board_piece_dic[str(piece.location)] = 0
-	pieces.remove_child(piece)
+	piece.piece_owner.on_board.pop_at(piece.piece_owner.on_board.find(piece))
+	pieces_on_board.remove_child(piece)
+	piece.renew()
 	piece.piece_owner.grave.append(piece)
 
 #切換回合按鍵
@@ -279,7 +289,10 @@ func move_piece_to_board(piece: Piece, location: Vector2i) -> void:
 	piece.position = tilemap.map_to_local(location)
 	piece.location = location
 	piece.is_on_board = true
-	piece.on_piece_set(pieces.get_children())
+	pieces_in_hand.remove_child(piece)
+	pieces_on_board.add_child(piece)
+	piece.piece_owner.on_board.append(piece)
+	piece.on_piece_set(pieces_on_board.get_children())
 
 #移動手上的棋子順序
 func move_piece_in_hand(piece: Piece, location: Vector2i) -> void:
@@ -319,4 +332,11 @@ func is_on_board(location: Vector2i) -> bool:
 		if location.y >= 2 and location.y <= 5:
 			return true
 	return false
+
+#取得所有棋子
+func get_all_pieces() -> Array:
+	var pieces := []
+	pieces.append_array(pieces_in_hand.get_children())
+	pieces.append_array(pieces_on_board.get_children())
+	return pieces
 #endregion

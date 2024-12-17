@@ -5,6 +5,8 @@ class_name BuffIconList
 @export var columns : int = 6
 
 var buff_font_size : int = 10
+var icon_count_limit : int = 4
+var mini_count_limit : int = 12
 
 func _ready() -> void:
 	buff_icon_list.columns = columns
@@ -12,9 +14,13 @@ func _ready() -> void:
 func show_buffs(buff_list: Array) -> void:
 	for child in buff_icon_list.get_children():
 		buff_icon_list.remove_child(child)
+	var count = 0
 	for buff: Buff in buff_list:
 		if not buff.icon_path.has("default"):
 			continue
+		count += 1
+		if count > icon_count_limit:
+			return
 		var icon = TextureRect.new()
 		icon.texture = load(buff.icon_path.default)
 		buff_icon_list.add_child(icon)
@@ -30,9 +36,13 @@ func show_buffs(buff_list: Array) -> void:
 func show_mini_buffs(buff_list: Array) -> void:
 	for child in buff_icon_list.get_children():
 		buff_icon_list.remove_child(child)
+	var count = 0
 	for buff: Buff in buff_list:
 		if not buff.icon_path.has("mini"):
 			continue
+		count += 1
+		if count > mini_count_limit:
+			return
 		var icon = TextureRect.new()
 		icon.texture = load(buff.icon_path.mini)
 		buff_icon_list.add_child(icon)

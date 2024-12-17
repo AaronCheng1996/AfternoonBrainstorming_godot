@@ -23,11 +23,11 @@ extends Control
 
 var player_list := []
 var current_turn :  = 1
-
+var decks := []
+var deck_show : int = 6
 var select_highlight_offset : Vector2 = Vector2(-5, -5)
 var player_offset : Vector2 = Vector2(52, 64)
 var deck_col : int = 2
-var full_deck_col : int = 4
 var icon_size : Vector2 = Vector2(62, 62)
 var selected_group : PieceGroupButton = null
 
@@ -40,6 +40,8 @@ func _ready() -> void:
 		player_list.append(new_player)
 		players.add_child(new_player)
 		new_player.position = Vector2(0, 560 * i) + player_offset
+	#建立牌組顯示
+	decks = [deck_0, deck_1, full_deck_0, full_deck_1]
 	#建立選牌派別群組
 	set_groups()
 	refresh()
@@ -129,7 +131,7 @@ func _on_start_button_pressed() -> void:
 	Global.rng.seed = Global.seed
 	#洗牌
 	for i in range(2):
-		player_list[i].deck = shuffle_deck(player_list[i].deck)
+		player_list[i].deck = Global.shuffle_deck(player_list[i].deck)
 	#加載並切換到新場景
 	var match_scene = preload("res://scenes/match.tscn").instantiate()
 	match_scene.set_player(player_list)
@@ -155,17 +157,12 @@ func _on_piece_selected(piece: Piece) -> void:
 	#新增至牌組顯示
 	var icon = get_icon(new_piece)
 	var i = player_list[current_turn].deck.size() - 1
-	var icon_tmp = icon.duplicate()
-	icon.position = Vector2( icon_size.x * (i % full_deck_col), icon_size.y * (i / full_deck_col)) + icon_size / 2
-	icon_tmp.position = Vector2( icon_size.x * (i % deck_col), icon_size.y * (i / deck_col)) + icon_size / 2
-	if current_turn == 0:
-		if i < 6:
-			deck_0.add_child(icon_tmp)
-		full_deck_0.add_child(icon)
+	if i < deck_show:
+		icon.position = Vector2( icon_size.x * (i % deck_col), icon_size.y * (i / deck_col)) + icon_size / 2
+		decks[current_turn].add_child(icon)
 	else:
-		if i < 6:
-			deck_1.add_child(icon_tmp)
-		full_deck_1.add_child(icon)
+		icon.position = Vector2( icon_size.x * ((i - deck_show) % deck_col), icon_size.y * ((i - deck_show) / deck_col)) + icon_size / 2
+		decks[current_turn + 2].add_child(icon)
 	refresh()
 
 #取得圖示
@@ -178,17 +175,6 @@ func get_icon(piece: Piece) -> Sprite2D:
 	icon.vframes = temp_piece.outfit_component.icon.vframes
 	icon.frame = temp_piece.outfit_component.icon.frame
 	return icon
-
-#Fisher-Yates洗牌
-func shuffle_deck(deck: Array) -> Array:
-	var shuffled_deck = deck.duplicate()
-	for i in range(shuffled_deck.size() - 1, 0, -1):
-		#使用 rng 生成隨機索引
-		var j = Global.rng.randi_range(0, i)
-		var temp_piece = shuffled_deck[i]
-		shuffled_deck[i] = shuffled_deck[j]
-		shuffled_deck[j] = temp_piece
-	return shuffled_deck
 
 
 func _on_show_all_1_pressed() -> void:

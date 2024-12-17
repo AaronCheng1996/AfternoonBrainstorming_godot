@@ -17,6 +17,19 @@ var piece_owner : Player
 func _ready() -> void:
 	refresh()
 
+func renew() -> void:
+	if buff_component:
+		buff_component.clear_buffs()
+	if health_component:
+		health_component.health = health_component.DEAFULT_MAX_HEALTH
+		health_component.shield = health_component.DEAFULT_SHIELD
+	if attack_component:
+		attack_component.atk = attack_component.DEFAULT_ATK
+	if score_component:
+		score_component.score = score_component.DEAFULT_SCORE
+	is_on_board = false
+	refresh()
+
 #region 觸發時機
 #棋子放置時
 func on_piece_set(pieces: Array) -> void:
@@ -27,7 +40,7 @@ func on_piece_set(pieces: Array) -> void:
 		stun_debuff.duration = 1
 		stun_debuff.icon_path = Global.buff_icon.sleep
 		stun_debuff.tag.append(Global.BuffTag.DEBUFF)
-		buff_component.add_buff(stun_debuff)
+		add_buff(stun_debuff)
 	refresh()
 
 #回合開始時

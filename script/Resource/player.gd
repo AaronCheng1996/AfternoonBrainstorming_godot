@@ -6,6 +6,7 @@ var deck := []
 var deck_piece_type := {}
 var hand := []
 var grave := []
+var on_board := []
 var attack_count : int = 0
 
 @onready var buff_component: BuffComponent = $BuffComponent

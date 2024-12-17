@@ -35,3 +35,5 @@ unique_name_in_owner = true
 
 [node name="BuffComponent" parent="." instance=ExtResource("6_1vp2i")]
 unique_name_in_owner = true
+
+[connection signal="on_hit" from="AttackComponent" to="." method="_on_attack_component_on_hit"]

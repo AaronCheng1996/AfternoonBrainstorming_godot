@@ -55,3 +55,9 @@ func has_buff(name: String) -> bool:
 		if buff.name == name:
 			return true
 	return false
+
+func get_buff(name: String) -> Buff:
+	for buff: Buff in active_buffs:
+		if buff.name == name:
+			return buff
+	return null

@@ -1,7 +1,6 @@
 extends Node2D
 class_name AttackComponent
 
-signal start_attack(piece: Piece)
 signal on_hit(target: Piece)
 signal on_kill(target: Piece)
 
@@ -26,7 +25,6 @@ func hit(target: Piece) -> void:
 
 #發動攻擊
 func attack(pieces: Array) -> void:
-	emit_signal("start_attack", get_parent())
 	if not pieces: #是否為null
 		return
 	if pieces.size() == 0: #是否存在敵方棋子

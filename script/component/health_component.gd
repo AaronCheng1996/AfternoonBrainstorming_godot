@@ -1,9 +1,7 @@
 extends Node2D
 class_name HealthComponent
 
-signal on_heal(value: int)
 signal on_over_heal(value: int)
-signal on_shielded(value: int)
 signal damage_taken(value: int)
 signal death(piece: Piece)
 
@@ -79,12 +77,10 @@ func heal(heal: int) -> int:
 	else:
 		health += heal
 		return 0
-	emit_signal("on_heal", heal)
 
 #獲得護盾
 func shielded(value: int) -> void:
 	shield += value
-	emit_signal("on_shielded", value)
 
 #承受傷害
 func take_damaged(damage: int) -> bool:
@@ -97,7 +93,6 @@ func take_damaged(damage: int) -> bool:
 	else:
 		health -= (damage - shield)
 		shield = 0
-	emit_signal("damage_taken", damage)
 	#若生命降為0，則死亡
 	if health <= 0:
 		health = 0

@@ -81,6 +81,10 @@ var buff_icon = {
 	"bad_luck": {
 		"default": "res://img/UI/buff/bad_luck.png",
 	},
+	"death_door": {
+		"default": "res://img/UI/buff/death_door.png",
+		"mini": "res://img/UI/buff_mini/death_door_mini.png"
+	}
 }
 #顯示
 var default_score_color : Color = Color.WHITE
@@ -106,7 +110,18 @@ func _ready() -> void:
 	var json_object = JSON.new()
 	var parse_err = json_object.parse(open_err.get_as_text())
 	data = json_object.get_data()
-	
+
+#Fisher-Yates洗牌
+func shuffle_deck(deck: Array) -> Array:
+	var shuffled_deck = deck.duplicate()
+	for i in range(shuffled_deck.size() - 1, 0, -1):
+		#使用 rng 生成隨機索引
+		var j = Global.rng.randi_range(0, i)
+		var temp_piece = shuffled_deck[i]
+		shuffled_deck[i] = shuffled_deck[j]
+		shuffled_deck[j] = temp_piece
+	return shuffled_deck
+
 #region 文字特效
 #置中文字
 func set_font_center(text: String) -> String:
