@@ -14,6 +14,8 @@ signal death(piece: Piece)
 @onready var shield_icon: TextureRect = $HealthDisplay/shield_icon
 @onready var lbl_shield: Label = $HealthDisplay/shield_icon/lbl_shield
 
+var always_show : bool = false
+
 #生命
 @export var DEAFULT_MAX_HEALTH : int = 10
 var max_health : int
@@ -26,7 +28,8 @@ var hurtbar_animation_time : float = 0.3
 var healthbar_wait_time : float = 0.5
 
 func _ready() -> void:
-	health_display.hide()
+	if not always_show:
+		health_display.hide()
 	max_health = DEAFULT_MAX_HEALTH
 	health = max_health
 	shield = DEAFULT_SHIELD
@@ -101,7 +104,8 @@ func take_damaged(damage: int) -> bool:
 
 #血條顯示時間長
 func _on_timer_timeout() -> void:
-	health_display.hide()
+	if not always_show:
+		health_display.hide()
 	if health <= 0:
 		#預留動畫位置
 		emit_signal("death", get_parent())

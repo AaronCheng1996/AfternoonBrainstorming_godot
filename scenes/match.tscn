@@ -105,6 +105,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="btn_show_all" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 833.0
+offset_top = 714.0
+offset_right = 977.0
+offset_bottom = 745.0
+text = "顯示全部資訊"
+
 [connection signal="gui_input" from="Board" to="Board/TileMap" method="_on_board_gui_input"]
 [connection signal="pressed" from="Board/btn_turn_end_0" to="." method="_on_btn_turn_end_0_pressed"]
 [connection signal="pressed" from="Board/btn_turn_end_1" to="." method="_on_btn_turn_end_1_pressed"]
+[connection signal="toggled" from="btn_show_all" to="." method="_on_btn_show_all_toggled"]

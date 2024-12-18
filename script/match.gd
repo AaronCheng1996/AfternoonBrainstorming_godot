@@ -13,6 +13,7 @@ extends Control
 @onready var piece_detail: PieceDetail = %PieceDetail
 @onready var message: Label = $Message
 @onready var players: Control = $Players
+@onready var btn_show_all: CheckButton = $btn_show_all
 
 """
 #note1：player0遊戲中顯示為player2，為上方玩家；player1遊戲中顯示為player1，下方玩家。
@@ -32,6 +33,8 @@ var current_turn : int = Global.first_turn
 var score_size : int = 60
 var score_color : Color = Global.default_score_color
 var score : int = 0
+#顯示所有棋子資訊
+var always_show : bool = false
 
 func _ready() -> void:
 	#確認是否有兩位玩家，若無則回到主頁
@@ -240,7 +243,15 @@ func _on_btn_turn_end_1_pressed() -> void:
 func _on_btn_turn_end_0_pressed() -> void:
 	end_turn()
 
-
+#顯示全部資訊
+func _on_btn_show_all_toggled(toggled_on: bool) -> void:
+	always_show = toggled_on
+	for piece: Piece in pieces_on_board.get_children():
+		if piece.health_component:
+			piece.health_component.always_show = toggled_on
+			piece.health_component.health_display.visible = toggled_on
+		if piece.outfit_component:
+			piece.outfit_component.txt_value.visible = toggled_on
 #endregion
 
 #region 選定/移動
@@ -293,6 +304,12 @@ func move_piece_to_board(piece: Piece, location: Vector2i) -> void:
 	pieces_on_board.add_child(piece)
 	piece.piece_owner.on_board.append(piece)
 	piece.on_piece_set(pieces_on_board.get_children())
+	if always_show:
+		if piece.health_component:
+			piece.health_component.always_show = true
+			piece.health_component.health_display.show()
+		if piece.outfit_component:
+			piece.outfit_component.txt_value.show()
 
 #移動手上的棋子順序
 func move_piece_in_hand(piece: Piece, location: Vector2i) -> void:
