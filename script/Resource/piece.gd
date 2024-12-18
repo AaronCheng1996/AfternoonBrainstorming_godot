@@ -17,16 +17,21 @@ var piece_owner : Player
 func _ready() -> void:
 	refresh()
 
+#回歸原廠設定
 func renew() -> void:
 	if buff_component:
 		buff_component.clear_buffs()
 	if health_component:
 		health_component.health = health_component.DEAFULT_MAX_HEALTH
 		health_component.shield = health_component.DEAFULT_SHIELD
+		health_component.always_show = false
+		health_component.health_display.hide()
 	if attack_component:
 		attack_component.atk = attack_component.DEFAULT_ATK
 	if score_component:
 		score_component.score = score_component.DEAFULT_SCORE
+	if outfit_component:
+		outfit_component.txt_value.hide()
 	is_on_board = false
 	refresh()
 
