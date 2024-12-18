@@ -1,8 +1,9 @@
 extends Control
 
-@onready var player = preload("res://scenes/Resource/player.tscn")
-@onready var piece_detail = preload("res://scenes/UI/piece_detail.tscn")
-@onready var piece_group_button = preload("res://scenes/UI/piece_group_button.tscn")
+const PLAYER = preload("res://scenes/Resource/player.tscn")
+const PIECE_DETAIL = preload("res://scenes/UI/piece_detail.tscn")
+const PIECE_GROUP_BUTTON = preload("res://scenes/UI/piece_group_button.tscn")
+const PIECE_ICON = preload("res://scenes/UI/piece_icon.tscn")
 
 @onready var players: Control = $Players
 @onready var pieces: Node2D = $PieceList/Pieces
@@ -35,7 +36,7 @@ var selected_group : PieceGroupButton = null
 func _ready() -> void:
 	#建立玩家資料
 	for i in range(2):
-		var new_player = player.instantiate()
+		var new_player = PLAYER.instantiate()
 		new_player.id = i
 		player_list.append(new_player)
 		players.add_child(new_player)
@@ -46,14 +47,16 @@ func _ready() -> void:
 	set_groups()
 	refresh()
 
+#建立派別分頁資訊
 func set_groups() -> void:
 	var group_all := []
-	
+	#取得各個派別
 	for group in Global.piece_groups:
 		group_all.append_array(Global.piece_groups[group])
 		var group_data = Global.data.piece[group]
-		var new_group_button = piece_group_button.instantiate()
+		var new_group_button = PIECE_GROUP_BUTTON.instantiate()
 		piece_group.add_child(new_group_button)
+		#設定按鈕
 		new_group_button.group = Global.piece_groups[group]
 		new_group_button.label_font_color = Color(group_data.color)
 		new_group_button.set_text(group_data.name.replace("色", ""))
@@ -61,17 +64,25 @@ func set_groups() -> void:
 		if not selected_group:
 			selected_group = new_group_button
 			new_group_button.selected()
-	
-	var all_group_button = piece_group_button.instantiate()
+	#顯示所有派別
+	var all_group_button = PIECE_GROUP_BUTTON.instantiate()
 	piece_group.add_child(all_group_button)
 	all_group_button.group = group_all
 	all_group_button.label_font_color = Color.GRAY
 	all_group_button.set_text("全")
 	all_group_button.group_selected.connect(_on_piece_group_button_group_selected)
-	
+
+#切換派別頁面
+func _on_piece_group_button_group_selected(group: PieceGroupButton) -> void:
+	selected_group.unselected()
+	load_piece_grid(group.group)
+	selected_group = group
+	group.selected()
+
 #刷新畫面資訊
 func refresh() -> void:
 	#選卡順序 先手玩家挑6張 -> 後首玩家挑12張 -> 先手玩家挑6張
+	select_highlight.show()
 	if player_list[1].deck.size() < Global.deck_size / 2:
 		current_turn = 1
 	elif player_list[0].deck.size() < Global.deck_size:
@@ -79,7 +90,7 @@ func refresh() -> void:
 	elif player_list[1].deck.size() < Global.deck_size:
 		current_turn = 1
 	else:
-		select_highlight.visible = false
+		select_highlight.hide()
 		current_turn = -1
 	#當前選牌玩家特效
 	if current_turn == 1:
@@ -97,9 +108,9 @@ func refresh() -> void:
 func load_piece_grid(piece_groups: Array) -> void:
 	#移除先前版面
 	for child in pieces.get_children():
-		pieces.remove_child(child)
+		child.queue_free()
 	for child in piece_grid.get_children():
-		piece_grid.remove_child(child)
+		child.queue_free()
 	#列出每種棋子
 	for piece_group in piece_groups:
 		#建立棋子
@@ -107,7 +118,7 @@ func load_piece_grid(piece_groups: Array) -> void:
 		var new_piece : Piece = piece_scene.instantiate()
 		pieces.add_child(new_piece)
 		#建立棋子資料顯示
-		var new_piece_detail : PieceDetail = piece_detail.instantiate()
+		var new_piece_detail : PieceDetail = PIECE_DETAIL.instantiate()
 		piece_grid.add_child(new_piece_detail)
 		new_piece_detail.show_piece_detail(new_piece)
 		new_piece_detail.piece_selected.connect(_on_piece_selected)
@@ -129,6 +140,7 @@ func _on_start_button_pressed() -> void:
 	Global.rng.randomize()
 	Global.seed = Global.rng.randi_range(0, 999999)
 	Global.rng.seed = Global.seed
+	print(Global.seed)
 	#洗牌
 	for i in range(2):
 		player_list[i].deck = Global.shuffle_deck(player_list[i].deck)
@@ -154,29 +166,49 @@ func _on_piece_selected(piece: Piece) -> void:
 	new_piece.is_on_board = false
 	player_list[current_turn].deck.append(new_piece)
 	player_list[current_turn].deck_piece_type[piece.show_name] += 1
-	#新增至牌組顯示
-	var icon = get_icon(new_piece)
-	var i = player_list[current_turn].deck.size() - 1
-	if i < deck_show:
-		icon.position = Vector2( icon_size.x * (i % deck_col), icon_size.y * (i / deck_col)) + icon_size / 2
-		decks[current_turn].add_child(icon)
-	else:
-		icon.position = Vector2( icon_size.x * ((i - deck_show) % deck_col), icon_size.y * ((i - deck_show) / deck_col)) + icon_size / 2
-		decks[current_turn + 2].add_child(icon)
+	show_deck()
+	
+#顯示牌組
+func show_deck() -> void:
+	#清除原先內容
+	for piece in temp.get_children():
+		piece.queue_free()
+	for deck in decks:
+		for object in deck.get_children():
+			if object.get_class() == "Control":
+				object.queue_free()
+	#建立新牌圖示
+	for player in player_list.size(): #每個玩家
+		for i in player_list[player].deck.size(): #牌庫
+			#產生臨時的棋子實體
+			var temp_piece: Piece = player_list[player].deck[i].duplicate()
+			temp.add_child(temp_piece)
+			#新增至牌組顯示
+			var icon : PieceIcon = PIECE_ICON.instantiate()
+			icon.player_num = player
+			icon.index = i
+			icon.show_name = temp_piece.show_name
+			#根據目前持有人進入哪個牌庫顯示
+			if i < deck_show:
+				icon.position = Vector2( icon_size.x * (i % deck_col), icon_size.y * (i / deck_col))
+				decks[player].add_child(icon)
+			else:
+				icon.position = Vector2( icon_size.x * ((i - deck_show) % deck_col), icon_size.y * ((i - deck_show) / deck_col))
+				decks[player + 2].add_child(icon)
+			icon.icon.texture = temp_piece.outfit_component.icon.texture
+			icon.icon.hframes = temp_piece.outfit_component.icon.hframes
+			icon.icon.vframes = temp_piece.outfit_component.icon.vframes
+			icon.icon.frame = temp_piece.outfit_component.icon.frame
+			icon.remove.connect(on_icon_remove)
 	refresh()
 
-#取得圖示
-func get_icon(piece: Piece) -> Sprite2D:
-	var temp_piece = piece.duplicate()
-	temp.add_child(temp_piece)
-	var icon = Sprite2D.new()
-	icon.texture = temp_piece.outfit_component.icon.texture
-	icon.hframes = temp_piece.outfit_component.icon.hframes
-	icon.vframes = temp_piece.outfit_component.icon.vframes
-	icon.frame = temp_piece.outfit_component.icon.frame
-	return icon
+#移除棋子
+func on_icon_remove(icon: PieceIcon) -> void:
+	player_list[icon.player_num].deck.pop_at(icon.index)
+	player_list[icon.player_num].deck_piece_type[icon.show_name] -= 1
+	show_deck()
 
-
+#展開/縮小牌組
 func _on_show_all_1_pressed() -> void:
 	if full_deck_1.visible:
 		btn_show_all_1.text = ">"
@@ -184,7 +216,6 @@ func _on_show_all_1_pressed() -> void:
 	else:
 		btn_show_all_1.text = "<"
 		full_deck_1.show()
-
 func _on_show_all_0_pressed() -> void:
 	if full_deck_0.visible:
 		btn_show_all_0.text = ">"
@@ -192,9 +223,3 @@ func _on_show_all_0_pressed() -> void:
 	else:
 		btn_show_all_0.text = "<"
 		full_deck_0.show()
-
-func _on_piece_group_button_group_selected(group: PieceGroupButton) -> void:
-	selected_group.unselected()
-	load_piece_grid(group.group)
-	selected_group = group
-	group.selected()

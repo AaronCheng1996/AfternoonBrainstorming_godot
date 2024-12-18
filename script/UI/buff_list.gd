@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func show_buffs(buff_list: Array) -> void:
 	for child in buff_icon_list.get_children():
-		buff_icon_list.remove_child(child)
+		child.queue_free()
 	var count = 0
 	for buff: Buff in buff_list:
 		if not buff.icon_path.has("default"):
@@ -35,7 +35,7 @@ func show_buffs(buff_list: Array) -> void:
 
 func show_mini_buffs(buff_list: Array) -> void:
 	for child in buff_icon_list.get_children():
-		buff_icon_list.remove_child(child)
+		child.queue_free()
 	var count = 0
 	for buff: Buff in buff_list:
 		if not buff.icon_path.has("mini"):
