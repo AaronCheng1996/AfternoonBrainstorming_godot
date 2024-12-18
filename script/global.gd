@@ -88,8 +88,7 @@ var buff_icon = {
 }
 #顯示
 var default_score_color : Color = Color.WHITE
-var p0_score_color : Color = Color.RED
-var p1_score_color : Color = Color.BLUE
+var score_color := [Color.RED, Color.BLUE]
 
 #endregion
 

@@ -77,6 +77,21 @@ mouse_filter = 2
 bbcode_enabled = true
 text = "[font_size=60px][center][color={0}]0[/color][/center][/font_size]"
 
+[node name="score_predict_0" type="RichTextLabel" parent="Board"]
+layout_mode = 0
+offset_left = 372.0
+offset_top = 155.0
+offset_right = 472.0
+offset_bottom = 215.0
+bbcode_enabled = true
+
+[node name="score_predict_1" type="RichTextLabel" parent="Board"]
+offset_left = 552.0
+offset_top = 155.0
+offset_right = 652.0
+offset_bottom = 215.0
+bbcode_enabled = true
+
 [node name="PieceDetail" parent="Board" instance=ExtResource("6_byp26")]
 unique_name_in_owner = true
 visible = false

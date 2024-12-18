@@ -10,6 +10,8 @@ extends Control
 @onready var highlight: ColorRect = $Board/highlight
 
 @onready var score_label: RichTextLabel = $Board/score_label
+@onready var score_predict:= [$Board/score_predict_0, $Board/score_predict_1]
+
 @onready var piece_detail: PieceDetail = %PieceDetail
 @onready var message: Label = $Message
 @onready var players: Control = $Players
@@ -31,6 +33,7 @@ var mouse_on_attack : bool = false
 var current_turn : int = Global.first_turn
 #分數
 var score_size : int = 60
+var score_predict_size : int = 40
 var score_color : Color = Global.default_score_color
 var score : int = 0
 #顯示所有棋子資訊
@@ -64,7 +67,12 @@ func _process(delta: float) -> void:
 	if mouse_on_attack and piece_selected:
 		tilemap.reset(1)
 		tilemap.highlight_tiles(piece_selected.get_target_location(get_all_pieces()))
-
+	
+	for player in player_list.size():
+		var score : int = 0
+		for piece: Piece in player_list[player].on_board:
+			score += piece.get_score(player)
+		score_predict[player].text = Global.set_font_center(Global.set_font_color(Global.set_font_size("(+{0})".format([str(abs(score))]), score_predict_size), Global.score_color[player]))
 #region 流程
 
 #(給deck_build時外部呼叫)設定雙方牌組
@@ -89,9 +97,9 @@ func end_turn() -> void:
 		#計分
 		score += piece.get_score(current_turn)
 		if score < 0:
-			score_color = Global.p0_score_color
+			score_color = Global.score_color[0]
 		elif score > 0:
-			score_color = Global.p1_score_color
+			score_color = Global.score_color[1]
 		else:
 			score_color = Global.default_score_color
 		score_label.text = Global.set_font_center(Global.set_font_color(Global.set_font_size(str(abs(score)), score_size), score_color))
@@ -124,7 +132,7 @@ func end_turn() -> void:
 #抽牌
 func draw_piece(player: Player) -> void:
 	if player.deck.size() == 0: #空牌庫
-		refresh_deck(player)
+		reshuffle(player)
 	if player.hand.count(0) <= 0: #手上沒有空間
 		return
 	
@@ -148,7 +156,7 @@ func draw_piece(player: Player) -> void:
 		piece.health_component.death.connect(_on_piece_death)
 
 #重新洗牌
-func refresh_deck(player: Player) -> void:
+func reshuffle(player: Player) -> void:
 	player.deck.append_array(player.grave)
 	player.grave.clear()
 	Global.shuffle_deck(player.deck)
