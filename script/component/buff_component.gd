@@ -48,16 +48,17 @@ func clear_buffs() -> void:
 	for buff: Buff in active_buffs:
 		buff.remove_buff(get_parent())
 	active_buffs.clear()
+	show_buff()
 
 #是否存在buff
 func has_buff(name: String) -> bool:
 	for buff: Buff in active_buffs:
-		if buff.name == name:
+		if buff.show_name == name:
 			return true
 	return false
 
 func get_buff(name: String) -> Buff:
 	for buff: Buff in active_buffs:
-		if buff.name == name:
+		if buff.show_name == name:
 			return buff
 	return null

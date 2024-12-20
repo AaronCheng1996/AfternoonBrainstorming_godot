@@ -4,36 +4,45 @@ extends Node
 #規則
 var deck_size = 12
 var hand_size = 8
-var type_limit = 2
+var piece_limit = 2
+var hero_limit = 1
+var spell_limit = 3
 var first_turn = 1
-var starter_hand_count : int = 4
+var starter_hand_count : int = 3
 #棋子
-var piece_groups = {
+enum CardType {PIECE, SPELL, TOKEN}
+enum TargetType {NONE, BOARD, PIECE}
+var card_groups = {
 	"white": [
-	"res://scenes/pieces/white/adc.tscn",
-	"res://scenes/pieces/white/ap.tscn",
-	"res://scenes/pieces/white/apt.tscn",
-	"res://scenes/pieces/white/ass.tscn",
-	"res://scenes/pieces/white/hf.tscn",
-	"res://scenes/pieces/white/lf.tscn", 
-	"res://scenes/pieces/white/sp.tscn", 
-	"res://scenes/pieces/white/tank.tscn"
+		"res://scenes/cards/white/adc.tscn",
+		"res://scenes/cards/white/ap.tscn",
+		"res://scenes/cards/white/apt.tscn",
+		"res://scenes/cards/white/ass.tscn",
+		"res://scenes/cards/white/hf.tscn",
+		"res://scenes/cards/white/lf.tscn", 
+		"res://scenes/cards/white/sp.tscn", 
+		"res://scenes/cards/white/tank.tscn"
 	],
 	"red": [
-	"res://scenes/pieces/red/adc.tscn",
-	"res://scenes/pieces/red/ap.tscn",
-	"res://scenes/pieces/red/apt.tscn",
-	"res://scenes/pieces/red/ass.tscn",
-	"res://scenes/pieces/red/hf.tscn",
-	"res://scenes/pieces/red/lf.tscn",
-	"res://scenes/pieces/red/sp.tscn",
-	"res://scenes/pieces/red/tank.tscn",
+		"res://scenes/cards/red/adc.tscn",
+		"res://scenes/cards/red/ap.tscn",
+		"res://scenes/cards/red/apt.tscn",
+		"res://scenes/cards/red/ass.tscn",
+		"res://scenes/cards/red/hf.tscn",
+		"res://scenes/cards/red/lf.tscn",
+		"res://scenes/cards/red/sp.tscn",
+		"res://scenes/cards/red/tank.tscn",
+	],
+	"spell": [
+		"res://scenes/cards/spell/cubes.tscn",
+		"res://scenes/cards/spell/heal.tscn",
+		"res://scenes/cards/spell/move_spell.tscn"
 	]
 }
 #攻擊
 enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST, ALL}
 #buff
-enum BuffTag {DEBUFF, BUFF, RED}
+enum BuffTag {DEBUFF, BUFF, STUN, MOVE, RED}
 var buff_icon = {
 	"stun": {
 		"default": "res://img/UI/buff/stun.png",
@@ -88,7 +97,8 @@ var buff_icon = {
 }
 #顯示
 var default_score_color : Color = Color.WHITE
-var score_color := [Color.RED, Color.BLUE]
+var player_color := [Color.RED, Color.BLUE]
+var player_color_dark := [Color("#3c0004"), Color("#002b4c")]
 
 #endregion
 
@@ -120,6 +130,17 @@ func shuffle_deck(deck: Array) -> Array:
 		shuffled_deck[i] = shuffled_deck[j]
 		shuffled_deck[j] = temp_piece
 	return shuffled_deck
+
+#座標轉換
+func string_to_vector2i(string_value: String) -> Vector2i:
+	var regex = RegEx.new()
+	regex.compile(r"\((\d+), (\d+)\)")
+	var match_string = regex.search(string_value)
+	if match_string:
+		var x = int(match_string.get_string(1))
+		var y = int(match_string.get_string(2))
+		return Vector2i(x, y)
+	return Vector2i.ZERO
 
 #region 文字特效
 #置中文字

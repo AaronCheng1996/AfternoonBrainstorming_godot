@@ -3,7 +3,7 @@ class_name HealthComponent
 
 signal on_over_heal(value: int)
 signal damage_taken(value: int)
-signal death(piece: Piece)
+signal death()
 
 @onready var health_display: Control = $HealthDisplay
 @onready var hurtbar: ProgressBar = $HealthDisplay/hurtbar
@@ -107,5 +107,4 @@ func _on_timer_timeout() -> void:
 	if not always_show:
 		health_display.hide()
 	if health <= 0:
-		#預留動畫位置
-		emit_signal("death", get_parent())
+		emit_signal("death")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/match.gd" id="1_k7rh2"]
 [ext_resource type="PackedScene" uid="uid://brpgbxa0bq0fe" path="res://scenes/component/tilemap_component.tscn" id="2_j5k1m"]
 [ext_resource type="PackedScene" uid="uid://cstmwutw6iead" path="res://scenes/UI/popup_message.tscn" id="4_fxsfu"]
-[ext_resource type="PackedScene" uid="uid://dmcb5d8o0ctte" path="res://scenes/UI/piece_detail.tscn" id="6_byp26"]
+[ext_resource type="PackedScene" uid="uid://dmcb5d8o0ctte" path="res://scenes/UI/card_detail.tscn" id="6_byp26"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qim31"]
 blend_mode = 1
@@ -36,12 +36,20 @@ offset_right = 1024.0
 offset_bottom = 768.0
 color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 
-[node name="highlight" type="ColorRect" parent="Board"]
+[node name="highlight_1" type="ColorRect" parent="Board"]
 layout_mode = 0
 offset_left = 47.0
 offset_top = 619.0
 offset_right = 977.0
 offset_bottom = 709.0
+color = Color(1, 0.784314, 0.384314, 1)
+
+[node name="highlight_0" type="ColorRect" parent="Board"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 59.0
+offset_right = 977.0
+offset_bottom = 149.0
 color = Color(1, 0.784314, 0.384314, 1)
 
 [node name="TileMap" parent="Board" instance=ExtResource("2_j5k1m")]
@@ -86,13 +94,14 @@ offset_bottom = 215.0
 bbcode_enabled = true
 
 [node name="score_predict_1" type="RichTextLabel" parent="Board"]
+layout_mode = 0
 offset_left = 552.0
 offset_top = 155.0
 offset_right = 652.0
 offset_bottom = 215.0
 bbcode_enabled = true
 
-[node name="PieceDetail" parent="Board" instance=ExtResource("6_byp26")]
+[node name="CardDetail" parent="Board" instance=ExtResource("6_byp26")]
 unique_name_in_owner = true
 visible = false
 offset_left = 730.0
@@ -129,6 +138,6 @@ offset_bottom = 745.0
 text = "顯示全部資訊"
 
 [connection signal="gui_input" from="Board" to="Board/TileMap" method="_on_board_gui_input"]
-[connection signal="pressed" from="Board/btn_turn_end_0" to="." method="_on_btn_turn_end_0_pressed"]
-[connection signal="pressed" from="Board/btn_turn_end_1" to="." method="_on_btn_turn_end_1_pressed"]
+[connection signal="pressed" from="Board/btn_turn_end_0" to="." method="_on_btn_turn_end_pressed"]
+[connection signal="pressed" from="Board/btn_turn_end_1" to="." method="_on_btn_turn_end_pressed"]
 [connection signal="toggled" from="btn_show_all" to="." method="_on_btn_show_all_toggled"]

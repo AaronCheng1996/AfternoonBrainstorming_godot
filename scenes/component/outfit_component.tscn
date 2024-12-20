@@ -28,6 +28,7 @@ offset_bottom = 36.0
 mouse_filter = 1
 
 [node name="player_effect" type="Sprite2D" parent="click_box"]
+visible = false
 position = Vector2(36, 36)
 texture = ExtResource("2_wa7xd")
 metadata/_edit_use_anchors_ = true
@@ -52,9 +53,11 @@ offset_right = 75.0
 offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="btn_move" type="Button" parent="ControlPanel"]
+visible = false
 z_index = 150
 layout_mode = 1
 anchors_preset = -1
@@ -69,6 +72,7 @@ text = "移動"
 metadata/_edit_use_anchors_ = true
 
 [node name="btn_attack" type="Button" parent="ControlPanel"]
+visible = false
 z_index = 150
 layout_mode = 1
 anchors_preset = -1
@@ -81,6 +85,15 @@ offset_bottom = 31.0
 text = "攻擊"
 metadata/_edit_use_anchors_ = true
 
+[node name="btn_cast" type="Button" parent="ControlPanel"]
+visible = false
+layout_mode = 0
+offset_left = -55.0
+offset_top = -25.0
+offset_right = -15.0
+offset_bottom = 6.0
+text = "施放"
+
 [connection signal="gui_input" from="click_box" to="." method="_on_icon_gui_input"]
 [connection signal="mouse_entered" from="click_box" to="." method="_on_icon_mouse_entered"]
 [connection signal="mouse_exited" from="click_box" to="." method="_on_icon_mouse_exited"]
@@ -89,3 +102,4 @@ metadata/_edit_use_anchors_ = true
 [connection signal="mouse_entered" from="ControlPanel/btn_attack" to="." method="_on_btn_attack_mouse_entered"]
 [connection signal="mouse_exited" from="ControlPanel/btn_attack" to="." method="_on_btn_attack_mouse_exited"]
 [connection signal="pressed" from="ControlPanel/btn_attack" to="." method="_on_btn_attack_pressed"]
+[connection signal="pressed" from="ControlPanel/btn_cast" to="." method="_on_btn_cast_pressed"]

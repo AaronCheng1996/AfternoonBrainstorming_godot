@@ -1,5 +1,5 @@
 {
-	"piece": {
+	"card": {
 		"default_name" : {
 			"adc": "射手",
 			"ap": "法師",
@@ -9,11 +9,11 @@
 			"lf": "戰士",
 			"sp": "鑽石",
 			"tank": "坦克",
-			"king": "國王"
+			"hero": "英雄"
 		},
 		"white": {
 			"name" : "白色",
-			"color": "white",
+			"color": "WHITE",
 			"adc": "",
 			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]",
 			"apt": "[b]攻擊後[/b]：為自己及最近友方\n附加 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color] ([img]res://img/UI/sword.png[/img])",
@@ -26,7 +26,7 @@
 		},
 		"red": {
 			"name" : "紅色",
-			"color": "red",
+			"color": "RED",
 			"adc": "[b]造成傷害[/b]：增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]",
 			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n並偷取敵方 {0}% [img]res://img/UI/sword.png[/img][color='orange']攻擊力[/color]",
 			"apt": "[b]攻擊後[/b]：為自己及最近友方\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n以及 {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']最大生命[/color]",
@@ -36,6 +36,34 @@
 			"sp": "紅色友方獲得增益時\n此單位獲得相同增益",
 			"tank": "[b]承受傷害[/b]：\n為最近隊友附加 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
 			"hero": ""
+		},
+		"spell": {
+			"name": "魔法",
+			"color": "REBECCA_PURPLE",
+			"spell_name": {
+				"cubes" : "方塊製造",
+				"cube" : "召喚方塊",
+				"heal" : "治療",
+				"move" : "移動",
+			},
+			"spell_description": {
+				"cubes" : "在你手中放入 {0} 個[color='orange']\n消逝[/color]的[color='orange']召喚方塊[/color]",
+				"cube" : "在場上召喚一個\n{0}/{1} 的[color='orange']方塊[/color]",
+				"heal" : "為一個棋子\n[color='orange']回復[/color] {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']生命[/color]",
+				"move" : "賦予一個棋子[img]res://img/UI/buff/move.png[/img][color='orange']移動[/color]",
+			}
+		},
+		"token": {
+			"name" : "召喚物",
+			"color": "WHITE",
+			"token_name": {
+				"cube": "方塊",
+				"lucky_box": "幸運箱",
+			},
+			"token_description": {
+				"cube": "",
+				"lucky_box": "裡面到底裝著什麼呢？",
+			}
 		},
 	},
 	"buff": {
@@ -86,7 +114,9 @@
 	},
 	"message": {
 		"deck_full": "牌庫已滿", 
-		"piece_limit": "該牌數量已達上限",
-		"no_attack": "沒有攻擊次數"
+		"card_limit": "該牌數量已達上限",
+		"no_attack": "沒有攻擊次數",
+		"invalid_cast": "無效的施法目標",
+		"invalid_move": "不能移動到該位置",
 	}
 }

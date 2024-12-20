@@ -31,6 +31,7 @@ offset_left = -2.0
 offset_top = -2.0
 offset_right = 72.0
 offset_bottom = 8.0
+mouse_filter = 2
 color = Color(0.584314, 0.415686, 0.235294, 1)
 
 [node name="hurtbar" type="ProgressBar" parent="HealthDisplay"]
@@ -40,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_4cavw")
 theme_override_styles/fill = SubResource("StyleBoxFlat_0aix1")
 value = 70.0
@@ -52,6 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_x3425")
 value = 40.0
 show_percentage = false
@@ -77,6 +80,7 @@ offset_left = -15.0
 offset_top = -7.0
 offset_right = 5.0
 offset_bottom = 13.0
+mouse_filter = 2
 texture = ExtResource("2_m7elk")
 
 [node name="lbl_shield" type="Label" parent="HealthDisplay/shield_icon"]

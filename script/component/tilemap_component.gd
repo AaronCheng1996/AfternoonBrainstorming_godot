@@ -4,8 +4,8 @@ signal tile_selected(tile)
 var gird_size = 4
 var hand_size = 8
 var dic = {}
-var piece_select : Piece = null
-var current_turn : int = -1
+var card_select : Card = null
+var current_player : int = -1
 
 
 func _ready() -> void:
@@ -21,24 +21,31 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	reset(2)
-	if piece_select: #有選定棋子，顯示可動目標
-		set_cell(2, piece_select.location, 2, Vector2i(0, 0), 0)
+	if card_select: #有選定棋子，顯示可動目標
+		set_cell(2, card_select.location, 2, Vector2i(0, 0), 0)
 		var tile = local_to_map(get_local_mouse_position())
-		if tile == piece_select.location: #排除自己
+		if tile == card_select.location: #排除自己
 			return
-		if piece_select.piece_owner.id != current_turn: #排除對方棋子
+		if card_select.card_owner == null: #排除無主
 			return
-		if piece_select.outfit_component: #排除在場上且不能移動時
-			if piece_select.outfit_component.move_button.disabled and is_on_board(piece_select.location):
+		if card_select.card_owner.id != current_player: #排除對方棋子
+			return
+		if card_select.has_node("OutfitComponent"): #排除在場上且不能移動時
+			if card_select.outfit_component.move_button.disabled and is_on_board(card_select.location):
 				return
 		#顯示可動目標
-		if dic.has(str(tile)) and (tile.y == piece_select.piece_owner.id * 7 or (tile.y != 0 and tile.y != 7)):
+		if dic.has(str(tile)) and (tile.y == card_select.card_owner.id * 7 or (tile.y != 0 and tile.y != 7)):
 			set_cell(2, tile, 2, Vector2i(0, 0), 0)
 
 #顯示攻擊對象
-func highlight_tiles(targets: Array) -> void:
+func highlight_attack_tiles(targets: Array) -> void:
 	for target in targets:
 		set_cell(1, target, 2, Vector2i(2, 0), 0)
+
+#顯示可使用對象
+func highlight_valid_tiles(targets: Array) -> void:
+	for target in targets:
+		set_cell(1, target, 2, Vector2i(1, 0), 0)
 
 #清除特定圖層
 func reset(layer: int) -> void:

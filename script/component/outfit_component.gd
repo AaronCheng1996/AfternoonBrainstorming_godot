@@ -1,17 +1,20 @@
 extends Node2D
 class_name OutfitComponent
 
-signal piece_selected(piece: Piece)
+signal card_selected(card: Card)
 signal piece_attack(piece: Piece)
+signal piece_move_pressed(piece: Piece)
 signal mouse_in_attack(piece: Piece)
 signal mouse_out_attack(piece: Piece)
-signal mouse_in_icon(piece: Piece)
-signal mouse_out_icon(piece: Piece)
+signal mouse_in_icon(card: Card)
+signal mouse_out_icon(card: Card)
+signal spell_cast(spell: Spell)
 
 @onready var txt_value: RichTextLabel = $txt_value
 @onready var control_panel: Control = $ControlPanel
 @onready var move_button: Button = $ControlPanel/btn_move
 @onready var attack_button: Button = $ControlPanel/btn_attack
+@onready var cast_button: Button = $ControlPanel/btn_cast
 @onready var player_effect: Sprite2D = $click_box/player_effect
 @onready var icon: Sprite2D = $click_box/Icon
 @export var icon_texture : CompressedTexture2D
@@ -20,6 +23,12 @@ signal mouse_out_icon(piece: Piece)
 var txt_size = 14
 
 func _ready() -> void:
+	var card: Card = get_parent()
+	if card.card_type == Global.CardType.PIECE:
+		attack_button.show()
+	elif card.card_type == Global.CardType.SPELL:
+		if card.target_type == Global.TargetType.NONE:
+			cast_button.show()
 	#非選定狀態時隱藏
 	if control_panel:
 		control_panel.hide()
@@ -28,7 +37,7 @@ func _ready() -> void:
 		icon.texture = icon_texture
 		icon.frame = frame
 	#按鈕
-	disable_move()
+	hide_move()
 
 #套用玩家特效
 func set_player_effect(player: int) -> void:
@@ -39,31 +48,25 @@ func set_player_effect(player: int) -> void:
 
 #開啟選取特效
 func show_control_panel() -> void:
-	if control_panel:
-		control_panel.show()
+	control_panel.show()
 #關閉選取特效
 func hide_control_panel() -> void:
-	if control_panel:
-		control_panel.hide()
+	control_panel.hide()
 #無效攻擊
 func enable_attack() -> void:
-	if attack_button:
-		attack_button.disabled = false
+	attack_button.disabled = false
 func disable_attack() -> void:
-	if attack_button:
-		attack_button.disabled = true
+	attack_button.disabled = true
 #無效移動
-func enable_move() -> void:
-	if move_button:
-		move_button.disabled = false
-func disable_move() -> void:
-	if move_button:
-		move_button.disabled = true
+func show_move() -> void:
+	move_button.show()
+func hide_move() -> void:
+	move_button.hide()
 
 #圖示互動
 func _on_icon_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mouse_left"):
-		emit_signal("piece_selected", get_parent())
+		emit_signal("card_selected", get_parent())
 
 func _on_icon_mouse_entered() -> void:
 	emit_signal("mouse_in_icon", get_parent())
@@ -83,7 +86,13 @@ func _on_btn_attack_mouse_exited() -> void:
 
 #移動鍵互動
 func _on_btn_move_pressed() -> void:
-	pass
+	emit_signal("piece_move_pressed", get_parent())
+
+#施放鍵互動
+func _on_btn_cast_pressed() -> void:
+	emit_signal("spell_cast", get_parent())
+
+
 
 func refresh_value(atk: int, default: int) -> void:
 	var text = str(atk)

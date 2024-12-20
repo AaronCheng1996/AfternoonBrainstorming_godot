@@ -23,6 +23,22 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.258824, 0.258824, 0.258824, 1)
 
+[node name="highlight_1" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 619.0
+offset_right = 197.0
+offset_bottom = 709.0
+color = Color(1, 0.784314, 0.384314, 1)
+
+[node name="highlight_0" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 59.0
+offset_right = 197.0
+offset_bottom = 149.0
+color = Color(1, 0.784314, 0.384314, 1)
+
 [node name="btn_start" type="Button" parent="."]
 layout_mode = 0
 offset_left = 784.0
@@ -32,7 +48,7 @@ offset_bottom = 752.0
 disabled = true
 text = "Start"
 
-[node name="PieceList" type="Control" parent="."]
+[node name="CardList" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 230.0
 offset_top = 30.0
@@ -40,11 +56,11 @@ offset_right = 1006.0
 offset_bottom = 690.0
 mouse_filter = 2
 
-[node name="Pieces" type="Node2D" parent="PieceList"]
+[node name="Cards" type="Node2D" parent="CardList"]
 visible = false
 position = Vector2(-210, -30)
 
-[node name="background" type="ColorRect" parent="PieceList"]
+[node name="background" type="ColorRect" parent="CardList"]
 custom_minimum_size = Vector2(776, 630)
 layout_mode = 2
 anchor_right = 1.0
@@ -53,7 +69,7 @@ offset_bottom = -30.0
 mouse_filter = 2
 color = Color(0.187176, 0.187176, 0.187176, 1)
 
-[node name="scroll_container" type="ScrollContainer" parent="PieceList/background"]
+[node name="scroll_container" type="ScrollContainer" parent="CardList/background"]
 custom_minimum_size = Vector2(756, 610)
 layout_mode = 0
 offset_left = 10.0
@@ -61,13 +77,13 @@ offset_top = 10.0
 offset_right = 766.0
 offset_bottom = 620.0
 
-[node name="piece_grid" type="GridContainer" parent="PieceList/background/scroll_container"]
+[node name="card_grid" type="GridContainer" parent="CardList/background/scroll_container"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 3
 
-[node name="piece_group" type="GridContainer" parent="PieceList"]
+[node name="card_group" type="GridContainer" parent="CardList"]
 layout_mode = 0
 offset_top = 630.0
 offset_right = 540.0
@@ -118,9 +134,9 @@ color = Color(0.188235, 0.188235, 0.188235, 1)
 [node name="deck_background_0" type="ColorRect" parent="Decks"]
 layout_mode = 0
 offset_left = 52.0
-offset_top = 154.0
+offset_top = 164.0
 offset_right = 192.0
-offset_bottom = 340.0
+offset_bottom = 350.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
 [node name="btn_show_all_0" type="Button" parent="Decks/deck_background_0"]

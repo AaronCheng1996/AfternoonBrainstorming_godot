@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/Resource/player.gd" id="1_s4m5d"]
 [ext_resource type="PackedScene" uid="uid://d2lqpgvgq4oh3" path="res://scenes/component/buff_component.tscn" id="2_ji1by"]
 [ext_resource type="Texture2D" uid="uid://dlt2ub7m3rl5x" path="res://img/UI/sword.png" id="2_mld60"]
-[ext_resource type="PackedScene" uid="uid://dro1g6xf0nis0" path="res://scenes/UI/piece_state.tscn" id="2_q2jmb"]
+[ext_resource type="PackedScene" uid="uid://dro1g6xf0nis0" path="res://scenes/UI/state_display.tscn" id="2_q2jmb"]
 [ext_resource type="Texture2D" uid="uid://t0sn6y02x83f" path="res://img/UI/deck.png" id="4_qyy7l"]
 [ext_resource type="Texture2D" uid="uid://cj2b7g1eydp0a" path="res://img/UI/grave.png" id="5_r6b6x"]
 
