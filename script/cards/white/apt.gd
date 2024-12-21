@@ -12,14 +12,15 @@ func refresh() -> void:
 		description = Global.data.card.white.apt.format([text])
 
 #攻擊時為最近友方附加兩點護盾
-func attack(board: Dictionary) -> void:
+func attack() -> void:
 	if has_node("AttackComponent"):
+		super.attack()
 		#給自己附加護盾
 		shielded(attack_component.atk, self)
 		#給友方附加護盾
 		var allys = attack_component.find_nearest_target(location, card_owner.on_board.filter(filter_ally_piece))
+		allys = allys.filter(func(element: Piece): return !element.is_dead)
 		if allys.size() > 0:
 			var random_index = Global.rng.randi_range(0, allys.size() - 1)
 			allys[random_index].shielded(attack_component.atk, self)
-		#執行攻擊
-		super.attack(board)
+		

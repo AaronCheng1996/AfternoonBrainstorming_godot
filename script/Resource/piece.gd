@@ -10,6 +10,7 @@ var card_type : Global.CardType = Global.CardType.PIECE
 @export var outfit_component : OutfitComponent
 @export var score_component : ScoreComponent
 @export var buff_component : BuffComponent
+var is_dead: bool = false
 
 func _ready() -> void:
 	if has_node("HealthComponent"):
@@ -33,34 +34,33 @@ func renew() -> void:
 		outfit_component.txt_value.hide()
 		outfit_component.player_effect.hide()
 	is_on_board = false
+	is_dead = false
 	refresh()
 
 #region 觸發時機
 #棋子放置時
-func on_piece_set(board: Dictionary) -> void:
+func on_piece_set() -> void:
 	if has_node("BuffComponent"):
-		var stun_debuff = Stun.new()
+		var stun_debuff = Global.get_stun_debuff()
 		stun_debuff.show_name = Global.data.buff.sleep.name
 		stun_debuff.description = Global.data.buff.sleep.description
-		stun_debuff.duration = 1
 		stun_debuff.icon_path = Global.buff_icon.sleep
-		stun_debuff.tag.append_array([Global.BuffTag.DEBUFF, Global.BuffTag.STUN])
 		add_buff(stun_debuff)
 	refresh()
 
 #回合開始時
-func on_turn_start(current_turn: int, board: Dictionary) -> void:
+func on_turn_start(current_turn: int) -> void:
 	pass
 
 #回合結束時
-func on_turn_end(current_turn: int, board: Dictionary) -> void:
+func on_turn_end(current_turn: int) -> void:
 	if not card_owner == null:
 		if current_turn != card_owner.id:
 			return
 	tick()
 
 #移動後
-func after_move(board: Dictionary) -> void:
+func after_move() -> void:
 	pass
 
 #計算分數
@@ -88,29 +88,28 @@ func hide_select_effect() -> void:
 	if has_node("OutfitComponent"):
 		outfit_component.hide_control_panel()
 #攻擊
-func attack(board: Dictionary) -> void:
+func attack() -> void:
 	if has_node("AttackComponent"):
 		var targets = []
-		for slot in board.values():
+		for slot in Global.board_dic.values():
 			if slot is not int:
 				targets.append(slot)
-		print(targets)
 		attack_component.attack(targets.filter(filter_opponent_piece))
 #取得攻擊範圍
-func get_target_location(board: Dictionary) -> Array:
+func get_target_location() -> Array:
 	if has_node("AttackComponent"):
 		var targets = []
-		for slot in board.values():
+		for slot in Global.board_dic.values():
 			if slot is not int:
 				targets.append(slot)
 		return attack_component.get_target_location(targets.filter(filter_opponent_piece))
 	else:
 		return []
 #取得移動範圍
-func get_move_location(board: Dictionary) -> Array:
+func get_move_location() -> Array:
 	var result = []
-	for key in board.keys():
-		if board[key] is not int: #該格子有其他棋子
+	for key in Global.board_dic.keys():
+		if Global.board_dic[key] is not int: #該格子有其他棋子
 			continue
 		var board_location: Vector2i = Global.string_to_vector2i(key)
 		if abs(board_location.x - location.x) <= 1 and abs(board_location.y - location.y) <= 1: #九宮格範圍
@@ -129,8 +128,13 @@ func shielded(value: int, applyer) -> void:
 	if has_node("HealthComponent"):
 		health_component.shielded(value)
 		refresh()
+#被鎖定
+func targeted() -> bool:
+	return true
 #承受傷害
 func take_damaged(damage: int, applyer) -> bool:
+	if damage <= 0:
+		return false
 	if has_node("HealthComponent"):
 		#預留：動畫位置
 		var is_killed = health_component.take_damaged(damage)
@@ -178,9 +182,6 @@ func clear_buffs() -> void:
 #endregion
 
 #region 過濾
-#過濾出場上棋子
-func filter_piece_on_board(piece: Piece):
-	return piece.is_on_board
 #過濾出除自己外的友方
 func filter_ally_piece(piece: Piece):
 	if piece.card_owner == null:

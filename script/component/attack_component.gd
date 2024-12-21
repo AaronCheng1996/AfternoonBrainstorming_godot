@@ -16,7 +16,11 @@ func _ready() -> void:
 
 #發動攻擊
 func hit(target: Piece) -> void:
-	if not target:
+	if target == null:
+		return
+	if target.is_dead:
+		return
+	if not target.targeted(): #對方被鎖定時的效果，可能無效此次攻擊
 		return
 	emit_signal("on_hit", target)
 	if atk > 0:
@@ -27,6 +31,7 @@ func hit(target: Piece) -> void:
 func attack(pieces: Array) -> void:
 	if not pieces: #是否為null
 		return
+	pieces = pieces.filter(func(element: Piece): return !element.is_dead)
 	if pieces.size() == 0: #是否存在敵方棋子
 		return
 	var attacker = get_parent()

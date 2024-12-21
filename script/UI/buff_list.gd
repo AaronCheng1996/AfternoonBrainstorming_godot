@@ -3,10 +3,9 @@ class_name BuffIconList
 
 @onready var buff_icon_list: GridContainer = $buff_list
 @export var columns : int = 6
-
-var buff_font_size : int = 10
-var icon_count_limit : int = 4
-var mini_count_limit : int = 12
+@export var buff_font_size : int = 15
+@export var icon_count_limit : int = 4
+@export var mini_count_limit : int = 12
 
 func _ready() -> void:
 	buff_icon_list.columns = columns
@@ -29,6 +28,7 @@ func show_buffs(buff_list: Array) -> void:
 			lbl_value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			lbl_value.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 			lbl_value.size = icon.size
+			lbl_value.position.y = -icon.size.y
 			lbl_value.text = str(buff.value)
 			lbl_value.set("theme_override_font_sizes/font_size", buff_font_size)
 			icon.add_child(lbl_value)

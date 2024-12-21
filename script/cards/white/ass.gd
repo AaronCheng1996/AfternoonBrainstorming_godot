@@ -6,6 +6,6 @@ func _init() -> void:
 	description = Global.data.card.white.ass
 
 #棋子放置時
-func on_piece_set(board: Dictionary) -> void:
+func on_piece_set() -> void:
 	refresh()
 	pass

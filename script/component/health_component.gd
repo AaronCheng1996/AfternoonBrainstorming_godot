@@ -99,6 +99,7 @@ func take_damaged(damage: int) -> bool:
 	#若生命降為0，則死亡
 	if health <= 0:
 		health = 0
+		get_parent().is_dead = true
 		return true
 	return false
 

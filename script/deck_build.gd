@@ -133,7 +133,6 @@ func _on_start_button_pressed() -> void:
 	Global.rng.randomize()
 	Global.seed = Global.rng.randi_range(0, 999999)
 	Global.rng.seed = Global.seed
-	print(Global.seed)
 	#洗牌
 	for i in range(2):
 		player_list[i].deck = Global.shuffle_deck(player_list[i].deck)

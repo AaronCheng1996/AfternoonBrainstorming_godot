@@ -9,12 +9,16 @@ var history_buffs: Array = []
 @onready var buff_list: BuffIconList = $BuffList
 @export var size : Vector2 = Vector2(66, 11)
 @export var always_full_icon : bool = false
+@export var icon_count_limit : int = 4
+@export var mini_count_limit : int = 12
 
 func _ready() -> void:
 	buff_list.size = size
+	buff_list.icon_count_limit = icon_count_limit
+	buff_list.mini_count_limit = mini_count_limit
 
 func show_buff() -> void:
-	if active_buffs.size() < 4 or always_full_icon:
+	if active_buffs.size() < icon_count_limit or always_full_icon:
 		buff_list.show_buffs(active_buffs)
 	else:
 		buff_list.show_mini_buffs(active_buffs)
@@ -37,7 +41,11 @@ func remove_buff(buff: Buff) -> void:
 
 #經過一回合
 func tick() -> void:
-	for buff: Buff in active_buffs:
+	var n : int = active_buffs.size()
+	for i in n:
+		if active_buffs.size() == 0: #計算瀕死後會清空，在此過濾以防bug
+			break
+		var buff: Buff = active_buffs[n - i - 1]
 		buff.tick(get_parent())
 		buff.duration -= 1
 		if buff.duration <= 0:

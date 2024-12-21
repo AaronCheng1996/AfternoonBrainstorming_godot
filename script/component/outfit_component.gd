@@ -57,11 +57,16 @@ func enable_attack() -> void:
 	attack_button.disabled = false
 func disable_attack() -> void:
 	attack_button.disabled = true
-#無效移動
+#顯示移動
 func show_move() -> void:
 	move_button.show()
 func hide_move() -> void:
 	move_button.hide()
+#無效攻擊
+func enable_move() -> void:
+	move_button.disabled = false
+func disable_move() -> void:
+	move_button.disabled = true
 
 #圖示互動
 func _on_icon_gui_input(event: InputEvent) -> void:

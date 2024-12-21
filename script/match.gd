@@ -20,9 +20,6 @@ extends Control
 """
 
 var player_list := []
-#場面
-var gird_size : int = 4
-var board_dic := {}
 #選定的棋子
 var card_selected : Card = null
 var mouse_on_attack : bool = false
@@ -47,6 +44,7 @@ func _ready() -> void:
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
 	setup_player() #設定玩家資訊
 	draw_starter_hand() #抽起手牌
+	create_board_dic()
 	start_turn(player_list[current_player]) #開始回合
 
 #時刻執行
@@ -97,10 +95,12 @@ func draw_starter_hand() -> void:
 			player.draw_card()
 	#後手額外一張
 	player_list[(current_player + 1) % 2].draw_card()
-	#生成棋盤陣列
-	for x in gird_size:
-		for y in gird_size:
-			board_dic[str(Vector2i(x + 2, y + 2))] = 0
+	
+#生成棋盤陣列
+func create_board_dic() -> void:
+	for x in Global.gird_size:
+		for y in Global.gird_size:
+			Global.board_dic[str(Vector2i(x + 2, y + 2))] = 0
 	tilemap.tile_selected.connect(_on_tile_clicked)
 
 #顯示被選取的詳細資料
@@ -115,12 +115,12 @@ func tilemap_display() -> void:
 	tilemap.reset(1)
 	if card_selected:
 		if move_mode_on: #移動模式
-			tilemap.highlight_valid_tiles(card_selected.get_move_location(board_dic))
+			tilemap.highlight_valid_tiles(card_selected.get_move_location())
 		if mouse_on_attack: #滑鼠在攻擊上
-			tilemap.highlight_attack_tiles(card_selected.get_target_location(board_dic))
+			tilemap.highlight_attack_tiles(card_selected.get_target_location())
 		if card_selected.card_type == Global.CardType.SPELL: #選定魔法牌
 			if card_selected.card_owner.id == current_player:
-				tilemap.highlight_valid_tiles(card_selected.get_valid_location(board_dic))
+				tilemap.highlight_valid_tiles(card_selected.get_valid_location())
 
 #得分預測處理
 func score_display() -> void:
@@ -180,7 +180,7 @@ func piece_turn_start_effect() -> void:
 	for piece in temp_pieces:
 		if not piece: #有些棋子執行期間可能死亡
 			continue
-		piece.on_turn_start(current_player, board_dic)
+		piece.on_turn_start(current_player)
 
 #執行棋子回合結束效果
 func piece_turn_end_effect() -> void:
@@ -189,12 +189,12 @@ func piece_turn_end_effect() -> void:
 		if not piece: #有些棋子執行期間可能死亡
 			continue
 		#棋子執行回合結束效果
-		piece.on_turn_end(current_player, board_dic)
+		piece.on_turn_end(current_player)
 
 #處理手上棋子消逝
 func deal_card_expire() -> void:
 	var n : int = player_list[current_player].hand.size()
-	for i in range(n):
+	for i in n:
 		var card = player_list[current_player].hand[n - 1 - i]
 		if not card.card_type == Global.CardType.SPELL:
 			continue
@@ -246,7 +246,7 @@ func _on_card_selected(card: Card) -> void:
 			if not is_on_board(card.location): #選擇另一張手牌
 				select_piece(card)
 				return
-			if not card_selected.cast(board_dic, card.location): #施放
+			if not card_selected.cast(card.location): #施放
 				message.pop_message(Global.data.message.invalid_cast) #施放失敗
 			select_piece(null)
 			return
@@ -260,7 +260,7 @@ func _on_tile_clicked(location: Vector2i) -> void:
 	if card_selected.location == location: #原地
 		return
 	if card_selected.card_type == Global.CardType.SPELL: #魔法牌
-		if not card_selected.cast(board_dic, location):
+		if not card_selected.cast(location):
 			message.pop_message(Global.data.message.invalid_cast) #施放失敗
 		return
 	if not is_on_board(card_selected.location): #從手上
@@ -280,15 +280,15 @@ func _on_piece_attack(piece: Piece) -> void:
 		return
 	piece.card_owner.add_attack_count(-1) #消耗一次攻擊次數
 	#發動攻擊
-	piece.attack(board_dic)
+	piece.attack()
 
 #棋子自動攻擊
 func _on_piece_auto_attack(piece: Piece) -> void:
-	piece.attack(board_dic)
+	piece.attack()
 
 #施放魔法 (僅限無目標)
 func _on_spell_cast(card: Card) -> void:
-	if not card.cast(board_dic, Vector2i(0, 0)):
+	if not card.cast(Vector2i(0, 0)):
 		message.pop_message(Global.data.message.invalid_cast)
 
 #棋子按下移動鍵
@@ -316,7 +316,7 @@ func _on_mouse_out_attack(piece: Piece) -> void:
 
 #棋子死亡時將其從場上移除
 func _on_piece_die(piece: Piece) -> void:
-	board_dic[str(piece.location)] = 0
+	Global.board_dic[str(piece.location)] = 0
 	pieces_on_board.remove_child(piece)
 
 #切換回合按鍵
@@ -357,32 +357,34 @@ func select_piece(card: Card) -> void:
 
 #將手上的棋子放置到場上
 func move_piece_to_board(piece: Piece, location: Vector2i) -> void:
+	if not is_on_board(location): #目標位置不在場上
+		return
 	if not piece.card_owner.id == current_player: #不能移動對手的棋子
 		return
-	if board_dic[str(location)] is not int: #該格子已有棋子
+	if Global.board_dic[str(location)] is not int: #該格子已有棋子
 		return
 	#上場
-	board_dic[str(location)] = piece
+	Global.board_dic[str(location)] = piece
 	piece.card_owner.hand.pop_at(piece.location.x)
 	piece.card_owner.on_board.append(piece)
 	#棋子設定
 	pieces_in_hand.remove_child(piece)
 	pieces_on_board.add_child(piece)
-	print(location)
 	piece.position = tilemap.map_to_local(location)
-	print(piece.position)
 	piece.location = location
 	piece.is_on_board = true
-	piece.on_piece_set(board_dic) #觸發上場效果
+	piece.on_piece_set() #觸發上場效果
 	piece_on_board_set(piece) #棋子上場外觀處理
 	show_hand(piece.card_owner) #重新整理手牌
 
 #將衍生物放置到場上
 func add_piece_to_board(piece: Piece, location: Vector2i) -> void:
-	if board_dic[str(location)] is not int: #該格子已有棋子
+	if not is_on_board(location): #目標位置不在場上
+		return
+	if Global.board_dic[str(location)] is not int: #該格子已有棋子
 		return
 	#上場
-	board_dic[str(location)] = piece
+	Global.board_dic[str(location)] = piece
 	pieces_on_board.add_child(piece)
 	#棋子設定
 	piece.position = tilemap.map_to_local(location)
@@ -394,7 +396,7 @@ func add_piece_to_board(piece: Piece, location: Vector2i) -> void:
 		piece.outfit_component.mouse_in_icon.connect(_on_mouse_in_icon)
 		piece.outfit_component.mouse_out_icon.connect(_on_mouse_out_icon)
 		piece.piece_die.connect(_on_piece_die)
-	piece.on_piece_set(board_dic) #觸發上場效果
+	piece.on_piece_set() #觸發上場效果
 	piece_on_board_set(piece) #棋子上場外觀處理
 
 #移動場上棋子
@@ -405,18 +407,18 @@ func move_piece(piece: Piece, location: Vector2i) -> void:
 		return
 	if not piece.card_owner.id == current_player: #不能移動對手的棋子
 		return
-	if not piece.get_move_location(board_dic).has(location): #不在移動範圍內
+	if not piece.get_move_location().has(location): #不在移動範圍內
 		return
 	#移動棋子
-	board_dic[str(piece.location)] = 0
-	board_dic[str(location)] = piece
+	Global.board_dic[str(piece.location)] = 0
+	Global.board_dic[str(location)] = piece
 	piece.position = tilemap.map_to_local(location)
 	piece.location = location
 	#移除移動buff並離開移動模式
 	piece.remove_buff(piece.buff_component.get_buff(Global.data.buff.move.name))
 	move_mode_on = false
 	#觸發移動後效果
-	piece.after_move(board_dic)
+	piece.after_move()
 #endregion
 
 #region 選定/移動工具

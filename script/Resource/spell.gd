@@ -10,7 +10,7 @@ var card_type : Global.CardType = Global.CardType.SPELL
 @export var outfit_component : OutfitComponent
 
 #取得可放置範圍
-func get_valid_location(board: Dictionary) -> Array:
+func get_valid_location() -> Array:
 	return []
 
 #region 動作
@@ -24,15 +24,15 @@ func hide_select_effect() -> void:
 	if has_node("OutfitComponent"):
 		outfit_component.hide_control_panel()
 #施放
-func cast(board: Dictionary, target: Vector2i) -> bool:
-	if not is_valid(board, target):
+func cast(target: Vector2i) -> bool:
+	if not is_valid(target):
 		return false
 	used()
-	effect(board, target)
+	effect(target)
 	return true
 
 #效果
-func effect(board: Dictionary, target: Vector2i) -> void:
+func effect(target: Vector2i) -> void:
 	pass
 
 #施放完
@@ -51,14 +51,14 @@ func expire() -> void:
 
 #region 過濾
 #施放目標是否符合
-func is_valid(board: Dictionary, target: Vector2i) -> bool:
+func is_valid(target: Vector2i) -> bool:
 	match target_type:
 		Global.TargetType.NONE:
 			return true
 		Global.TargetType.BOARD:
-			return board[str(target)] is int
+			return Global.board[str(target)] is int
 		Global.TargetType.PIECE:
-			return board[str(target)] is not int
+			return Global.board[str(target)] is not int
 	return false
 #過濾出場上棋子
 func filter_piece_on_board(piece: Piece):

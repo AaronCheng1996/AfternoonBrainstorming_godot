@@ -10,7 +10,7 @@ func _init() -> void:
 	description = Global.data.card.spell.spell_description.cubes.format([str(value)])
 
 #效果
-func effect(board: Dictionary, target: Vector2i) -> void:
+func effect(target: Vector2i) -> void:
 	for i in range(value):
 		var cube = CUBE.instantiate()
 		cube.card_owner = card_owner

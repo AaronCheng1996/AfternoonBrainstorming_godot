@@ -51,6 +51,7 @@ offset_bottom = 66.0
 icon_texture = ExtResource("5_r6b6x")
 
 [node name="BuffComponent" parent="." instance=ExtResource("2_ji1by")]
-position = Vector2(33, 10)
+position = Vector2(33, 5)
 size = Vector2(120, 19)
 always_full_icon = true
+icon_count_limit = 20

@@ -2,17 +2,17 @@ extends Node
 
 #region 基本參數
 #規則
-var deck_size = 12
-var hand_size = 8
-var piece_limit = 2
-var hero_limit = 1
-var spell_limit = 3
-var first_turn = 1
+var deck_size : int = 12
+const hand_size : int = 8
+var piece_limit : int = 2
+var hero_limit : int = 1
+var spell_limit : int = 3
+var first_turn : int = 1
 var starter_hand_count : int = 3
 #棋子
 enum CardType {PIECE, SPELL, TOKEN}
 enum TargetType {NONE, BOARD, PIECE}
-var card_groups = {
+const card_groups = {
 	"white": [
 		"res://scenes/cards/white/adc.tscn",
 		"res://scenes/cards/white/ap.tscn",
@@ -33,6 +33,16 @@ var card_groups = {
 		"res://scenes/cards/red/sp.tscn",
 		"res://scenes/cards/red/tank.tscn",
 	],
+	"green": [
+		"res://scenes/cards/green/adc.tscn",
+		"res://scenes/cards/green/ap.tscn",
+		 "res://scenes/cards/green/apt.tscn",
+		 "res://scenes/cards/green/ass.tscn",
+		 "res://scenes/cards/green/hf.tscn",
+		 "res://scenes/cards/green/lf.tscn", 
+		"res://scenes/cards/green/sp.tscn", 
+		"res://scenes/cards/green/tank.tscn"
+	],
 	"spell": [
 		"res://scenes/cards/spell/cubes.tscn",
 		"res://scenes/cards/spell/heal.tscn",
@@ -42,8 +52,8 @@ var card_groups = {
 #攻擊
 enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST, ALL}
 #buff
-enum BuffTag {DEBUFF, BUFF, STUN, MOVE, RED}
-var buff_icon = {
+enum BuffTag {DEBUFF, BUFF, STUN, MOVE, RED, GREEN}
+const buff_icon = {
 	"stun": {
 		"default": "res://img/UI/buff/stun.png",
 		"mini": "res://img/UI/buff_mini/stun_mini.png"
@@ -111,6 +121,9 @@ var data := {}
 #玩家資訊
 var player_list := []
 var winner : int = -1
+#棋盤資訊
+var gird_size : int = 4
+var board_dic := {}
 #endregion
 
 #region 通用函式
@@ -131,6 +144,10 @@ func shuffle_deck(deck: Array) -> Array:
 		shuffled_deck[j] = temp_piece
 	return shuffled_deck
 
+#region 場面
+#取得對戰場景節點
+func get_match_scene() -> Node:
+	return get_tree().get_nodes_in_group("board")[0]
 #座標轉換
 func string_to_vector2i(string_value: String) -> Vector2i:
 	var regex = RegEx.new()
@@ -141,7 +158,48 @@ func string_to_vector2i(string_value: String) -> Vector2i:
 		var y = int(match_string.get_string(2))
 		return Vector2i(x, y)
 	return Vector2i.ZERO
+#取得所有棋子
+func get_pieces_on_board() -> Array:
+	var result = []
+	for location in board_dic.keys():
+		if board_dic[location] is not int:
+			result.append(board_dic[location])
+	return result
+#取得空格
+func get_empty_slots() -> Array:
+	var result = []
+	for location in board_dic.keys():
+		if board_dic[location] is int:
+			result.append(string_to_vector2i(location))
+	return result
+#取得隨機空格
+func get_random_empty_slot() -> Vector2i:
+	var empty_slots = get_empty_slots()
+	if empty_slots.size() > 0:
+		var random_index = rng.randi_range(0, empty_slots.size() - 1)
+		return empty_slots[random_index]
+	return Vector2i(0, 0)
+#endregion
 
+#region 通用buff
+func get_stun_debuff() -> Stun:
+	var stun_debuff = Stun.new()
+	stun_debuff.show_name = data.buff.stun.name
+	stun_debuff.description = data.buff.stun.description
+	stun_debuff.tag.append_array([BuffTag.DEBUFF, BuffTag.STUN])
+	stun_debuff.icon_path = buff_icon.stun
+	stun_debuff.duration = 1
+	return stun_debuff
+
+func get_move_buff() -> Move:
+	var move_buff: Move = Move.new()
+	move_buff.show_name = data.buff.move.name
+	move_buff.description = data.buff.move.description
+	move_buff.tag.append_array([BuffTag.BUFF, BuffTag.MOVE])
+	move_buff.icon_path = buff_icon.move
+	move_buff.duration = 1
+	return move_buff
+#endregion
 #region 文字特效
 #置中文字
 func set_font_center(text: String) -> String:

@@ -11,7 +11,7 @@ blend_mode = 1
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o21ag"]
 blend_mode = 1
 
-[node name="Match" type="Control"]
+[node name="Match" type="Control" groups=["board"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
