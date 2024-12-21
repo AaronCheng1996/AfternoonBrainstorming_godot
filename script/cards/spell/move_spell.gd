@@ -14,16 +14,14 @@ func is_valid(target: Vector2i) -> bool:
 #取得可放置範圍
 func get_valid_location() -> Array:
 	var result := []
-	for key in Global.board_dic.keys():
-		if Global.board[key] is int:
+	for piece: Piece in Global.board_pieces:
+		if not piece.has_node("BuffComponent"):
 			continue
-		if not Global.board[key].has_node("BuffComponent"):
+		if piece.buff_component.has_buff(Global.data.buff.move.name): #不疊加
 			continue
-		if Global.board[key].buff_component.has_buff(Global.data.buff.move.name): #不疊加
-			continue
-		result.append(Global.string_to_vector2i(key))
+		result.append(piece.location)
 	return result
 
 #效果
 func effect(target: Vector2i) -> void:
-	Global.board[str(target)].add_buff(Global.get_move_buff())
+	Global.board_dic[str(target)].add_buff(Global.get_move_buff())

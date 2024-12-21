@@ -14,7 +14,7 @@ func attack() -> void:
 	super.attack()
 	for i in kill_count:
 		#隨機打
-		var pieces = Global.get_pieces_on_board().filter(filter_opponent_piece)
+		var pieces = Global.board_pieces.filter(filter_opponent_piece)
 		var targets = attack_component.find_nearest_target(location, pieces)
 		targets = targets.filter(func(element: Piece): return !element.is_dead)
 		if targets.size() > 0:

@@ -86,6 +86,7 @@ func setup_player() -> void:
 		player.get_parent().remove_child(player)
 		players.add_child(player)
 		player.player_draw_card.connect(on_draw_card)
+		player.player_discard_card.connect(_on_discard)
 
 #抽起手牌
 func draw_starter_hand() -> void:
@@ -124,9 +125,9 @@ func tilemap_display() -> void:
 
 #得分預測處理
 func score_display() -> void:
-	for player in player_list.size():
+	for player in range(player_list.size()):
 		var score : int = 0
-		for piece: Piece in player_list[player].on_board:
+		for piece: Piece in Global.board_pieces:
 			score += piece.get_score(player)
 		var color : Color
 		if player == current_player:
@@ -162,7 +163,8 @@ func show_hand(player: Player) -> void:
 	if not card_selected == null:
 		if not is_on_board(card_selected.location):
 			select_piece(null)
-	for i in player.hand.size():
+	for i in range(player.hand.size()):
+		player.hand[i]
 		var location = Vector2(i, player.id * 7)
 		player.hand[i].position = tilemap.map_to_local(location)
 		player.hand[i].location = location
@@ -194,7 +196,7 @@ func piece_turn_end_effect() -> void:
 #處理手上棋子消逝
 func deal_card_expire() -> void:
 	var n : int = player_list[current_player].hand.size()
-	for i in n:
+	for i in range(n):
 		var card = player_list[current_player].hand[n - 1 - i]
 		if not card.card_type == Global.CardType.SPELL:
 			continue
@@ -319,6 +321,10 @@ func _on_piece_die(piece: Piece) -> void:
 	Global.board_dic[str(piece.location)] = 0
 	pieces_on_board.remove_child(piece)
 
+#棋子死亡時將其從場上移除
+func _on_discard(card: Card) -> void:
+	pieces_in_hand.remove_child(card)
+
 #切換回合按鍵
 func _on_btn_turn_end_pressed() -> void:
 	end_turn()
@@ -365,8 +371,8 @@ func move_piece_to_board(piece: Piece, location: Vector2i) -> void:
 		return
 	#上場
 	Global.board_dic[str(location)] = piece
+	Global.board_pieces.append(piece)
 	piece.card_owner.hand.pop_at(piece.location.x)
-	piece.card_owner.on_board.append(piece)
 	#棋子設定
 	pieces_in_hand.remove_child(piece)
 	pieces_on_board.add_child(piece)
@@ -385,6 +391,7 @@ func add_piece_to_board(piece: Piece, location: Vector2i) -> void:
 		return
 	#上場
 	Global.board_dic[str(location)] = piece
+	Global.board_pieces.append(piece)
 	pieces_on_board.add_child(piece)
 	#棋子設定
 	piece.position = tilemap.map_to_local(location)

@@ -181,8 +181,8 @@ func show_deck() -> void:
 			if object.get_class() == "Control":
 				object.queue_free()
 	#建立新牌圖示
-	for player in player_list.size(): #每個玩家
-		for i in player_list[player].deck.size(): #牌庫
+	for player in range(player_list.size()): #每個玩家
+		for i in range(player_list[player].deck.size()): #牌庫
 			#產生臨時的棋子實體
 			var temp_card: Card = player_list[player].deck[i].duplicate()
 			temp.add_child(temp_card)

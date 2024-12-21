@@ -14,13 +14,10 @@ func take_damaged(damage: int, applyer) -> bool:
 		return false
 	var result = super.take_damaged(damage, applyer)
 	#最接近的友方
-	var allys = attack_component.find_nearest_target(location, card_owner.on_board.filter(filter_ally_piece))
+	var shield_buff = red.create_shield_buff(buff_value, card_owner)
+	var allys = attack_component.find_nearest_target(location, Global.board_pieces.filter(filter_ally_piece))
 	allys = allys.filter(func(element: Piece): return !element.is_dead)
 	if allys.size() > 0:
 		var random_index = Global.rng.randi_range(0, allys.size() - 1)
-		allys[random_index].shielded(buff_value, self)
-	
-	#給紅鑽
-	for piece: Piece in red.get_redsp(card_owner):
-		piece.shielded(buff_value, self)
+		allys[random_index].add_buff(shield_buff)
 	return result

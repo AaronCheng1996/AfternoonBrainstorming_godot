@@ -56,9 +56,9 @@ func is_valid(target: Vector2i) -> bool:
 		Global.TargetType.NONE:
 			return true
 		Global.TargetType.BOARD:
-			return Global.board[str(target)] is int
+			return Global.board_dic[str(target)] is int
 		Global.TargetType.PIECE:
-			return Global.board[str(target)] is not int
+			return Global.board_dic[str(target)] is not int
 	return false
 #過濾出場上棋子
 func filter_piece_on_board(piece: Piece):

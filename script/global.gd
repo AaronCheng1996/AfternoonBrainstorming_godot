@@ -21,7 +21,8 @@ const card_groups = {
 		"res://scenes/cards/white/hf.tscn",
 		"res://scenes/cards/white/lf.tscn", 
 		"res://scenes/cards/white/sp.tscn", 
-		"res://scenes/cards/white/tank.tscn"
+		"res://scenes/cards/white/tank.tscn",
+		"res://scenes/cards/white/hero.tscn",
 	],
 	"red": [
 		"res://scenes/cards/red/adc.tscn",
@@ -32,6 +33,7 @@ const card_groups = {
 		"res://scenes/cards/red/lf.tscn",
 		"res://scenes/cards/red/sp.tscn",
 		"res://scenes/cards/red/tank.tscn",
+		"res://scenes/cards/red/hero.tscn",
 	],
 	"green": [
 		"res://scenes/cards/green/adc.tscn",
@@ -124,6 +126,7 @@ var winner : int = -1
 #棋盤資訊
 var gird_size : int = 4
 var board_dic := {}
+var board_pieces := []
 #endregion
 
 #region 通用函式
@@ -158,13 +161,6 @@ func string_to_vector2i(string_value: String) -> Vector2i:
 		var y = int(match_string.get_string(2))
 		return Vector2i(x, y)
 	return Vector2i.ZERO
-#取得所有棋子
-func get_pieces_on_board() -> Array:
-	var result = []
-	for location in board_dic.keys():
-		if board_dic[location] is not int:
-			result.append(board_dic[location])
-	return result
 #取得空格
 func get_empty_slots() -> Array:
 	var result = []

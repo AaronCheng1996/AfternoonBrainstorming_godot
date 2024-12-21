@@ -90,11 +90,7 @@ func hide_select_effect() -> void:
 #攻擊
 func attack() -> void:
 	if has_node("AttackComponent"):
-		var targets = []
-		for slot in Global.board_dic.values():
-			if slot is not int:
-				targets.append(slot)
-		attack_component.attack(targets.filter(filter_opponent_piece))
+		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
 #取得攻擊範圍
 func get_target_location() -> Array:
 	if has_node("AttackComponent"):
@@ -102,7 +98,7 @@ func get_target_location() -> Array:
 		for slot in Global.board_dic.values():
 			if slot is not int:
 				targets.append(slot)
-		return attack_component.get_target_location(targets.filter(filter_opponent_piece))
+		return attack_component.get_target_location(Global.board_pieces.filter(filter_opponent_piece))
 	else:
 		return []
 #取得移動範圍
@@ -146,7 +142,7 @@ func take_damaged(damage: int, applyer) -> bool:
 func die() -> void:
 	#預留：動畫位置
 	renew()
-	card_owner.on_board.pop_at(card_owner.on_board.find(self))
+	Global.board_pieces.erase(self)
 	card_owner.grave.append(self)
 	emit_signal("piece_die", self)
 #更新顯示數值

@@ -2,13 +2,14 @@ extends Control
 class_name Player
 
 signal player_draw_card(player: Player, card: Card)
+signal player_discard_card(card: Card)
 
 var id : int
 var deck := []
 var deck_card_type := {}
 var hand := []
 var grave := []
-var on_board := []
+var buff_history := []
 var attack_count : int = 0
 
 @onready var buff_component : BuffComponent = $BuffComponent
@@ -45,6 +46,8 @@ func draw_card() -> void:
 		return
 	if deck.size() == 0: #空牌庫
 		reshuffle()
+	if deck.size() == 0:
+		return
 	#抽出牌，將其實例化
 	var card = deck.pop_front()
 	hand.append(card)
@@ -56,6 +59,13 @@ func get_card(card: Card) -> void:
 		return
 	hand.append(card)
 	emit_signal("player_draw_card", self, card)
+
+#捨棄手牌
+func discard(card: Card) -> void:
+	hand.erase(card)
+	grave.append(card)
+	emit_signal("player_discard_card", card)
+
 
 #重新洗牌
 func reshuffle() -> void:

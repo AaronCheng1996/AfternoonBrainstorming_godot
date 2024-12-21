@@ -239,8 +239,7 @@ func create_lucky_box(location: Vector2i) -> void:
 	var box = LUCKY_BOX.instantiate()
 	box.card_owner = null
 	Global.get_match_scene().add_piece_to_board(box, location)
-	for piece in Global.board_dic.values():
-		if piece is int:
-			continue
+	#給法坦盾
+	for piece in Global.board_pieces:
 		if piece.show_name == Global.data.card.green.name + Global.data.card.default_name.apt:
 			piece.shielded(piece.buff_value, piece.buff_value)

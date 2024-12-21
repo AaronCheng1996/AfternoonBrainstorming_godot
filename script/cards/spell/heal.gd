@@ -10,11 +10,10 @@ func _init() -> void:
 #取得可放置範圍
 func get_valid_location() -> Array:
 	var result := []
-	for key in Global.board_dic.keys():
-		if Global.board[key] is not int:
-			result.append(Global.string_to_vector2i(key))
+	for piece: Piece in Global.board_pieces:
+		result.append(piece.location)
 	return result
 
 #效果
 func effect(target: Vector2i) -> void:
-	Global.board[str(target)].heal(value, self)
+	Global.board_dic[str(target)].heal(value, self)

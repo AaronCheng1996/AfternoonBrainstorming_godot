@@ -4,7 +4,6 @@ class_name BuffComponent
 signal on_buff_apply(buff: Buff)
 signal on_buff_remove(buff: Buff)
 var active_buffs: Array = []
-var history_buffs: Array = []
 
 @onready var buff_list: BuffIconList = $BuffList
 @export var size : Vector2 = Vector2(66, 11)
@@ -26,7 +25,6 @@ func show_buff() -> void:
 #賦予buff
 func add_buff(buff: Buff) -> void:
 	active_buffs.append(buff)
-	history_buffs.append(buff)
 	buff.apply_buff(get_parent())
 	emit_signal("on_buff_apply", buff)
 	show_buff()
@@ -42,7 +40,7 @@ func remove_buff(buff: Buff) -> void:
 #經過一回合
 func tick() -> void:
 	var n : int = active_buffs.size()
-	for i in n:
+	for i in range(n):
 		if active_buffs.size() == 0: #計算瀕死後會清空，在此過濾以防bug
 			break
 		var buff: Buff = active_buffs[n - i - 1]

@@ -22,7 +22,7 @@
 			"lf": "",
 			"sp": "計分時額外獲得 {0} 分",
 			"tank": "",
-			"hero": "[b]進場時[/b]：場上所有白色友方轉化為其他隨機派別，並保留體質"
+			"hero": "[b]進場時[/b]：將手牌棄置\n轉化牌堆中白色友方\n為同類型其他隨機派別\n然後抽與棄牌數等量的牌"
 		},
 		"red": {
 			"name" : "紅色",
@@ -35,7 +35,7 @@
 			"lf": "[b]造成傷害[/b]：\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n以及 {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']最大生命[/color]",
 			"sp": "紅色友方獲得增益時\n此單位獲得相同增益",
 			"tank": "[b]承受傷害[/b]：\n為最近隊友附加 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
-			"hero": ""
+			"hero": "[b]進場時[/b]：移除所有手牌和友方\n獲得本賽局所有紅色增益\n[b]先攻[/b]、[b]攻擊後[/b]：額外攻擊一名隨機敵方"
 		},
 		"green": {
 			"name" : "綠色",

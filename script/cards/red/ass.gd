@@ -22,7 +22,7 @@ func attack() -> void:
 		return
 	#給友方
 	var attack_buff = red.create_attack_buff(buff_value_sum, card_owner)
-	var allys = attack_component.find_nearest_target(location, card_owner.on_board.filter(filter_ally_piece))
+	var allys = attack_component.find_nearest_target(location, Global.board_pieces.filter(filter_ally_piece))
 	allys = allys.filter(func(element: Piece): return !element.is_dead)
 	if allys.size() > 0:
 		var random_index = Global.rng.randi_range(0, allys.size() - 1)

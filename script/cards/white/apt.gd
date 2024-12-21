@@ -18,7 +18,7 @@ func attack() -> void:
 		#給自己附加護盾
 		shielded(attack_component.atk, self)
 		#給友方附加護盾
-		var allys = attack_component.find_nearest_target(location, card_owner.on_board.filter(filter_ally_piece))
+		var allys = attack_component.find_nearest_target(location, Global.board_pieces.filter(filter_ally_piece))
 		allys = allys.filter(func(element: Piece): return !element.is_dead)
 		if allys.size() > 0:
 			var random_index = Global.rng.randi_range(0, allys.size() - 1)

@@ -15,6 +15,8 @@ func show_buffs(buff_list: Array) -> void:
 		child.queue_free()
 	var count = 0
 	for buff: Buff in buff_list:
+		if buff.icon_path == {}:
+			continue
 		if not buff.icon_path.has("default"):
 			continue
 		count += 1
