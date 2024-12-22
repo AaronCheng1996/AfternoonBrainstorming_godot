@@ -30,8 +30,8 @@ func on_piece_set() -> void:
 	for i in range(n):
 		await card_owner.discard(card_owner.hand[n - 1 - i])
 	#牌堆、墓地
-	loop_cards(card_owner.deck)
 	loop_cards(card_owner.grave)
+	loop_cards(card_owner.deck)
 	for i in range(n):
 		card_owner.draw_card()
 
@@ -58,21 +58,14 @@ func transform(piece: Piece) -> Piece:
 	new_piece.is_on_board = piece.is_on_board
 	new_piece.card_owner = piece.card_owner
 	new_piece.is_dead = piece.is_dead
-	#保留體質
-	var temp_node = piece.attack_component
-	piece.remove_child(temp_node)
-	new_piece.add_child(temp_node)
-	new_piece.attack_component = temp_node
 	#保留攻擊
-	temp_node = piece.health_component
-	piece.remove_child(temp_node)
-	new_piece.add_child(temp_node)
-	new_piece.health_component = temp_node
+	new_piece.attack_component.DEFAULT_ATK = piece.attack_component.DEFAULT_ATK
+	#保留體質
+	new_piece.health_component.DEAFULT_MAX_HEALTH = piece.health_component.DEAFULT_MAX_HEALTH
+	new_piece.health_component.DEAFULT_SHIELD = piece.health_component.DEAFULT_SHIELD
 	#保留得分
-	temp_node = piece.score_component
-	piece.remove_child(temp_node)
-	new_piece.add_child(temp_node)
-	new_piece.score_component = temp_node
+	new_piece.score_component.DEAFULT_SCORE = piece.score_component.DEAFULT_SCORE
+	new_piece.renew()
 	self.remove_child(new_piece)
 
 	return new_piece

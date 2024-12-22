@@ -29,29 +29,35 @@ var shield_value : int = 4
 
 #幸運效果
 func lucky_event(target: Piece) -> void:
+	if target.card_owner == null:
+		return
 	if not luck_is_trigger(target.card_owner):
 		return
 	do_event(target, lucky_events_weight)
-	add_luck_buff(target, 1)
+	add_luck_buff(target.card_owner, 1)
 	print(1)
 
 #厄運效果
 func unlucky_event(target: Piece) -> void:
+	if target.card_owner == null:
+		return
 	if luck_is_trigger(target.card_owner):
 		return
 	do_event(target, unlucky_events_weight)
-	add_luck_buff(target, -1)
+	add_luck_buff(target.card_owner, -1)
 	print(0)
 
 #隨機效果
 func random_event(target: Piece) -> void:
+	if target.card_owner == null:
+		return
 	if luck_is_trigger(target.card_owner):
 		do_event(target, lucky_events_weight)
-		add_luck_buff(target, 1)
+		add_luck_buff(target.card_owner, 1)
 		print(1)
 	else:
 		do_event(target, unlucky_events_weight)
-		add_luck_buff(target, -1)
+		add_luck_buff(target.card_owner, -1)
 		print(0)
 
 #執行事件
@@ -85,8 +91,7 @@ func get_luck_buff() -> Luck:
 	return luck_buff
 
 #增減幸運值
-func add_luck_buff(target: Piece, value: int) -> void:
-	var player = target.card_owner
+func add_luck_buff(player: Player, value: int) -> void:
 	check_luck(player)
 	var buff: Buff = player.buff_component.get_buff(Global.data.buff.luck.name)
 	if buff.has_method("add_value"):
@@ -95,6 +100,8 @@ func add_luck_buff(target: Piece, value: int) -> void:
 
 #檢查對象幸運值
 func check_luck(target: Player) -> int:
+	if target == null:
+		return 0
 	if not target.has_node("BuffComponent"):
 		return 0
 	if not target.buff_component.has_buff(Global.data.buff.luck.name):
@@ -238,8 +245,8 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 func create_lucky_box(location: Vector2i) -> void:
 	var box = LUCKY_BOX.instantiate()
 	box.card_owner = null
-	Global.get_match_scene().add_piece_to_board(box, location)
-	#給法坦盾
-	for piece in Global.board_pieces:
-		if piece.show_name == Global.data.card.green.name + Global.data.card.default_name.apt:
-			piece.shielded(piece.buff_value, piece.buff_value)
+	if Global.get_match_scene().add_piece_to_board(box, location):
+		#給法坦盾
+		for piece in Global.board_pieces:
+			if piece.show_name == Global.data.card.green.name + Global.data.card.default_name.apt:
+				piece.shielded(piece.buff_value, piece.buff_value)

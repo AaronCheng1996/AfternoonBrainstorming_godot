@@ -7,7 +7,6 @@ func _init() -> void:
 
 #棋子放置時
 func on_piece_set() -> void:
-	print("set")
 	#清除手牌
 	card_owner.grave.append_array(card_owner.hand)
 	var n : int = card_owner.hand.size()
@@ -25,9 +24,8 @@ func on_piece_set() -> void:
 
 func attack() -> void:
 	super.attack()
-	var pieces = Global.board_pieces.filter(filter_opponent_piece)
+	var pieces = Global.board_pieces.filter(filter_opponent_piece).filter(func(element: Piece): return !element.is_dead)
 	var targets = attack_component.find_nearest_target(location, pieces)
-	targets = targets.filter(func(element: Piece): return !element.is_dead)
 	if targets.size() > 0:
 		var random_index = Global.rng.randi_range(0, targets.size() - 1)
 		attack_component.hit(targets[random_index])

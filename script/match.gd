@@ -384,11 +384,11 @@ func move_piece_to_board(piece: Piece, location: Vector2i) -> void:
 	show_hand(piece.card_owner) #重新整理手牌
 
 #將衍生物放置到場上
-func add_piece_to_board(piece: Piece, location: Vector2i) -> void:
+func add_piece_to_board(piece: Piece, location: Vector2i) -> bool:
 	if not is_on_board(location): #目標位置不在場上
-		return
+		return false
 	if Global.board_dic[str(location)] is not int: #該格子已有棋子
-		return
+		return false
 	#上場
 	Global.board_dic[str(location)] = piece
 	Global.board_pieces.append(piece)
@@ -405,6 +405,7 @@ func add_piece_to_board(piece: Piece, location: Vector2i) -> void:
 		piece.piece_die.connect(_on_piece_die)
 	piece.on_piece_set() #觸發上場效果
 	piece_on_board_set(piece) #棋子上場外觀處理
+	return true
 
 #移動場上棋子
 func move_piece(piece: Piece, location: Vector2i) -> void:

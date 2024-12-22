@@ -11,6 +11,7 @@ func get_redsp(player: Player) -> Array:
 
 func buff_redsp(buff: Buff, player: Player) -> void:
 	for piece: Piece in get_redsp(player):
+		player.buff_history.append(buff)
 		piece.add_buff(buff)
 
 func create_attack_buff(value: int, player: Player) -> AttackBuff:

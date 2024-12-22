@@ -39,6 +39,9 @@ func _ready() -> void:
 		players.add_child(new_player)
 		new_player.position = Vector2(0, 560 * i) + player_offset
 		highlight[i].color = Global.player_color[i]
+	#初始化牌組
+	Global.board_dic = {}
+	Global.board_pieces = []
 	#建立選牌派別群組
 	set_groups()
 	refresh()

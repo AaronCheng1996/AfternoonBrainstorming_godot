@@ -151,6 +151,10 @@ func shuffle_deck(deck: Array) -> Array:
 #取得對戰場景節點
 func get_match_scene() -> Node:
 	return get_tree().get_nodes_in_group("board")[0]
+#取得對手資訊
+func get_opponent(player: Player) -> Player:
+	var player_list = get_tree().get_nodes_in_group("board")[0].player_list
+	return player_list[(player.id + 1) % 2]
 #座標轉換
 func string_to_vector2i(string_value: String) -> Vector2i:
 	var regex = RegEx.new()

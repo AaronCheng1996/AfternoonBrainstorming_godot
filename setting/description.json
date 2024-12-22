@@ -33,7 +33,7 @@
 			"ass": "[b]先攻[/b]\n[b]斬殺[/b]：為最近友方\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]",
 			"hf": "[b]造成傷害[/b]：失去 {0} [img]res://img/UI/buff/health_debuff.png[/img][color='orange']生命[/color]\n然後增加 {1} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n此效果造成[color='orange']瀕死[/color]而非死亡",
 			"lf": "[b]造成傷害[/b]：\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n以及 {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']最大生命[/color]",
-			"sp": "紅色友方獲得增益時\n此單位獲得相同增益",
+			"sp": "紅色友方給予增益時\n此單位獲得相同增益",
 			"tank": "[b]承受傷害[/b]：\n為最近隊友附加 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
 			"hero": "[b]進場時[/b]：移除所有手牌和友方\n獲得本賽局所有紅色增益\n[b]先攻[/b]、[b]攻擊後[/b]：額外攻擊一名隨機敵方"
 		},

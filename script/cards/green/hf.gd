@@ -13,7 +13,7 @@ func attack() -> void:
 	kill_count = 0
 	super.attack()
 	for i in kill_count:
-		green.add_luck_buff(self, buff_value)
+		green.add_luck_buff(card_owner, buff_value)
 		green.create_lucky_box(Global.get_random_empty_slot())
 
 func _on_attack_component_on_kill(target: Piece) -> void:

@@ -22,7 +22,8 @@ func renew() -> void:
 	if has_node("BuffComponent"):
 		buff_component.clear_buffs()
 	if has_node("HealthComponent"):
-		health_component.health = health_component.DEAFULT_MAX_HEALTH
+		health_component.max_health = health_component.DEAFULT_MAX_HEALTH
+		health_component.health = health_component.max_health
 		health_component.shield = health_component.DEAFULT_SHIELD
 		health_component.always_show = false
 		health_component.health_display.hide()
