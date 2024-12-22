@@ -8,4 +8,5 @@ func _init() -> void:
 
 func die() -> void:
 	#預留：動畫位置
+	Global.board_pieces.erase(self)
 	emit_signal("piece_die", self)

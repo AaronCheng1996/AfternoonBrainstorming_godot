@@ -155,7 +155,6 @@ func on_draw_card(player: Player, card: Card) -> void:
 		card.leave_hand.connect(show_hand)
 	else:
 		card.piece_die.connect(_on_piece_die)
-		card.auto_attack.connect(_on_piece_auto_attack)
 	show_hand(player)
 
 #顯示手牌
@@ -282,10 +281,6 @@ func _on_piece_attack(piece: Piece) -> void:
 		return
 	piece.card_owner.add_attack_count(-1) #消耗一次攻擊次數
 	#發動攻擊
-	piece.attack()
-
-#棋子自動攻擊
-func _on_piece_auto_attack(piece: Piece) -> void:
 	piece.attack()
 
 #施放魔法 (僅限無目標)

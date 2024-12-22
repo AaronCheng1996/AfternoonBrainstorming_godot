@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c83kbyxqmarvi" path="res://scenes/component/score_component.tscn" id="6_yhb1e"]
 [ext_resource type="PackedScene" uid="uid://d2lqpgvgq4oh3" path="res://scenes/component/buff_component.tscn" id="7_mnhhy"]
 
-[node name="RedTank" type="Node2D" node_paths=PackedStringArray("health_component", "attack_component", "outfit_component", "score_component", "buff_component")]
+[node name="GreenTank" type="Node2D" node_paths=PackedStringArray("health_component", "attack_component", "outfit_component", "score_component", "buff_component")]
 script = ExtResource("1_ssht7")
 health_component = NodePath("HealthComponent")
 attack_component = NodePath("AttackComponent")

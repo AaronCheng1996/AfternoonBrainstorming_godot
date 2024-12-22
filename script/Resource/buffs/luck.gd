@@ -11,4 +11,3 @@ func add_value(add: int) -> void:
 		icon_path = Global.buff_icon.bad_luck
 	else:
 		icon_path = Global.buff_icon.luck
-	

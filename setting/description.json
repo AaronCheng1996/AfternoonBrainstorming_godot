@@ -50,6 +50,19 @@
 			"tank": "[b]承受傷害[/b]：\n攻擊者機率觸發[img]res://img/UI/buff/bad_luck.png[/img][color='orange']厄運事件[/color]",
 			"hero": ""
 		},
+		"blue": {
+			"name" : "藍色",
+			"color": "BLUE",
+			"adc": "釋放[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時自動攻擊\n[b]造成傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
+			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n[b]攻擊後[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
+			"apt": "獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]\n[b]攻擊後[/b]：獲得 {1} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color] ([img]res://img/UI/shield.png[/img]/4)",
+			"ass": "[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
+			"hf": "增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color] ([img]res://img/UI/buff/blue_charge.png[/img])",
+			"lf": "[b]造成傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
+			"sp": "[b]進場時[/b]：隨機造成 {0} 點傷害\n重複 {1} 次\n(場上與棄牌堆牌數)",
+			"tank": "[b]承受傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
+			"hero": ""
+		},
 		"spell": {
 			"name": "魔法",
 			"color": "REBECCA_PURPLE",
@@ -122,7 +135,7 @@
 		},
 		"blue_charge": {
 			"name": "藍色充能球",
-			"description": "每累計 3 [img]res://img/UI/buff/blue_charge.png[/img]時\n消耗並抽一張牌"
+			"description": "累計至 3 顆時釋放\n消耗 3 顆並抽一張牌"
 		},
 		"rage": {
 			"name": "狂暴",

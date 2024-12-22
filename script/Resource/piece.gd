@@ -1,7 +1,6 @@
 extends Card
 class_name Piece
 
-signal auto_attack(piece: Piece)
 signal piece_die(piece: Piece)
 
 var card_type : Global.CardType = Global.CardType.PIECE
@@ -92,6 +91,20 @@ func hide_select_effect() -> void:
 func attack() -> void:
 	if has_node("AttackComponent"):
 		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
+#自動攻擊
+func auto_attack() -> void:
+	if not has_node("AttackComponent"):
+		return
+	if not has_node("BuffComponent"):
+		attack()
+		return
+	if buff_component.has_buff(Global.data.buff.sleep.name): #若有睡眠狀態，移除但不攻擊
+		remove_buff(buff_component.get_buff(Global.data.buff.sleep.name))
+		return
+	if buff_component.has_buff(Global.data.buff.stun.name): #若有暈眩狀態，移除但不攻擊
+		remove_buff(buff_component.get_buff(Global.data.buff.stun.name))
+		return
+	attack()
 #取得攻擊範圍
 func get_target_location() -> Array:
 	if has_node("AttackComponent"):
@@ -180,12 +193,12 @@ func clear_buffs() -> void:
 
 #region 過濾
 #過濾出除自己外的友方
-func filter_ally_piece(piece: Piece):
+func filter_ally_piece(piece: Piece) -> bool:
 	if piece.card_owner == null:
 		return false
 	return piece.card_owner.id == card_owner.id and piece.location != location
 #過濾出敵方
-func filter_opponent_piece(piece: Piece):
+func filter_opponent_piece(piece: Piece) -> bool:
 	if piece.card_owner == null:
 		return true
 	return piece.card_owner.id != card_owner.id

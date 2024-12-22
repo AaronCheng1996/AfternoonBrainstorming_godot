@@ -1,7 +1,6 @@
 extends Piece
 class_name WhiteHero
 
-var type: String = ""
 var dic = [
 	Global.data.card.default_name.adc,
 	Global.data.card.default_name.ap,
@@ -19,12 +18,6 @@ func _init() -> void:
 
 func on_piece_set() -> void:
 	super.on_piece_set()
-	#取得種類
-	var types = Global.card_groups.keys()
-	types.pop_front() #移除白色
-	types.pop_back() #移除魔法牌種類
-	var index = Global.rng.randi_range(0, types.size() - 1)
-	type = types[index]
 	#棄置手牌
 	var n : int = card_owner.hand.size()
 	for i in range(n):
@@ -46,6 +39,12 @@ func loop_cards(cards: Array) -> void:
 #轉化
 func transform(piece: Piece) -> Piece:
 	var parent = piece.get_parent()
+	#取得種類
+	var types = Global.card_groups.keys()
+	types.pop_front() #移除白色
+	types.pop_back() #移除魔法牌種類
+	var type_index = Global.rng.randi_range(0, types.size() - 1)
+	var type = types[type_index]
 	#找到對應類型
 	var index: int = 0
 	for i in range(dic.size()):

@@ -35,7 +35,7 @@ func lucky_event(target: Piece) -> void:
 		return
 	do_event(target, lucky_events_weight)
 	add_luck_buff(target.card_owner, 1)
-	print(1)
+	print("好運")
 
 #厄運效果
 func unlucky_event(target: Piece) -> void:
@@ -45,7 +45,7 @@ func unlucky_event(target: Piece) -> void:
 		return
 	do_event(target, unlucky_events_weight)
 	add_luck_buff(target.card_owner, -1)
-	print(0)
+	print("厄運")
 
 #隨機效果
 func random_event(target: Piece) -> void:
@@ -54,11 +54,11 @@ func random_event(target: Piece) -> void:
 	if luck_is_trigger(target.card_owner):
 		do_event(target, lucky_events_weight)
 		add_luck_buff(target.card_owner, 1)
-		print(1)
+		print("好運")
 	else:
 		do_event(target, unlucky_events_weight)
 		add_luck_buff(target.card_owner, -1)
-		print(0)
+		print("厄運")
 
 #執行事件
 func do_event(target: Piece, events_weight: Dictionary) -> void:
@@ -185,7 +185,7 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 		#自動攻擊
 		EVENTS.TRIGGER_ATTACK: 
 			print("+自動攻擊")
-			target.attack()
+			target.auto_attack()
 		#移動
 		EVENTS.MOVE:
 			print("+移動")

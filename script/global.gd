@@ -45,6 +45,16 @@ const card_groups = {
 		"res://scenes/cards/green/sp.tscn", 
 		"res://scenes/cards/green/tank.tscn"
 	],
+	"blue": [
+		"res://scenes/cards/blue/adc.tscn",
+		"res://scenes/cards/blue/ap.tscn",
+		 "res://scenes/cards/blue/apt.tscn",
+		 "res://scenes/cards/blue/ass.tscn",
+		 "res://scenes/cards/blue/hf.tscn",
+		 "res://scenes/cards/blue/lf.tscn", 
+		"res://scenes/cards/blue/sp.tscn", 
+		"res://scenes/cards/blue/tank.tscn"
+	],
 	"spell": [
 		"res://scenes/cards/spell/cubes.tscn",
 		"res://scenes/cards/spell/heal.tscn",
@@ -155,6 +165,18 @@ func get_match_scene() -> Node:
 func get_opponent(player: Player) -> Player:
 	var player_list = get_tree().get_nodes_in_group("board")[0].player_list
 	return player_list[(player.id + 1) % 2]
+#取得所有牌
+func get_all_pieces(player: Player) -> Array:
+	var result = []
+	result.append_array(player.deck)
+	result.append_array(player.grave)
+	result.append_array(player.hand)
+	result.append_array(board_pieces.filter(func(element):
+		if element.card_owner == null:
+			return false
+		return element.card_owner.id == player.id
+	))
+	return result
 #座標轉換
 func string_to_vector2i(string_value: String) -> Vector2i:
 	var regex = RegEx.new()
