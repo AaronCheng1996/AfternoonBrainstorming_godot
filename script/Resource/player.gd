@@ -66,7 +66,6 @@ func discard(card: Card) -> void:
 	grave.append(card)
 	emit_signal("player_discard_card", card)
 
-
 #重新洗牌
 func reshuffle() -> void:
 	deck.append_array(grave)
