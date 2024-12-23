@@ -15,19 +15,17 @@ func add_blue_charge(player: Player, value: int = 1) -> void:
 		player.buff_component.add_buff(get_blue_charge_buff())
 	var blue_charge_buff = player.buff_component.get_buff(Global.data.buff.blue_charge.name)
 	blue_charge_buff.value += value
-	print("藍球+" + str(value))
 	if blue_charge_buff.value >= discharge_count:
-		print("藍球：release")
 		blue_charge_release(player, blue_charge_buff)
-	print("藍球：" + str(blue_charge_buff.value))
 	player.buff_component.show_buff()
-	#更新hf數值、藍APT獲得護盾
+	#藍APT獲得護盾、更新HF數值
+	var trigger_list = [
+		Global.data.card.blue.name + Global.data.card.default_name.apt, 
+		Global.data.card.blue.name + Global.data.card.default_name.hf
+	]
 	for piece: Card in Global.get_show_pieces(player):
-		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.hf:
-			piece.refresh()
-		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.apt and piece.is_on_board:
-			piece.shielded(1, null)
-
+		if trigger_list.has(piece.show_name):
+			piece.trigger_effect()
 #取得藍球數
 func get_blue_charge_count(player: Player) -> int:
 	if player == null:
@@ -51,20 +49,17 @@ func get_blue_charge_buff() -> Buff:
 func blue_charge_release(player: Player, blue_charge_buff: BlueCharge) -> void:
 	if blue_charge_buff.value < discharge_count:
 		return
+	print("藍球：release")
 	blue_charge_buff.value -= discharge_count
 	player.draw_card()
-	#藍ADC自動攻擊
-	for piece: Piece in Global.board_pieces.filter(func(piece):
-			if piece.card_owner == null:
-				return false
-			else:
-				return piece.card_owner.id == player.id):
-		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.adc:
-			print("blue")
-			piece.auto_attack()
+	#藍ADC自動攻擊、更新HF數值
+	var trigger_list = [
+		Global.data.card.blue.name + Global.data.card.default_name.adc, 
+		Global.data.card.blue.name + Global.data.card.default_name.hf
+	]
 	for piece: Card in Global.get_show_pieces(player):
-		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.hf:
-			piece.refresh()
+		if trigger_list.has(piece.show_name):
+			piece.trigger_effect()
+	#藍球若依然超過 3 顆就繼續遞迴
 	if blue_charge_buff.value >= discharge_count:
-		print("藍球：release")
 		blue_charge_release(player, blue_charge_buff)

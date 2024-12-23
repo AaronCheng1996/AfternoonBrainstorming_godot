@@ -19,3 +19,7 @@ func attack() -> void:
 	super.attack()
 	if health_component.shield / 4 > 0:
 		blue.add_blue_charge(card_owner, health_component.shield / 4)
+
+func trigger_effect() -> void:
+	if is_on_board:
+		shielded(buff_value, self)

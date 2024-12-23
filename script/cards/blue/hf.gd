@@ -21,3 +21,6 @@ func attack() -> void:
 		attack_component.atk += value
 		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
 		attack_component.atk -= value
+
+func trigger_effect() -> void:
+	refresh()

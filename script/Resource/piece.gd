@@ -102,7 +102,7 @@ func auto_attack() -> void:
 	if auto_attack_loop_count >= auto_attack_loop_count_limit: #防止無限迴圈 上限15層
 		return
 	if not has_node("BuffComponent"):
-		attack()
+		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
 		auto_attack_loop_count = 0
 		return
 	if buff_component.has_buff(Global.data.buff.sleep.name): #若有睡眠狀態，移除但不攻擊
@@ -112,7 +112,7 @@ func auto_attack() -> void:
 		remove_buff(buff_component.get_buff(Global.data.buff.stun.name))
 		return
 	print("觸發自動攻擊")
-	attack()
+	attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
 	auto_attack_loop_count = 0
 #取得攻擊範圍
 func get_target_location() -> Array:

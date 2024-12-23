@@ -18,3 +18,7 @@ func attack() -> void:
 
 func _on_attack_component_on_hit(target: Piece) -> void:
 	buff_value_sum += buff_value
+
+func trigger_effect() -> void:
+	if is_on_board:
+		auto_attack()

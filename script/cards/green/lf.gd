@@ -2,25 +2,31 @@ extends Piece
 class_name GreenLF
 
 var green = preload("res://script/cards/green/green.gd").new()
-var hit_value : int = 4
 var kill_count : int = 0
 
 func _init() -> void:
 	show_name = Global.data.card.green.name + Global.data.card.default_name.lf
-	description = Global.data.card.green.lf.format([str(hit_value)])
+	description = Global.data.card.green.lf.format([str(4)])
+
+func refresh() -> void:
+	super.refresh()
+	if has_node("AttackComponent"):
+		var text = str(attack_component.atk * 2)
+		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
+		description = Global.data.card.white.apt.format([text])
 
 func attack() -> void:
 	kill_count = 0
 	super.attack()
 	for i in kill_count:
-		#隨機打
+		#打最近
 		var pieces = Global.board_pieces.filter(filter_opponent_piece)
 		var targets = attack_component.find_nearest_target(location, pieces)
 		targets = targets.filter(func(element: Piece): return !element.is_dead)
 		if targets.size() > 0:
 			var random_index = Global.rng.randi_range(0, targets.size() - 1)
 			var temp_atk = attack_component.atk
-			attack_component.atk = hit_value
+			attack_component.atk = attack_component.atk * 2
 			attack_component.hit(targets[random_index])
 			attack_component.atk = temp_atk
 		#機率返刀

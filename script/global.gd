@@ -55,6 +55,16 @@ const card_groups = {
 		"res://scenes/cards/blue/sp.tscn", 
 		"res://scenes/cards/blue/tank.tscn"
 	],
+	"orange": [
+		"res://scenes/cards/orange/adc.tscn",
+		"res://scenes/cards/orange/ap.tscn",
+		 "res://scenes/cards/orange/apt.tscn",
+		 "res://scenes/cards/orange/ass.tscn",
+		 "res://scenes/cards/orange/hf.tscn",
+		 "res://scenes/cards/orange/lf.tscn", 
+		"res://scenes/cards/orange/sp.tscn", 
+		"res://scenes/cards/orange/tank.tscn"
+	],
 	"spell": [
 		"res://scenes/cards/spell/cubes.tscn",
 		"res://scenes/cards/spell/heal.tscn",
@@ -250,8 +260,16 @@ func get_move_spell(player: Player) -> void:
 	player.get_card(move)
 
 #有人移動
-func piece_moved(piece: Piece) -> void:
-	pass
+func piece_moved(piece_moved: Piece) -> void:
+	#觸發友方橘色效果
+	var trigger_list = [
+		Global.data.card.orange.name + Global.data.card.default_name.apt, 
+		Global.data.card.orange.name + Global.data.card.default_name.sp
+	]
+	for piece: Card in Global.get_show_pieces(piece_moved.card_owner):
+		if trigger_list.has(piece.show_name):
+			piece.trigger_effect(piece_moved)
+	#觸發敵方效果
 #endregion
 #region 文字特效
 #置中文字
