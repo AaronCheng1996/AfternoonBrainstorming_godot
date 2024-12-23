@@ -16,17 +16,17 @@ func add_blue_charge(player: Player, value: int = 1) -> void:
 	var blue_charge_buff = player.buff_component.get_buff(Global.data.buff.blue_charge.name)
 	blue_charge_buff.value += value
 	print("藍球+" + str(value))
-	while blue_charge_buff.value >= discharge_count:
+	if blue_charge_buff.value >= discharge_count:
 		print("藍球：release")
 		blue_charge_release(player, blue_charge_buff)
-		blue_charge_buff.value -= discharge_count
 	print("藍球：" + str(blue_charge_buff.value))
 	player.buff_component.show_buff()
-	#更新hf數值
-	for piece in Global.get_all_pieces(player):
+	#更新hf數值、藍APT獲得護盾
+	for piece: Card in Global.get_show_pieces(player):
 		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.hf:
-			piece.attack_component.atk += value
 			piece.refresh()
+		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.apt and piece.is_on_board:
+			piece.shielded(1, null)
 
 #取得藍球數
 func get_blue_charge_count(player: Player) -> int:
@@ -43,7 +43,6 @@ func get_blue_charge_buff() -> Buff:
 	var blue_charge_buff: BlueCharge = BlueCharge.new()
 	blue_charge_buff.show_name = Global.data.buff.blue_charge.name
 	blue_charge_buff.description = Global.data.buff.blue_charge.description
-	blue_charge_buff.icon_path = Global.buff_icon.blue_charge
 	blue_charge_buff.value = 0
 	blue_charge_buff.show_value = true
 	return blue_charge_buff
@@ -52,20 +51,20 @@ func get_blue_charge_buff() -> Buff:
 func blue_charge_release(player: Player, blue_charge_buff: BlueCharge) -> void:
 	if blue_charge_buff.value < discharge_count:
 		return
+	blue_charge_buff.value -= discharge_count
 	player.draw_card()
-	#藍ADC自動攻擊、藍APT獲得護盾、重裝調整攻擊
-	for piece: Piece in Global.board_pieces.filter(filter_ally_piece):
+	#藍ADC自動攻擊
+	for piece: Piece in Global.board_pieces.filter(func(piece):
+			if piece.card_owner == null:
+				return false
+			else:
+				return piece.card_owner.id == player.id):
 		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.adc:
+			print("blue")
 			piece.auto_attack()
-		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.apt:
-			piece.shielded(1, null)
-	for piece: Piece in Global.get_all_pieces(player):
+	for piece: Card in Global.get_show_pieces(player):
 		if piece.show_name == Global.data.card.blue.name + Global.data.card.default_name.hf:
-			piece.attack_component.atk -= discharge_count
 			piece.refresh()
-
-#過濾出除自己外的友方
-func filter_ally_piece(piece: Piece, player: Player) -> bool:
-	if piece.card_owner == null:
-		return false
-	return piece.card_owner.id == player.id
+	if blue_charge_buff.value >= discharge_count:
+		print("藍球：release")
+		blue_charge_release(player, blue_charge_buff)

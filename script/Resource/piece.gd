@@ -10,6 +10,8 @@ var card_type : Global.CardType = Global.CardType.PIECE
 @export var score_component : ScoreComponent
 @export var buff_component : BuffComponent
 var is_dead: bool = false
+var auto_attack_loop_count: int = 0
+var auto_attack_loop_count_limit: int = 15
 
 func _ready() -> void:
 	if has_node("HealthComponent"):
@@ -61,7 +63,7 @@ func on_turn_end(current_turn: int) -> void:
 
 #移動後
 func after_move() -> void:
-	pass
+	Global.piece_moved(self)
 
 #計算分數
 func get_score(current_turn: int) -> int:
@@ -93,10 +95,15 @@ func attack() -> void:
 		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
 #自動攻擊
 func auto_attack() -> void:
+	auto_attack_loop_count += 1
+	print(auto_attack_loop_count)
 	if not has_node("AttackComponent"):
+		return
+	if auto_attack_loop_count >= auto_attack_loop_count_limit: #防止無限迴圈 上限15層
 		return
 	if not has_node("BuffComponent"):
 		attack()
+		auto_attack_loop_count = 0
 		return
 	if buff_component.has_buff(Global.data.buff.sleep.name): #若有睡眠狀態，移除但不攻擊
 		remove_buff(buff_component.get_buff(Global.data.buff.sleep.name))
@@ -104,7 +111,9 @@ func auto_attack() -> void:
 	if buff_component.has_buff(Global.data.buff.stun.name): #若有暈眩狀態，移除但不攻擊
 		remove_buff(buff_component.get_buff(Global.data.buff.stun.name))
 		return
+	print("觸發自動攻擊")
 	attack()
+	auto_attack_loop_count = 0
 #取得攻擊範圍
 func get_target_location() -> Array:
 	if has_node("AttackComponent"):

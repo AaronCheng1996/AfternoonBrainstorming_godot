@@ -13,6 +13,7 @@ func _init() -> void:
 func attack() -> void:
 	buff_value_sum = 0
 	super.attack()
+	print(buff_value_sum)
 	blue.add_blue_charge(card_owner, buff_value_sum)
 
 func _on_attack_component_on_hit(target: Piece) -> void:

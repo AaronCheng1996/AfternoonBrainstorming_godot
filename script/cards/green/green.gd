@@ -85,7 +85,6 @@ func get_luck_buff() -> Luck:
 	var luck_buff: Luck = Luck.new()
 	luck_buff.show_name = Global.data.buff.luck.name
 	luck_buff.description = Global.data.buff.luck.description
-	luck_buff.icon_path = Global.buff_icon.luck
 	luck_buff.value = 50
 	luck_buff.show_value = true
 	return luck_buff
@@ -179,7 +178,6 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 			attack_buff.show_name = Global.data.buff.attack_buff.name
 			attack_buff.description = Global.data.buff.attack_buff.description.format([str(target.attack_component.atk)])
 			attack_buff.tag.append_array([Global.BuffTag.BUFF, Global.BuffTag.GREEN])
-			attack_buff.icon_path = Global.buff_icon.attack_buff
 			attack_buff.value = target.attack_component.atk
 			target.add_buff(attack_buff)
 		#自動攻擊
@@ -215,7 +213,6 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 			health_debuff.show_name = Global.data.buff.health_debuff.name
 			health_debuff.description = Global.data.buff.health_debuff.description.format([str(target.health_component.health / 2)])
 			health_debuff.tag.append_array([Global.BuffTag.BUFF, Global.BuffTag.GREEN])
-			health_debuff.icon_path = Global.buff_icon.health_debuff
 			health_debuff.value = -target.health_component.health / 2
 			target.add_buff(health_debuff)
 		#攻擊減半
@@ -225,7 +222,6 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 			attack_debuff.show_name = Global.data.buff.attack_debuff.name
 			attack_debuff.description = Global.data.buff.attack_debuff.description.format([str(target.attack_component.atk / 2)])
 			attack_debuff.tag.append_array([Global.BuffTag.DEBUFF, Global.BuffTag.GREEN])
-			attack_debuff.icon_path = Global.buff_icon.attack_debuff
 			attack_debuff.value = -target.attack_component.atk / 2
 			target.add_buff(attack_debuff)
 		#暈眩

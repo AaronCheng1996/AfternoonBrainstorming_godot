@@ -14,3 +14,10 @@ func refresh() -> void:
 	var text = str(blue.get_blue_charge_count(card_owner))
 	Global.set_font_color(text, Global.get_font_color(blue.get_blue_charge_count(card_owner), 0))
 	description = Global.data.card.blue.hf.format([text])
+
+func attack() -> void:
+	if has_node("AttackComponent"):
+		var value = blue.get_blue_charge_count(card_owner)
+		attack_component.atk += value
+		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
+		attack_component.atk -= value

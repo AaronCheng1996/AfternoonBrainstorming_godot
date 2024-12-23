@@ -19,7 +19,6 @@ func create_attack_buff(value: int, player: Player) -> AttackBuff:
 	attack_buff.show_name = Global.data.buff.attack_buff.name
 	attack_buff.description = Global.data.buff.attack_buff.description.format([str(value)])
 	attack_buff.tag.append_array([Global.BuffTag.BUFF, Global.BuffTag.RED])
-	attack_buff.icon_path = Global.buff_icon.attack_buff
 	attack_buff.value = value
 	buff_redsp(attack_buff, player)
 	player.buff_history.append(attack_buff)
@@ -30,7 +29,6 @@ func create_health_buff(value: int, player: Player) -> HealthBuff:
 	health_buff.show_name = Global.data.buff.health_buff.name
 	health_buff.description = Global.data.buff.health_buff.description.format([str(value)])
 	health_buff.tag.append_array([Global.BuffTag.BUFF, Global.BuffTag.RED])
-	health_buff.icon_path = Global.buff_icon.health_buff
 	health_buff.value = value
 	buff_redsp(health_buff, player)
 	player.buff_history.append(health_buff)

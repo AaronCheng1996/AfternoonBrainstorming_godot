@@ -20,6 +20,8 @@ func on_piece_set() -> void:
 	for buff: Buff in card_owner.buff_history:
 		if buff.tag.has(Global.BuffTag.RED):
 			add_buff(buff)
+	#獲得一刀
+	card_owner.add_attack_count(1)
 	refresh()
 
 func attack() -> void:

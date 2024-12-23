@@ -165,6 +165,16 @@ func get_match_scene() -> Node:
 func get_opponent(player: Player) -> Player:
 	var player_list = get_tree().get_nodes_in_group("board")[0].player_list
 	return player_list[(player.id + 1) % 2]
+#取得顯示的牌
+func get_show_pieces(player: Player) -> Array:
+	var result = []
+	result.append_array(player.hand)
+	result.append_array(board_pieces.filter(func(element):
+		if element.card_owner == null:
+			return false
+		return element.card_owner.id == player.id
+	))
+	return result
 #取得所有牌
 func get_all_pieces(player: Player) -> Array:
 	var result = []
@@ -203,7 +213,8 @@ func get_random_empty_slot() -> Vector2i:
 	return Vector2i(0, 0)
 #endregion
 
-#region 通用buff
+#region 通用
+#取得暈眩buff
 func get_stun_debuff() -> Stun:
 	var stun_debuff = Stun.new()
 	stun_debuff.show_name = data.buff.stun.name
@@ -213,14 +224,34 @@ func get_stun_debuff() -> Stun:
 	stun_debuff.duration = 1
 	return stun_debuff
 
+#取得移動buff
 func get_move_buff() -> Move:
 	var move_buff: Move = Move.new()
 	move_buff.show_name = data.buff.move.name
 	move_buff.description = data.buff.move.description
 	move_buff.tag.append_array([BuffTag.BUFF, BuffTag.MOVE])
-	move_buff.icon_path = buff_icon.move
 	move_buff.duration = 1
 	return move_buff
+
+#取得狂暴buff
+func get_rage_buff() -> Rage:
+	var rage_buff: Rage = Rage.new()
+	rage_buff.show_name = data.buff.rage.name
+	rage_buff.description = data.buff.rage.description
+	rage_buff.tag.append_array([BuffTag.BUFF])
+	rage_buff.duration = 1
+	return rage_buff
+
+#取得消逝的移動牌
+func get_move_spell(player: Player) -> void:
+	var move = load("res://scenes/cards/spell/move_spell_expire.tscn").instantiate()
+	move.card_owner = player
+	move.is_on_board = false
+	player.get_card(move)
+
+#有人移動
+func piece_moved(piece: Piece) -> void:
+	pass
 #endregion
 #region 文字特效
 #置中文字

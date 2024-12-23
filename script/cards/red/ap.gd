@@ -23,7 +23,6 @@ func _on_attack_component_on_hit(target: Piece) -> void:
 	attack_debuff.show_name = Global.data.buff.attack_stolen.name
 	attack_debuff.description = Global.data.buff.attack_stolen.description
 	attack_debuff.tag.append_array([Global.BuffTag.DEBUFF])
-	attack_debuff.icon_path = Global.buff_icon.attack_debuff
 	attack_debuff.value = -target.attack_component.atk
 	target.add_buff(attack_debuff)
 	#獲得等額攻擊

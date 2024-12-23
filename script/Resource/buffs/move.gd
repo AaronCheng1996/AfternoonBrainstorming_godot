@@ -2,6 +2,7 @@ extends Buff
 class_name Move
 
 func apply_buff(target) -> void:
+	icon_path = Global.buff_icon.move
 	#可以移動
 	if target.has_node("OutfitComponent"):
 		target.outfit_component.show_move()
