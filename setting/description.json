@@ -53,7 +53,7 @@
 		"blue": {
 			"name" : "藍色",
 			"color": "BLUE",
-			"adc": "釋放[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時自動攻擊\n[b]造成傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
+			"adc": "釋放[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時自動攻擊\n[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
 			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n[b]攻擊後[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
 			"apt": "獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]\n[b]攻擊後[/b]：獲得 {1} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color] ([img]res://img/UI/shield.png[/img]/4)",
 			"ass": "[b]先攻[/b]、[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",

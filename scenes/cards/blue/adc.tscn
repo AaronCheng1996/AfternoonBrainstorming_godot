@@ -22,7 +22,7 @@ DEAFULT_MAX_HEALTH = 4
 
 [node name="AttackComponent" parent="." instance=ExtResource("3_vwxt7")]
 unique_name_in_owner = true
-DEFAULT_ATK = 2
+DEFAULT_ATK = 3
 ATK_PATTERN = 1
 
 [node name="OutfitComponent" parent="." instance=ExtResource("4_afiun")]
@@ -36,4 +36,4 @@ unique_name_in_owner = true
 [node name="BuffComponent" parent="." instance=ExtResource("7_w03s0")]
 unique_name_in_owner = true
 
-[connection signal="on_hit" from="AttackComponent" to="." method="_on_attack_component_on_hit"]
+[connection signal="on_kill" from="AttackComponent" to="." method="_on_attack_component_on_kill"]

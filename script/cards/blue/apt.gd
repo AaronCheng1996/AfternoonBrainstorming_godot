@@ -22,4 +22,4 @@ func attack() -> void:
 
 func trigger_effect() -> void:
 	if is_on_board:
-		shielded(buff_value, self)
+		shielded(blue.get_blue_charge_count(card_owner) * buff_value, self)
