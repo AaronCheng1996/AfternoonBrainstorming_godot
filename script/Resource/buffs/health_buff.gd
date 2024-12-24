@@ -13,3 +13,6 @@ func apply_buff(target):
 func remove_buff(target):
 	if target.has_node("HealthComponent"):
 		target.health_component.max_health -= value
+		if target.health_component.health <= target.health_component.max_health:
+			return
+		target.health_component.health = target.health_component.max_health

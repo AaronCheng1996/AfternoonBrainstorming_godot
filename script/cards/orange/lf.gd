@@ -6,11 +6,11 @@ func _init() -> void:
 	description = Global.data.card.orange.lf.format([str(3)])
 
 func refresh() -> void:
-	super.refresh()
 	if has_node("AttackComponent"):
 		var text = str(attack_component.atk)
 		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
 		description = Global.data.card.orange.lf.format([text])
+	super.refresh()
 
 func attack() -> void:
 	super.attack()

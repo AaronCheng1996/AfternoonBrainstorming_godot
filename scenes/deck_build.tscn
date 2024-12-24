@@ -152,9 +152,9 @@ visible = false
 custom_minimum_size = Vector2(124, 186)
 layout_mode = 0
 offset_left = 197.0
-offset_top = 154.0
+offset_top = 164.0
 offset_right = 321.0
-offset_bottom = 340.0
+offset_bottom = 350.0
 color = Color(0.188235, 0.188235, 0.188235, 1)
 
 [node name="Temp" type="Node2D" parent="Decks"]

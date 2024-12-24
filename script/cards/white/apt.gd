@@ -5,11 +5,11 @@ func _init() -> void:
 	show_name = Global.data.card.white.name + Global.data.card.default_name.apt
 
 func refresh() -> void:
-	super.refresh()
 	if has_node("AttackComponent"):
 		var text = str(attack_component.atk)
 		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
 		description = Global.data.card.white.apt.format([text])
+	super.refresh()
 
 #攻擊時為最近友方附加兩點護盾
 func attack() -> void:

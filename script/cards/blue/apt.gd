@@ -9,11 +9,11 @@ func _init() -> void:
 	description = Global.data.card.blue.apt.format([str(buff_value), str(0)])
 
 func refresh() -> void:
-	super.refresh()
 	if has_node("HealthComponent"):
 		var text = str(health_component.shield / 4)
 		Global.set_font_color(text, Global.get_font_color(health_component.shield / 4, health_component.DEAFULT_SHIELD / 4))
 		description = Global.data.card.blue.apt.format([str(buff_value), text])
+	super.refresh()
 
 func attack() -> void:
 	super.attack()

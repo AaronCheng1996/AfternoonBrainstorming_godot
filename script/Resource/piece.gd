@@ -211,4 +211,8 @@ func filter_opponent_piece(piece: Piece) -> bool:
 	if piece.card_owner == null:
 		return true
 	return piece.card_owner.id != card_owner.id
+func filter_opponent_piece_only(piece: Piece) -> bool:
+	if piece.card_owner == null:
+		return false
+	return piece.card_owner.id != card_owner.id
 #endregion

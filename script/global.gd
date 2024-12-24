@@ -65,6 +65,22 @@ const card_groups = {
 		"res://scenes/cards/orange/sp.tscn", 
 		"res://scenes/cards/orange/tank.tscn"
 	],
+	"moss": [
+		"res://scenes/cards/moss/adc.tscn",
+		"res://scenes/cards/moss/ap.tscn",
+		 "res://scenes/cards/moss/apt.tscn",
+		 "res://scenes/cards/moss/ass.tscn",
+		 "res://scenes/cards/moss/hf.tscn",
+		 "res://scenes/cards/moss/lf.tscn", 
+		"res://scenes/cards/moss/sp.tscn", 
+		"res://scenes/cards/moss/tank.tscn"
+	],
+	"purple": [
+		"res://scenes/cards/purple/ap.tscn",
+		"res://scenes/cards/purple/ass.tscn",
+		"res://scenes/cards/purple/hf.tscn",
+		"res://scenes/cards/purple/tank.tscn"
+	],
 	"spell": [
 		"res://scenes/cards/spell/cubes.tscn",
 		"res://scenes/cards/spell/heal.tscn",
@@ -270,6 +286,12 @@ func piece_moved(piece_moved: Piece) -> void:
 		if trigger_list.has(piece.show_name):
 			piece.trigger_effect(piece_moved)
 	#觸發敵方效果
+	var trigger_list_2 = [
+		Global.data.card.purple.name + Global.data.card.default_name.tank
+	]
+	for piece: Card in Global.get_show_pieces(get_opponent(piece_moved.card_owner)):
+		if trigger_list_2.has(piece.show_name):
+			piece.trigger_effect(piece_moved)
 #endregion
 #region 文字特效
 #置中文字

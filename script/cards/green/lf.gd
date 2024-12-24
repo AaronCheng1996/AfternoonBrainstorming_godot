@@ -9,11 +9,11 @@ func _init() -> void:
 	description = Global.data.card.green.lf.format([str(4)])
 
 func refresh() -> void:
-	super.refresh()
 	if has_node("AttackComponent"):
 		var text = str(attack_component.atk * 2)
 		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
-		description = Global.data.card.white.apt.format([text])
+		description = Global.data.card.green.lf.format([text])
+	super.refresh()
 
 func attack() -> void:
 	kill_count = 0
