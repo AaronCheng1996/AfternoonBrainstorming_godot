@@ -9,6 +9,10 @@ func _init() -> void:
 
 #回合開始時
 func on_turn_start(current_turn: int) -> void:
+	if not is_on_board:
+		return
+	if is_dead:
+		return
 	if current_turn == card_owner.id:
 		Global.get_move_spell(card_owner)
 

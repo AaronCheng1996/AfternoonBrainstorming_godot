@@ -62,6 +62,7 @@ func get_card(card: Card) -> void:
 
 #捨棄手牌
 func discard(card: Card) -> void:
+	card.on_discard()
 	hand.erase(card)
 	grave.append(card)
 	emit_signal("player_discard_card", card)

@@ -63,9 +63,9 @@ func start_turn(player: Player) -> void:
 
 #回合結束
 func end_turn() -> void:
+	count_score() #計分
 	piece_turn_end_effect() #棋子回合結束效果
 	deal_card_expire() #處理手牌消逝
-	count_score() #計分
 	if abs(score) >= 10: #得分超過 10 則獲勝
 		deal_win()
 		return
@@ -155,6 +155,7 @@ func on_draw_card(player: Player, card: Card) -> void:
 		card.leave_hand.connect(show_hand)
 	else:
 		card.piece_die.connect(_on_piece_die)
+	card.on_draw()
 	show_hand(player)
 
 #顯示手牌

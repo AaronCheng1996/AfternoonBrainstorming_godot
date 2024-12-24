@@ -5,6 +5,10 @@ func _init() -> void:
 	show_name = Global.data.card.red.name + Global.data.card.default_name.hero
 	description = Global.data.card.red.hero
 
+#抽起時
+func on_draw() -> void:
+	card_owner.draw_card()
+
 #棋子放置時
 func on_piece_set() -> void:
 	#清除手牌

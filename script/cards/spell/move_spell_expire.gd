@@ -25,3 +25,9 @@ func get_valid_location() -> Array:
 #效果
 func effect(target: Vector2i) -> void:
 	Global.board_dic[str(target)].add_buff(Global.get_move_buff())
+
+#施放完
+func used() -> void:
+	get_parent().remove_child(self)
+	card_owner.hand.pop_at(card_owner.hand.find(self))
+	emit_signal("leave_hand", card_owner)
