@@ -18,12 +18,18 @@ func add_rune(player: Player, value: int = 1) -> void:
 	player.buff_component.show_buff()
 	var trigger_list = [
 		Global.data.card.moss.name + Global.data.card.default_name.adc,
+		Global.data.card.moss.name + Global.data.card.default_name.ap,
+		Global.data.card.moss.name + Global.data.card.default_name.apt,
+		Global.data.card.moss.name + Global.data.card.default_name.ass,
+		Global.data.card.moss.name + Global.data.card.default_name.hf,
 		Global.data.card.moss.name + Global.data.card.default_name.lf,
-		Global.data.card.moss.name + Global.data.card.default_name.apt
+		Global.data.card.moss.name + Global.data.card.default_name.sp,
+		Global.data.card.moss.name + Global.data.card.default_name.tank
 	]
 	for piece: Card in Global.get_show_pieces(player):
-		if trigger_list.has(piece.show_name):
-			piece.refresh()
+		if not trigger_list.has(piece.show_name):
+			continue
+		piece.refresh()
 
 #取得符文數
 func get_rune_count(player: Player) -> int:

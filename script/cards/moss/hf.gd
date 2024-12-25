@@ -11,6 +11,19 @@ func _init() -> void:
 	show_name = Global.data.card.moss.name + Global.data.card.default_name.hf
 	description = Global.data.card.moss.hf.format([str(cost_value), str(buff_value), str(heal_value)])
 
+var default_icon = preload("res://img/piece/standerd/dark_green.png")
+var half_power_icon = preload("res://img/piece/standerd/dark_green_half_powered.png")
+var empower_icon = preload("res://img/piece/standerd/dark_green_empowered.png")
+func refresh() -> void:
+	#更改圖示
+	var power = moss.get_rune_count(card_owner)
+	if power < 20 and outfit_component.icon.texture != default_icon:
+		outfit_component.icon.texture = default_icon
+	if power >= 20 and power < 50 and outfit_component.icon.texture != half_power_icon:
+		outfit_component.icon.texture = half_power_icon
+	if power >= 50 and outfit_component.icon.texture != empower_icon:
+		outfit_component.icon.texture = empower_icon
+
 func on_turn_start(player_turn) -> void:
 	if player_turn == card_owner.id:
 		take_damaged(cost_value, self)

@@ -22,7 +22,7 @@ func attack() -> void:
 	buff_value_sum = 0
 	super.attack()
 	#處理自傷，若因此生命低於0，給予瀕死(回合結束死亡)
-	take_damaged(cost_value_sum, self)
+	health_component.health -= cost_value_sum
 	if not buff_component.has_buff(Global.data.buff.death_door.name):
 		if health_component.health <= 0:
 			var death_door = DeathDoor.new()

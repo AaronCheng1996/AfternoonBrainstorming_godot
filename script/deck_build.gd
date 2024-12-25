@@ -169,6 +169,8 @@ func is_limit(player: Player, card: Card) -> bool:
 		return player.deck_card_type[card.show_name] >= Global.spell_limit
 	if not card.show_name.contains(Global.data.card.default_name.hero): #非英雄牌
 		return player.deck_card_type[card.show_name] >= Global.piece_limit
+	if not Global.hero_mode:
+		return true
 	for card_in_deck in player.deck: #英雄牌
 		if card_in_deck.show_name.contains(Global.data.card.default_name.hero):
 			return true

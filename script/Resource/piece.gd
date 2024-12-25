@@ -52,7 +52,7 @@ func on_piece_set() -> void:
 
 #回合開始時
 func on_turn_start(current_turn: int) -> void:
-	pass
+	refresh()
 
 #回合結束時
 func on_turn_end(current_turn: int) -> void:
@@ -60,10 +60,12 @@ func on_turn_end(current_turn: int) -> void:
 		if current_turn != card_owner.id:
 			return
 	tick()
+	refresh()
 
 #移動後
 func after_move() -> void:
 	Global.piece_moved(self)
+	refresh()
 
 #計算分數
 func get_score(current_turn: int) -> int:
@@ -93,6 +95,7 @@ func hide_select_effect() -> void:
 func attack() -> void:
 	if has_node("AttackComponent"):
 		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
+	refresh()
 #自動攻擊
 func auto_attack() -> void:
 	auto_attack_loop_count += 1
@@ -114,6 +117,7 @@ func auto_attack() -> void:
 	print("觸發自動攻擊")
 	attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
 	auto_attack_loop_count = 0
+	refresh()
 #取得攻擊範圍
 func get_target_location() -> Array:
 	if has_node("AttackComponent"):
