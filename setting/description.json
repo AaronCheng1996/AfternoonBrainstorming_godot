@@ -22,7 +22,7 @@
 			"lf": "",
 			"sp": "計分時額外獲得 {0} 分",
 			"tank": "",
-			"hero": "[b]進場時[/b]：將手牌棄置\n轉化牌堆中白色友方\n為同類型其他隨機派別\n然後抽與棄牌數等量的牌"
+			"hero": "[b]進場時[/b]：將手牌棄置\n轉化牌堆中白色友方\n為其他隨機派別\n然後抽棄牌數 + 1 的牌"
 		},
 		"red": {
 			"name" : "紅色",
@@ -35,7 +35,7 @@
 			"lf": "[b]造成傷害[/b]：\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n以及 {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']最大生命[/color]",
 			"sp": "紅色友方給予增益時\n此單位獲得相同增益",
 			"tank": "[b]承受傷害[/b]：\n最近隊友獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
-			"hero": "[b]進場時[/b]：移除所有手牌和友方\n獲得本賽局所有紅色增益\n[b]先攻[/b]、[b]攻擊後[/b]：額外攻擊一名隨機敵方"
+			"hero": "增益 {0} 次後抽起，[b]先攻[/b]\n[b]進場時[/b]：移除所有手牌和友方\n獲得本賽局所有紅色增益\n[b]斬殺[/b]：額外攻擊一名隨機敵方"
 		},
 		"green": {
 			"name" : "綠色",
@@ -96,7 +96,7 @@
 			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n移除目標[img]res://img/UI/shield.png[/img][color='orange']護盾[/color]及[img]res://img/UI/buff/attack_buff.png[/img][color='orange']增益效果[/color]",
 			"apt": "",
 			"ass": "[b]先攻[/b]、[b]斬殺[/b]：抽 {0} 張牌\n(場上單位數差 - {1})",
-			"hf": "[b]回合開始[/b]：周圍每 {0} 個敵方單位\n增加 1 攻擊次數",
+			"hf": "[b]回合開始[/b]：周圍每 {0} 個敵方\n增加 1 攻擊次數",
 			"lf": "",
 			"sp": "",
 			"tank": "敵方移動後損失 {0} 點生命",
@@ -184,6 +184,16 @@
 			"name": "刻印",
 			"description": "蘊含神秘力量的刻印，效果不明"
 		},
+		"battle_fury": {
+			"name": "戰鬥狂熱",
+			"description": "{0}正在凝視著戰場"
+		},
+	},
+	"hint": {
+		"shield": {
+			"name": "護甲",
+			"description": "受到傷害時，會先損失護甲"
+		}
 	},
 	"message": {
 		"deck_full": "牌庫已滿", 

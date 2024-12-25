@@ -20,6 +20,6 @@ func attack() -> void:
 	if health_component.shield / 4 > 0:
 		blue.add_blue_charge(card_owner, health_component.shield / 4)
 
-func trigger_effect() -> void:
+func trigger_effect(value: int) -> void:
 	if is_on_board:
-		shielded(blue.get_blue_charge_count(card_owner) * buff_value, self)
+		shielded(value * buff_value, self)

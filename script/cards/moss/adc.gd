@@ -6,10 +6,6 @@ var rate : int = 25
 var buff_value : int = 1
 var buff_value_sum : int = 0
 
-var default_icon = preload("res://img/piece/standerd/dark_green.png")
-var half_power_icon = preload("res://img/piece/standerd/dark_green_half_powered.png")
-var empower_icon = preload("res://img/piece/standerd/dark_green_empowered.png")
-
 func _init() -> void:
 	show_name = Global.data.card.moss.name + Global.data.card.default_name.adc
 	description = Global.data.card.moss.adc.format([str(0), str(rate), str(buff_value)])
@@ -17,12 +13,7 @@ func _init() -> void:
 func refresh() -> void:
 	#更改圖示
 	var power = moss.get_rune_count(card_owner)
-	if power < 20 and outfit_component.icon.texture != default_icon:
-		outfit_component.icon.texture = default_icon
-	if power >= 20 and power < 50 and outfit_component.icon.texture != half_power_icon:
-		outfit_component.icon.texture = half_power_icon
-	if power >= 50 and outfit_component.icon.texture != empower_icon:
-		outfit_component.icon.texture = empower_icon
+	moss.update_icon(self)
 	#更改說明
 	var text = str(power * rate / 100)
 	Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))

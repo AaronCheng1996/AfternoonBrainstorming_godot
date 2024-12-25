@@ -1,13 +1,12 @@
 extends Piece
 class_name RedHero
 
+var red: Red = preload("res://script/cards/red/red.gd").new()
+var kill_count : int = 0
+
 func _init() -> void:
 	show_name = Global.data.card.red.name + Global.data.card.default_name.hero
-	description = Global.data.card.red.hero
-
-#抽起時
-func on_draw() -> void:
-	card_owner.draw_card()
+	description = Global.data.card.red.hero.format([red.battle_fury_count])
 
 #棋子放置時
 func on_piece_set() -> void:
@@ -21,15 +20,28 @@ func on_piece_set() -> void:
 	for ally: Piece in allys:
 		ally.die()
 	#獲得增益
-	for buff: Buff in card_owner.buff_history:
+	for buff: Buff in card_owner.buff_component.active_buffs:
 		if buff.tag.has(Global.BuffTag.RED):
-			add_buff(buff)
+			var buff_apply: Buff = buff.duplicate()
+			if buff_apply.show_name == Global.data.hint.shield.name:
+				buff_apply.icon_path = {}
+				buff_apply.duration = 1
+			buff_apply.show_value = false
+			buff_apply.show_name = buff.show_name
+			buff_apply.description = buff.description
+			buff_apply.value = buff.value
+			add_buff(buff_apply)
 	refresh()
 
 func attack() -> void:
+	kill_count = 0
 	super.attack()
-	var pieces = Global.board_pieces.filter(filter_opponent_piece).filter(func(element: Piece): return !element.is_dead)
-	var targets = attack_component.find_nearest_target(location, pieces)
-	if targets.size() > 0:
-		var random_index = Global.rng.randi_range(0, targets.size() - 1)
-		attack_component.hit(targets[random_index])
+	for i in range(kill_count):
+		var pieces = Global.board_pieces.filter(filter_opponent_piece).filter(func(element: Piece): return !element.is_dead)
+		var targets = attack_component.find_nearest_target(location, pieces)
+		if targets.size() > 0:
+			var random_index = Global.rng.randi_range(0, targets.size() - 1)
+			attack_component.hit(targets[random_index])
+
+func _on_attack_component_on_kill(target: Piece) -> void:
+	kill_count += 1

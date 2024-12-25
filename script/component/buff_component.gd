@@ -24,6 +24,8 @@ func show_buff() -> void:
 
 #賦予buff
 func add_buff(buff: Buff) -> void:
+	if buff == null:
+		return
 	active_buffs.append(buff)
 	buff.apply_buff(get_parent())
 	emit_signal("on_buff_apply", buff)
@@ -57,14 +59,28 @@ func clear_buffs() -> void:
 	show_buff()
 
 #是否存在buff
-func has_buff(name: String) -> bool:
+func has_buff(name: String, tag: Array = []) -> bool:
 	for buff: Buff in active_buffs:
-		if buff.show_name == name:
-			return true
+		if tag == []:
+			if buff.show_name == name:
+				return true
+		else:
+			if buff.show_name == name and contains_all_elements(buff.tag, tag):
+				return true
 	return false
 
-func get_buff(name: String) -> Buff:
+func get_buff(name: String, tag: Array = []) -> Buff:
 	for buff: Buff in active_buffs:
-		if buff.show_name == name:
-			return buff
+		if tag == []:
+			if buff.show_name == name:
+				return buff
+		else:
+			if buff.show_name == name and contains_all_elements(buff.tag, tag):
+				return buff
 	return null
+
+func contains_all_elements(long: Array, short: Array) -> bool:
+	for element in short:
+		if element not in long:
+			return false
+	return true

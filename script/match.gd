@@ -156,6 +156,7 @@ func on_draw_card(player: Player, card: Card) -> void:
 	else:
 		card.piece_die.connect(_on_piece_die)
 	card.on_draw()
+	card.refresh()
 	show_hand(player)
 
 #顯示手牌

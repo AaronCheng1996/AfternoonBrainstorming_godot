@@ -59,3 +59,16 @@ func get_rune_buff() -> Buff:
 	rune_buff.value = 0
 	rune_buff.show_value = true
 	return rune_buff
+
+var default_icon = preload("res://img/piece/standerd/dark_green.png")
+var half_power_icon = preload("res://img/piece/standerd/dark_green_half_powered.png")
+var empower_icon = preload("res://img/piece/standerd/dark_green_empowered.png")
+#更改圖示
+func update_icon(piece: Piece) -> void:
+	var power = get_rune_count(piece.card_owner)
+	if power < 20 and piece.outfit_component.icon.texture != default_icon:
+		piece.outfit_component.icon.texture = default_icon
+	if power >= 20 and power < 50 and piece.outfit_component.icon.texture != half_power_icon:
+		piece.outfit_component.icon.texture = half_power_icon
+	if power >= 50 and piece.outfit_component.icon.texture != empower_icon:
+		piece.outfit_component.icon.texture = empower_icon

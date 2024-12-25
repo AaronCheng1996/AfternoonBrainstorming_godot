@@ -17,3 +17,6 @@ func remove_buff(target) -> void:
 
 func tick(target) -> void:
 	pass
+
+func add_value(target, add):
+	value += add

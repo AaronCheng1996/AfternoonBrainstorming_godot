@@ -1,7 +1,7 @@
 extends Buff
 class_name Luck
 
-func add_value(add: int) -> void:
+func add_value(target, add: int) -> void:
 	value += add
 	if value < 1: #下限 1
 		value = 1

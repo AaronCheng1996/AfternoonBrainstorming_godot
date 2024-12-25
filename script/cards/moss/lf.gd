@@ -10,21 +10,12 @@ func _init() -> void:
 	show_name = Global.data.card.moss.name + Global.data.card.default_name.lf
 	description = Global.data.card.moss.lf.format([str(0), str(rate), str(buff_value)])
 
-var default_icon = preload("res://img/piece/standerd/dark_green.png")
-var half_power_icon = preload("res://img/piece/standerd/dark_green_half_powered.png")
-var empower_icon = preload("res://img/piece/standerd/dark_green_empowered.png")
-
 func refresh() -> void:
 	#更改圖示
 	var power = moss.get_rune_count(card_owner)
-	if power < 20 and outfit_component.icon.texture != default_icon:
-		outfit_component.icon.texture = default_icon
-	if power >= 20 and power < 50 and outfit_component.icon.texture != half_power_icon:
-		outfit_component.icon.texture = half_power_icon
-	if power >= 50 and outfit_component.icon.texture != empower_icon:
-		outfit_component.icon.texture = empower_icon
-	var text = str(moss.get_rune_count(card_owner) * rate / 100)
-	Global.set_font_color(text, Global.get_font_color(moss.get_rune_count(card_owner) * rate / 100, 0))
+	moss.update_icon(self)
+	var text = str(power * rate / 100)
+	Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))
 	description = Global.data.card.moss.lf.format([text, str(rate), str(buff_value)])
 	super.refresh()
 

@@ -25,7 +25,7 @@ func add_blue_charge(player: Player, value: int = 1) -> void:
 	]
 	for piece: Card in Global.get_show_pieces(player):
 		if trigger_list.has(piece.show_name):
-			piece.trigger_effect()
+			piece.trigger_effect(value)
 #取得藍球數
 func get_blue_charge_count(player: Player) -> int:
 	if player == null:
@@ -59,7 +59,7 @@ func blue_charge_release(player: Player, blue_charge_buff: BlueCharge) -> void:
 	]
 	for piece: Card in Global.get_show_pieces(player):
 		if trigger_list.has(piece.show_name):
-			piece.trigger_effect()
+			piece.trigger_effect(blue_charge_buff.value)
 	#藍球若依然超過 3 顆就繼續遞迴
 	if blue_charge_buff.value >= discharge_count:
 		blue_charge_release(player, blue_charge_buff)

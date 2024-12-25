@@ -5,7 +5,6 @@ var red = preload("res://script/cards/red/red.gd").new()
 var cost_value : int = 1
 var buff_value : int = 1
 var cost_value_sum : int = 0
-var buff_value_sum : int = 0
 
 func _init() -> void:
 	show_name = Global.data.card.red.name + Global.data.card.default_name.hf
@@ -19,7 +18,6 @@ func heal(value: int, applyer) -> int:
 
 func attack() -> void:
 	cost_value_sum = 0
-	buff_value_sum = 0
 	super.attack()
 	#處理自傷，若因此生命低於0，給予瀕死(回合結束死亡)
 	health_component.health -= cost_value_sum
@@ -31,10 +29,7 @@ func attack() -> void:
 			death_door.tag.append_array([Global.BuffTag.BUFF])
 			death_door.icon_path = Global.buff_icon.death_door
 			add_buff(death_door)
-	#給予增益
-	var attack_buff = red.create_attack_buff(buff_value_sum, card_owner)
-	add_buff(attack_buff)
 
 func _on_attack_component_on_hit(target: Piece) -> void:
 	cost_value_sum += cost_value
-	buff_value_sum += buff_value
+	red.attack_buff(buff_value, self)

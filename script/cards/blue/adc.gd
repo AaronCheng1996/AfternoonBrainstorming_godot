@@ -15,7 +15,7 @@ func attack() -> void:
 	super.attack()
 	blue.add_blue_charge(card_owner, buff_value_sum)
 
-func trigger_effect() -> void:
+func trigger_effect(value: int) -> void:
 	if is_on_board:
 		auto_attack()
 

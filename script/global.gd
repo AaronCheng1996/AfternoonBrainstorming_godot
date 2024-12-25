@@ -138,6 +138,9 @@ const buff_icon = {
 	"bad_luck": {
 		"default": "res://img/UI/buff/bad_luck.png",
 	},
+	"battle_fury": {
+		"default": "res://img/UI/buff/battle_fury.png",
+	},
 	"death_door": {
 		"default": "res://img/UI/buff/death_door.png",
 		"mini": "res://img/UI/buff_mini/death_door_mini.png"

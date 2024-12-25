@@ -22,12 +22,11 @@ func attack() -> void:
 		return
 	if buff_value_sum <= 0:
 		return
-	var attack_buff = red.create_attack_buff(buff_value_sum, card_owner)
 	var allys = attack_component.find_nearest_target(location, Global.board_pieces.filter(filter_ally_piece))
 	allys = allys.filter(func(element: Piece): return !element.is_dead)
 	if allys.size() > 0:
 		var random_index = Global.rng.randi_range(0, allys.size() - 1)
-		allys[random_index].add_buff(attack_buff)
+		red.attack_buff(buff_value, allys[random_index])
 
 func _on_attack_component_on_kill(target: Piece) -> void:
 	buff_value_sum += buff_value

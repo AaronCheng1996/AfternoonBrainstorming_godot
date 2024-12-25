@@ -94,7 +94,7 @@ func add_luck_buff(player: Player, value: int) -> void:
 	check_luck(player)
 	var buff: Buff = player.buff_component.get_buff(Global.data.buff.luck.name)
 	if buff.has_method("add_value"):
-		buff.add_value(value)
+		buff.add_value(player, value)
 		player.buff_component.show_buff()
 
 #檢查對象幸運值
@@ -209,12 +209,7 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 		#血量減半
 		EVENTS.HALF_HEALTH:
 			print("-血量減半")
-			var health_debuff = HealthBuff.new()
-			health_debuff.show_name = Global.data.buff.health_debuff.name
-			health_debuff.description = Global.data.buff.health_debuff.description.format([str(target.health_component.health / 2)])
-			health_debuff.tag.append_array([Global.BuffTag.BUFF, Global.BuffTag.GREEN])
-			health_debuff.value = -target.health_component.health / 2
-			target.add_buff(health_debuff)
+			target.health_component.health -= target.health_component.health / 2
 		#攻擊減半
 		EVENTS.HALF_ATK:
 			print("-攻擊減半")

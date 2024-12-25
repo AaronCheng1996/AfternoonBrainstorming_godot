@@ -12,3 +12,8 @@ func apply_buff(target):
 func remove_buff(target):
 	if target.has_node("AttackComponent"):
 		target.attack_component.atk -= value
+
+func add_value(target, add):
+	super.add_value(target, add)
+	if target.has_node("AttackComponent"):
+		target.attack_component.atk += add

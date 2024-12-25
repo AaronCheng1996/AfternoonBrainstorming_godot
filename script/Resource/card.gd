@@ -18,3 +18,6 @@ func on_discard() -> void:
 #消逝
 func expire() -> void:
 	pass
+
+func refresh() -> void:
+	pass

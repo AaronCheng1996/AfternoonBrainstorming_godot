@@ -16,3 +16,9 @@ func remove_buff(target):
 		if target.health_component.health <= target.health_component.max_health:
 			return
 		target.health_component.health = target.health_component.max_health
+
+func add_value(target, add):
+	super.add_value(target, add)
+	if target.has_node("HealthComponent"):
+		target.health_component.max_health += add
+		target.health_component.health += add

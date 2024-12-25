@@ -25,7 +25,7 @@ func on_piece_set() -> void:
 	#牌堆、墓地
 	loop_cards(card_owner.grave)
 	loop_cards(card_owner.deck)
-	for i in range(n):
+	for i in range(n + 1):
 		card_owner.draw_card()
 
 #歷遍牌庫
@@ -43,6 +43,7 @@ func transform(piece: Piece) -> Piece:
 	var types = Global.card_groups.keys()
 	types.pop_front() #移除白色
 	types.pop_back() #移除魔法牌種類
+	types.pop_back() #移除紫色
 	var type_index = Global.rng.randi_range(0, types.size() - 1)
 	var type = types[type_index]
 	#找到對應類型

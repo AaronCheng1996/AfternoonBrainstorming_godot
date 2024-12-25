@@ -9,7 +9,6 @@ var deck := []
 var deck_card_type := {}
 var hand := []
 var grave := []
-var buff_history := []
 var attack_count : int = 0
 
 @onready var buff_component : BuffComponent = $BuffComponent
@@ -52,6 +51,50 @@ func draw_card() -> void:
 	var card = deck.pop_front()
 	hand.append(card)
 	emit_signal("player_draw_card", self, card)
+
+#是否持有牌
+func has_card(name: String) -> bool:
+	for i in range(deck.size()):
+		if deck[i].show_name == name:
+			return true
+	for i in range(grave.size()):
+		if grave[i].show_name == name:
+			return true
+	for i in range(hand.size()):
+		if hand[i].show_name == name:
+			return true
+	for i in range(Global.board_pieces.size()):
+		if Global.board_pieces[i].show_name == name and Global.board_pieces[i].card_owner.id == id:
+			return true
+	return false
+
+#牌庫/棄牌堆是否持有牌
+func has_card_unseen(name: String) -> bool:
+	for i in range(deck.size()):
+		if deck[i].show_name == name:
+			return true
+	for i in range(grave.size()):
+		if grave[i].show_name == name:
+			return true
+	return false
+
+#檢索
+func search_and_draw_card(name: String) -> bool:
+	var card = null
+	for i in range(deck.size()):
+		if deck[i].show_name == name:
+			card = deck.pop_at(i)
+			break
+	if card == null:
+		for i in range(grave.size()):
+			if grave[i].show_name == name:
+				card = grave.pop_at(i)
+				break
+	if card == null:
+		return false
+	hand.append(card)
+	emit_signal("player_draw_card", self, card)
+	return true
 
 #獲得牌
 func get_card(card: Card) -> void:

@@ -26,5 +26,4 @@ func _on_attack_component_on_hit(target: Piece) -> void:
 	attack_debuff.value = -target.attack_component.atk
 	target.add_buff(attack_debuff)
 	#獲得等額攻擊
-	var attack_buff = red.create_attack_buff(-attack_debuff.value, card_owner)
-	add_buff(attack_buff)
+	red.attack_buff(-attack_debuff.value, self)
