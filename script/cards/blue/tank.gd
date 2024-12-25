@@ -12,6 +12,5 @@ func _init() -> void:
 func take_damaged(damage: int, applyer) -> bool:
 	if damage <= 0:
 		return false
-	var result = super.take_damaged(damage, applyer)
 	blue.add_blue_charge(card_owner, buff_value)
-	return result
+	return super.take_damaged(damage, applyer)

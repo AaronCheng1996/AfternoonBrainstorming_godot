@@ -10,6 +10,5 @@ func _init() -> void:
 func take_damaged(damage: int, applyer) -> bool:
 	if damage <= 0:
 		return false
-	var result = super.take_damaged(damage, applyer)
 	Global.get_move_spell(card_owner)
-	return result
+	return super.take_damaged(damage, applyer)

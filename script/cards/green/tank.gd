@@ -11,7 +11,6 @@ func _init() -> void:
 func take_damaged(damage: int, applyer) -> bool:
 	if damage <= 0:
 		return false
-	var result = super.take_damaged(damage, applyer)
 	if applyer != null:
 		green.unlucky_event(applyer)
-	return result
+	return super.take_damaged(damage, applyer)
