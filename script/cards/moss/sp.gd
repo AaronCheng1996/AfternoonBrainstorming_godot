@@ -13,10 +13,10 @@ func refresh() -> void:
 
 #加倍
 func on_piece_set() -> void:
-	moss.add_rune(card_owner, moss.get_rune_count(card_owner) / 2)
+	moss.on_sp_set(card_owner)
 	super.on_piece_set()
 
 #減半
 func die() -> void:
-	moss.add_rune(card_owner, -moss.get_rune_count(card_owner) / 4)
+	moss.on_sp_die(card_owner)
 	super.die()

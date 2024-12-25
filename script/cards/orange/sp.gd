@@ -10,7 +10,4 @@ func _init() -> void:
 func trigger_effect(piece: Piece) -> void:
 	if not is_on_board:
 		return
-	var temp_atk = attack_component.atk
-	attack_component.atk = hit_value
-	attack()
-	attack_component.atk = temp_atk
+	attack_component.hit(get_random_enemy(), hit_value - attack_component.atk)

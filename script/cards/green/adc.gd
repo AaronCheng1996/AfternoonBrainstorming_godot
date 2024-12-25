@@ -7,6 +7,7 @@ func _init() -> void:
 	show_name = Global.data.card.green.name + Global.data.card.default_name.adc
 	description = Global.data.card.green.adc
 
+#在攻擊範圍生成幸運箱
 func attack() -> void:
 	super.attack()
 	for location in get_target_location():

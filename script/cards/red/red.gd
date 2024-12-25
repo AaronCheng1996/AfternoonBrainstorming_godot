@@ -96,19 +96,16 @@ func add_to_history(buff_name: String, value: int, player: Player) -> void:
 		player.buff_component.show_buff()
 
 func attack_buff(value: int, piece: Piece) -> void:
-	var buff_name = Global.data.buff.attack_buff.name
-	add_buff(buff_name, value, piece)
-	buff_redsp(buff_name, value, piece.card_owner)
+	add_buff(Global.data.buff.attack_buff.name, value, piece)
+	buff_redsp(Global.data.buff.attack_buff.name, value, piece.card_owner)
 	return
 
-func health_buff(value: int, piece: Piece) -> void:
-	var buff_name = Global.data.buff.health_buff.name
-	add_buff(buff_name, value, piece)
-	buff_redsp(buff_name, value, piece.card_owner)
+func buff_health(value: int, piece: Piece) -> void:
+	add_buff(Global.data.buff.health_buff.name, value, piece)
+	buff_redsp(Global.data.buff.health_buff.name, value, piece.card_owner)
 	return
 
 func shield_buff(value: int, piece: Piece) -> void:
-	var buff_name = Global.data.hint.shield.name
-	add_buff(buff_name, value, piece)
-	buff_redsp(buff_name, value, piece.card_owner)
+	add_buff(Global.data.hint.shield.name, value, piece)
+	buff_redsp(Global.data.hint.shield.name, value, piece.card_owner)
 	return

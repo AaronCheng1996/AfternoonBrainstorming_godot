@@ -15,7 +15,7 @@ func _ready() -> void:
 	atk = DEFAULT_ATK
 
 #發動攻擊
-func hit(target: Piece) -> void:
+func hit(target: Piece, additonal_damage: int = 0) -> void:
 	if target == null:
 		return
 	if target.is_dead:
@@ -23,12 +23,12 @@ func hit(target: Piece) -> void:
 	if not target.targeted(): #對方被鎖定時的效果，可能無效此次攻擊
 		return
 	emit_signal("on_hit", target)
-	if atk > 0:
-		if target.take_damaged(atk, get_parent()):
+	if atk + additonal_damage > 0:
+		if target.take_damaged(atk + additonal_damage, get_parent()):
 			emit_signal("on_kill", target)
 
 #發動攻擊
-func attack(pieces: Array) -> void:
+func attack(pieces: Array, additonal_damage: int = 0) -> void:
 	if not pieces: #是否為null
 		return
 	pieces = pieces.filter(func(element: Piece): return !element.is_dead)
@@ -44,12 +44,12 @@ func attack(pieces: Array) -> void:
 	#處理最近/最遠傷害
 	if targets.size() > 0:
 		var random_index = Global.rng.randi_range(0, targets.size() - 1)
-		hit(targets[random_index])
+		hit(targets[random_index], additonal_damage)
 		return
 	#AOE
 	for piece: Piece in pieces:
 		if in_attack_range(attacker.location, piece.location):
-			hit(piece)
+			hit(piece, additonal_damage)
 
 #取得目標區域
 func get_target_location(pieces: Array) -> Array:

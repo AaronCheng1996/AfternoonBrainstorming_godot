@@ -54,7 +54,7 @@ func expire() -> void:
 func is_valid(target: Vector2i) -> bool:
 	match target_type:
 		Global.TargetType.NONE:
-			return true
+			return target == Vector2i(-100, -100)
 		Global.TargetType.BOARD:
 			return Global.board_dic[str(target)] is int
 		Global.TargetType.PIECE:

@@ -19,10 +19,4 @@ func attack() -> void:
 
 func after_move() -> void:
 	Global.piece_moved(self)
-	#打最近
-	var pieces = Global.board_pieces.filter(filter_opponent_piece)
-	var targets = attack_component.find_nearest_target(location, pieces)
-	targets = targets.filter(func(element: Piece): return !element.is_dead)
-	if targets.size() > 0:
-		var random_index = Global.rng.randi_range(0, targets.size() - 1)
-		attack_component.hit(targets[random_index])
+	attack_component.hit(get_nearest_enemy())

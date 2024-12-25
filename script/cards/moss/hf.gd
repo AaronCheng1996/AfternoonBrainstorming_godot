@@ -25,6 +25,7 @@ func attack() -> void:
 	total_heal = 0
 	super.attack()
 	heal(total_heal, self)
+	refresh()
 
 func _on_attack_component_on_hit(target: Piece) -> void:
 	total_heal += heal_value

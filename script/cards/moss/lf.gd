@@ -4,7 +4,6 @@ class_name MossLF
 var moss = preload("res://script/cards/moss/moss.gd").new()
 var rate : int = 25
 var buff_value : int = 2
-var buff_value_sum : int = 0
 
 func _init() -> void:
 	show_name = Global.data.card.moss.name + Global.data.card.default_name.lf
@@ -26,10 +25,5 @@ func on_piece_set() -> void:
 	attack_component.atk = temp
 	super.on_piece_set()
 
-func attack() -> void:
-	buff_value_sum = 0
-	super.attack()
-	moss.add_rune(card_owner, buff_value_sum)
-
 func _on_attack_component_on_kill(target: Piece) -> void:
-	buff_value_sum += buff_value
+	moss.add_rune(card_owner, buff_value)

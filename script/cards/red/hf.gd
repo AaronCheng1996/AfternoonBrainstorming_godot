@@ -29,6 +29,7 @@ func attack() -> void:
 			death_door.tag.append_array([Global.BuffTag.BUFF])
 			death_door.icon_path = Global.buff_icon.death_door
 			add_buff(death_door)
+	refresh()
 
 func _on_attack_component_on_hit(target: Piece) -> void:
 	cost_value_sum += cost_value

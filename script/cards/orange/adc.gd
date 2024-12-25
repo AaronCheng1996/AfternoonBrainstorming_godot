@@ -11,5 +11,5 @@ func attack() -> void:
 		add_buff(Global.get_move_buff())
 
 func after_move() -> void:
-	Global.piece_moved(self)
 	auto_attack()
+	super.after_move()

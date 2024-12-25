@@ -171,6 +171,7 @@ func die() -> void:
 	renew()
 	Global.board_pieces.erase(self)
 	card_owner.grave.append(self)
+	Global.board_dic[str(location)] = 0
 	emit_signal("piece_die", self)
 #更新顯示數值
 func refresh() -> void:
@@ -202,6 +203,40 @@ func clear_buffs() -> void:
 		buff_component.clear_buffs()
 		refresh()
 
+#endregion
+
+#region 工具
+#取得最近友方
+func get_nearest_ally() -> Piece:
+	var allys = Global.board_pieces.filter(filter_ally_piece).filter(func(element: Piece): return !element.is_dead)
+	allys = attack_component.find_nearest_target(location, allys)
+	if allys.size() > 0:
+		var random_index = Global.rng.randi_range(0, allys.size() - 1)
+		return allys[random_index]
+	return null
+#取得最近敵方
+func get_nearest_enemy() -> Piece:
+	var enemys = Global.board_pieces.filter(filter_opponent_piece).filter(func(element: Piece): return !element.is_dead)
+	enemys = attack_component.find_nearest_target(location, enemys)
+	if enemys.size() > 0:
+		var random_index = Global.rng.randi_range(0, enemys.size() - 1)
+		return enemys[random_index]
+	return null
+#取得最遠敵方
+func get_farest_enemy() -> Piece:
+	var enemys = Global.board_pieces.filter(filter_opponent_piece).filter(func(element: Piece): return !element.is_dead)
+	enemys = attack_component.find_farest_target(location, enemys)
+	if enemys.size() > 0:
+		var random_index = Global.rng.randi_range(0, enemys.size() - 1)
+		return enemys[random_index]
+	return null
+#取得隨機敵方
+func get_random_enemy() -> Piece:
+	var enemys = Global.board_pieces.filter(filter_opponent_piece).filter(func(element: Piece): return !element.is_dead)
+	if enemys.size() > 0:
+		var random_index = Global.rng.randi_range(0, enemys.size() - 1)
+		return enemys[random_index]
+	return null
 #endregion
 
 #region 過濾

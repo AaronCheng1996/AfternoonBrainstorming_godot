@@ -16,11 +16,8 @@ func refresh() -> void:
 	super.refresh()
 
 func attack() -> void:
-	if has_node("AttackComponent"):
-		var value = blue.get_blue_charge_count(card_owner)
-		attack_component.atk += value
-		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece))
-		attack_component.atk -= value
+	attack_component.attack(Global.board_pieces.filter(filter_opponent_piece), blue.get_blue_charge_count(card_owner))
+	refresh()
 
 func trigger_effect(value: int) -> void:
 	refresh()

@@ -8,9 +8,7 @@ func _init() -> void:
 	description = Global.data.card.green.ap
 
 func _on_attack_component_on_hit(target: Piece) -> void:
-	if not target.buff_component or not target.has_node("AttackComponent"):
-		return
-	if not has_node("BuffComponent"):
+	if not target.has_node("BuffComponent"):
 		return
 	#給予暈眩
 	if not target.buff_component.has_buff(Global.data.buff.stun.name): #不疊加

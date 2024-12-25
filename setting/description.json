@@ -42,7 +42,7 @@
 			"color": "GREEN",
 			"adc": "[b]攻擊後[/b]：機率在攻擊範圍內\n生成[color='orange']幸運箱[/color] ([img]res://img/UI/buff/luck.png[/img])",
 			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n敵方機率觸發[img]res://img/UI/buff/bad_luck.png[/img][color='orange']厄運事件[/color]\n自己機率觸發[img]res://img/UI/buff/luck.png[/img][color='orange']幸運事件[/color]",
-			"apt": "[b]攻擊後[/b]：於自己相鄰格子\n生成[color='orange']幸運箱[/color]\n每次有[color='orange']幸運箱生成[/color]時\n獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
+			"apt": "[b]回合開始、攻擊後[/b]：\n於自己相鄰格子生成[color='orange']幸運箱[/color]\n每次有[color='orange']幸運箱生成[/color]時\n獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
 			"ass": "[b]先攻[/b]\n[b]斬殺[/b]：增加 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n降低對手 {0} [img]res://img/UI/buff/bad_luck.png[/img][color='orange']幸運[/color]",
 			"hf": "[b]斬殺[/b]：對象為[color='orange']幸運箱[/color]時\n增加 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n並隨機生成一個[color='orange']幸運箱[/color]",
 			"lf": "[b]斬殺[/b]：對象為[color='orange']幸運箱[/color]時\n對最近敵方造成 {0} 點傷害\n並機率[color='orange']返刀[/color] (0.5[img]res://img/UI/buff/luck.png[/img])",
@@ -127,7 +127,7 @@
 			},
 			"token_description": {
 				"cube": "",
-				"lucky_box": "裡面到底裝著什麼呢？\n好好奇哦！",
+				"lucky_box": "裡面到底裝著什麼呢？\n好好奇哦～",
 			}
 		},
 	},
@@ -147,6 +147,10 @@
 		"attack_buff": {
 			"name": "攻擊增益",
 			"description": "[img]res://img/UI/sword.png[/img][color='orange']攻擊力[/color]增加 {0}"
+		},
+		"attack_buff_temp": {
+			"name": "臨時攻擊增益",
+			"description": "[img]res://img/UI/sword.png[/img][color='orange']攻擊力[/color]增加 {0}\n直到回合結束"
 		},
 		"health_buff": {
 			"name": "生命增益",

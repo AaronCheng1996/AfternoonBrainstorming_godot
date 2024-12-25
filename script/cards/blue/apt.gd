@@ -15,6 +15,7 @@ func refresh() -> void:
 		description = Global.data.card.blue.apt.format([str(buff_value), text])
 	super.refresh()
 
+#攻擊後獲得護盾 1/4 藍球
 func attack() -> void:
 	super.attack()
 	if health_component.shield / 4 > 0:

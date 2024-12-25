@@ -15,21 +15,7 @@ func add_rune(player: Player, value: int = 1) -> void:
 	for i in range(get_sp_count(player)):
 		value *= 2
 	rune_buff.value += value
-	player.buff_component.show_buff()
-	var trigger_list = [
-		Global.data.card.moss.name + Global.data.card.default_name.adc,
-		Global.data.card.moss.name + Global.data.card.default_name.ap,
-		Global.data.card.moss.name + Global.data.card.default_name.apt,
-		Global.data.card.moss.name + Global.data.card.default_name.ass,
-		Global.data.card.moss.name + Global.data.card.default_name.hf,
-		Global.data.card.moss.name + Global.data.card.default_name.lf,
-		Global.data.card.moss.name + Global.data.card.default_name.sp,
-		Global.data.card.moss.name + Global.data.card.default_name.tank
-	]
-	for piece: Card in Global.get_show_pieces(player):
-		if not trigger_list.has(piece.show_name):
-			continue
-		piece.refresh()
+	refresh(player)
 
 #取得符文數
 func get_rune_count(player: Player) -> int:
@@ -51,7 +37,19 @@ func get_sp_count(player: Player) -> int:
 			count += 1
 	return count
 
-#取得藍球buff
+func on_sp_set(player: Player) -> void:
+	if not player.buff_component.has_buff(Global.data.buff.rune.name):
+		return
+	player.buff_component.get_buff(Global.data.buff.rune.name).value *= 2
+	refresh(player)
+
+func on_sp_die(player: Player) -> void:
+	if not player.buff_component.has_buff(Global.data.buff.rune.name):
+		return
+	player.buff_component.get_buff(Global.data.buff.rune.name).value /= 2
+	refresh(player)
+
+#取得符文buff
 func get_rune_buff() -> Buff:
 	var rune_buff: Rune = Rune.new()
 	rune_buff.show_name = Global.data.buff.rune.name
@@ -63,6 +61,7 @@ func get_rune_buff() -> Buff:
 var default_icon = preload("res://img/piece/standerd/dark_green.png")
 var half_power_icon = preload("res://img/piece/standerd/dark_green_half_powered.png")
 var empower_icon = preload("res://img/piece/standerd/dark_green_empowered.png")
+
 #更改圖示
 func update_icon(piece: Piece) -> void:
 	var power = get_rune_count(piece.card_owner)
@@ -72,3 +71,21 @@ func update_icon(piece: Piece) -> void:
 		piece.outfit_component.icon.texture = half_power_icon
 	if power >= 50 and piece.outfit_component.icon.texture != empower_icon:
 		piece.outfit_component.icon.texture = empower_icon
+
+#重新整理
+func refresh(player: Player) -> void:
+	player.buff_component.show_buff()
+	var trigger_list = [
+		Global.data.card.moss.name + Global.data.card.default_name.adc,
+		Global.data.card.moss.name + Global.data.card.default_name.ap,
+		Global.data.card.moss.name + Global.data.card.default_name.apt,
+		Global.data.card.moss.name + Global.data.card.default_name.ass,
+		Global.data.card.moss.name + Global.data.card.default_name.hf,
+		Global.data.card.moss.name + Global.data.card.default_name.lf,
+		Global.data.card.moss.name + Global.data.card.default_name.sp,
+		Global.data.card.moss.name + Global.data.card.default_name.tank
+	]
+	for piece: Card in Global.get_show_pieces(player):
+		if not trigger_list.has(piece.show_name):
+			continue
+		piece.refresh()

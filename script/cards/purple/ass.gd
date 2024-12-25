@@ -25,7 +25,6 @@ func on_piece_set() -> void:
 	pass
 
 func _on_attack_component_on_kill(target: Piece) -> void:
-	print(count)
 	count = Global.board_pieces.filter(filter_opponent_piece_only).size() - Global.board_pieces.filter(filter_ally_piece).size()
 	for i in range(count - minus):
 		card_owner.draw_card()

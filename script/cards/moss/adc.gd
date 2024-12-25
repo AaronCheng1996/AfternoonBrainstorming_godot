@@ -4,7 +4,6 @@ class_name MossADC
 var moss = preload("res://script/cards/moss/moss.gd").new()
 var rate : int = 25
 var buff_value : int = 1
-var buff_value_sum : int = 0
 
 func _init() -> void:
 	show_name = Global.data.card.moss.name + Global.data.card.default_name.adc
@@ -21,12 +20,10 @@ func refresh() -> void:
 	super.refresh()
 	
 func attack() -> void:
-	buff_value_sum = 0
-	var temp = attack_component.atk
-	attack_component.atk += moss.get_rune_count(card_owner) * rate / 100
-	super.attack()
-	attack_component.atk = temp
-	moss.add_rune(card_owner, buff_value_sum)
+	if has_node("AttackComponent"):
+		attack_component.attack(Global.board_pieces.filter(filter_opponent_piece), moss.get_rune_count(card_owner) * rate / 100)
+	refresh()
+	
 
 func _on_attack_component_on_hit(target: Piece) -> void:
-	buff_value_sum += 1
+	moss.add_rune(card_owner, buff_value)

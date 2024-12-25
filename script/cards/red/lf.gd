@@ -11,4 +11,4 @@ func _init() -> void:
 #造成傷害增加攻擊力
 func _on_attack_component_on_hit(target: Piece) -> void:
 	red.attack_buff(buff_value, self)
-	red.health_buff(buff_value, self)
+	red.buff_health(buff_value, self)

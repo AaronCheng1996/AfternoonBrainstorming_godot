@@ -13,9 +13,7 @@ func take_damaged(damage: int, applyer) -> bool:
 	if damage <= 0:
 		return false
 	#最接近的友方
-	var allys = attack_component.find_nearest_target(location, Global.board_pieces.filter(filter_ally_piece))
-	allys = allys.filter(func(element: Piece): return !element.is_dead)
-	if allys.size() > 0:
-		var random_index = Global.rng.randi_range(0, allys.size() - 1)
-		red.shield_buff(buff_value, allys[random_index])
+	var ally = get_nearest_ally()
+	if ally != null:
+		red.shield_buff(buff_value, ally)
 	return super.take_damaged(damage, applyer)

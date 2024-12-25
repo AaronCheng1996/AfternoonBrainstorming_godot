@@ -287,7 +287,7 @@ func _on_piece_attack(piece: Piece) -> void:
 
 #施放魔法 (僅限無目標)
 func _on_spell_cast(card: Card) -> void:
-	if not card.cast(Vector2i(0, 0)):
+	if not card.cast(Vector2i(-100, -100)):
 		message.pop_message(Global.data.message.invalid_cast)
 
 #棋子按下移動鍵
@@ -315,7 +315,6 @@ func _on_mouse_out_attack(piece: Piece) -> void:
 
 #棋子死亡時將其從場上移除
 func _on_piece_die(piece: Piece) -> void:
-	Global.board_dic[str(piece.location)] = 0
 	pieces_on_board.remove_child(piece)
 
 #棋子死亡時將其從場上移除

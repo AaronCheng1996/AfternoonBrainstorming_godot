@@ -59,26 +59,40 @@ func clear_buffs() -> void:
 	show_buff()
 
 #是否存在buff
-func has_buff(name: String, tag: Array = []) -> bool:
-	for buff: Buff in active_buffs:
-		if tag == []:
-			if buff.show_name == name:
-				return true
-		else:
-			if buff.show_name == name and contains_all_elements(buff.tag, tag):
-				return true
+func has_buff(show_name: String, tag: Array = []) -> bool:
+	var result = name_filter(active_buffs, show_name)
+	if tag != []:
+		result = tag_filter(result, tag)
+	if result.size() > 0:
+		return true
 	return false
 
-func get_buff(name: String, tag: Array = []) -> Buff:
-	for buff: Buff in active_buffs:
-		if tag == []:
-			if buff.show_name == name:
-				return buff
-		else:
-			if buff.show_name == name and contains_all_elements(buff.tag, tag):
-				return buff
+#取得buff
+func get_buff(show_name: String, tag: Array = []) -> Buff:
+	var result = name_filter(active_buffs, show_name)
+	if tag != []:
+		result = tag_filter(result, tag)
+	if result.size() > 0:
+		return result[0]
 	return null
 
+#過濾名稱
+func name_filter(buffs: Array, show_name: String) -> Array:
+	var result := []
+	for buff: Buff in buffs:
+		if buff.show_name == show_name:
+			result.append(buff)
+	return result
+
+#過濾Tag
+func tag_filter(buffs: Array, tag: Array) -> Array:
+	var result := []
+	for buff: Buff in buffs:
+		if contains_all_elements(buff.tag, tag):
+			result.append(buff)
+	return result
+
+#確認裡面有Tag
 func contains_all_elements(long: Array, short: Array) -> bool:
 	for element in short:
 		if element not in long:
