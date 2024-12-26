@@ -17,6 +17,8 @@ signal spell_cast(spell: Spell)
 @onready var cast_button: Button = $ControlPanel/btn_cast
 @onready var player_effect: Sprite2D = $click_box/player_effect
 @onready var icon: Sprite2D = $click_box/Icon
+@onready var hit_flash_animation_player: AnimationPlayer = $HitFlashAnimationPlayer
+
 @export var icon_texture : CompressedTexture2D
 @export var frame : int = 0
 
@@ -97,7 +99,9 @@ func _on_btn_move_pressed() -> void:
 func _on_btn_cast_pressed() -> void:
 	emit_signal("spell_cast", get_parent())
 
-
+#擊中特效
+func play_hit_flash() -> void:
+	hit_flash_animation_player.play("hit_flash")
 
 func refresh_value(atk: int, default: int) -> void:
 	if txt_value == null:

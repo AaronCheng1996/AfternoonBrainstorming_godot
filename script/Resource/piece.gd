@@ -159,7 +159,8 @@ func take_damaged(damage: int, applyer) -> bool:
 	if damage <= 0:
 		return false
 	if has_node("HealthComponent"):
-		#預留：動畫位置
+		if has_node("OutfitComponent"):
+			outfit_component.play_hit_flash()
 		var is_killed = health_component.take_damaged(damage)
 		refresh()
 		return is_killed

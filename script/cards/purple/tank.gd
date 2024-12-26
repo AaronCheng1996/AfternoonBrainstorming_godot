@@ -8,4 +8,5 @@ func _init() -> void:
 	description = Global.data.card.purple.tank.format([str(hit_value)])
 
 func trigger_effect(piece: Piece) -> void:
-	attack_component.hit(piece, hit_value - attack_component.atk)
+	if is_on_board:
+		attack_component.hit(piece, hit_value - attack_component.atk)

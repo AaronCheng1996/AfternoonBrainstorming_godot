@@ -25,7 +25,7 @@ func on_piece_set() -> void:
 	#牌堆、墓地
 	loop_cards(card_owner.grave)
 	loop_cards(card_owner.deck)
-	for i in range(n + 1):
+	for i in range(n):
 		card_owner.draw_card()
 
 #歷遍牌庫

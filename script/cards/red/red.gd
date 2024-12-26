@@ -2,7 +2,7 @@ extends Node
 class_name Red
 
 var hero_name : String = Global.data.card.red.name + Global.data.card.default_name.hero
-var battle_fury_count = 7
+var battle_fury_count = 6
 
 #生成增益
 func create_buff(buff_name: String, value: int) -> Buff:
