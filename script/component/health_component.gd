@@ -41,6 +41,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	#血條動畫
+	if hurtbar.max_value != max_health:
+		hurtbar.max_value = max_health
 	if healthbar.max_value != max_health:
 		healthbar.max_value = max_health
 	if healthbar.value != health:

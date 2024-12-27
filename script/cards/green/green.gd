@@ -27,6 +27,9 @@ const unlucky_events_weight := {
 const LUCKY_BOX = preload("res://scenes/cards/token/lucky_box.tscn")
 var shield_value : int = 4
 
+func is_lucky(player: Player) -> bool:
+	return Global.has_piece_on_board(Global.data.card.green.name + Global.data.card.default_name.hero, player)
+
 #幸運效果
 func lucky_event(target: Piece) -> void:
 	if target.card_owner == null:
@@ -105,11 +108,17 @@ func check_luck(target: Player) -> int:
 		return 0
 	if not target.buff_component.has_buff(Global.data.buff.luck.name):
 		target.buff_component.add_buff(get_luck_buff())
+	target.buff_component.show_buff()
 	return target.buff_component.get_buff(Global.data.buff.luck.name).value
 
 #確認是否觸發效果
 func luck_is_trigger(player: Player, divided: int = 1) -> bool:
-	return Global.rng.randi_range(0, 100) < check_luck(player) / divided
+	var luck_value = Global.rng.randi_range(0, 100)
+	if is_lucky(player):
+		var new_luck_value = Global.rng.randi_range(0, 100)
+		if new_luck_value < luck_value:
+			luck_value = new_luck_value
+	return luck_value < check_luck(player) / divided
 
 #取得可觸發的事件
 func is_valid_event(target: Piece, event: EVENTS) -> bool:
@@ -197,11 +206,18 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 		#祝福
 		EVENTS.BLESSED:
 			print("++祝福++")
-			for current_event: EVENTS in lucky_events_weight.keys():
-				if event == EVENTS.BLESSED:
-					continue
-				if is_valid_event(target, event):
-					event_effect(target, event)
+			target.shielded(shield_value, null)
+			var attack_buff = AttackBuff.new()
+			attack_buff.show_name = Global.data.buff.attack_buff.name
+			attack_buff.description = Global.data.buff.attack_buff.description.format([str(target.attack_component.atk)])
+			attack_buff.tag.append_array([Global.BuffTag.BUFF, Global.BuffTag.GREEN])
+			attack_buff.value = target.attack_component.atk
+			target.add_buff(attack_buff)
+			var directions = [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]
+			for i: Vector2i in directions:
+				create_lucky_box(target.location + i)
+			target.auto_attack()
+			target.add_buff(Global.get_move_buff())
 		#破甲
 		EVENTS.SHIELD_BREAK:
 			print("-破甲")
@@ -226,11 +242,15 @@ func event_effect(target: Piece, event: EVENTS) -> void:
 		#災厄
 		EVENTS.DOOMED:
 			print("--災厄--")
-			for current_event: EVENTS in unlucky_events_weight.keys():
-				if event == EVENTS.DOOMED:
-					continue
-				if is_valid_event(target, event):
-					event_effect(target, event)
+			var attack_debuff = AttackBuff.new()
+			attack_debuff.show_name = Global.data.buff.attack_debuff.name
+			attack_debuff.description = Global.data.buff.attack_debuff.description.format([str(target.attack_component.atk / 2)])
+			attack_debuff.tag.append_array([Global.BuffTag.DEBUFF, Global.BuffTag.GREEN])
+			attack_debuff.value = -target.attack_component.atk / 2
+			target.add_buff(attack_debuff)
+			target.health_component.shield = 0
+			target.health_component.health -= target.health_component.health / 2
+			target.add_buff(Global.get_stun_debuff())
 
 #生成幸運箱
 func create_lucky_box(location: Vector2i) -> void:
@@ -238,6 +258,5 @@ func create_lucky_box(location: Vector2i) -> void:
 	box.card_owner = null
 	if Global.get_match_scene().add_piece_to_board(box, location):
 		#給法坦盾
-		for piece in Global.board_pieces:
-			if piece.show_name == Global.data.card.green.name + Global.data.card.default_name.apt:
-				piece.shielded(piece.buff_value, piece.buff_value)
+		for piece in Global.get_piece_on_board(Global.data.card.green.name + Global.data.card.default_name.apt):
+			piece.shielded(piece.buff_value, piece.buff_value)

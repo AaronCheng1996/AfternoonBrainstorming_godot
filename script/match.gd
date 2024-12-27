@@ -87,6 +87,7 @@ func setup_player() -> void:
 		players.add_child(player)
 		player.player_draw_card.connect(on_draw_card)
 		player.player_discard_card.connect(_on_discard)
+		player.player_win.connect(win)
 
 #抽起手牌
 func draw_starter_hand() -> void:
@@ -225,12 +226,15 @@ func deal_win() -> void:
 		winner = 0
 	else:
 		winner = 1
+	win(winner)
+	
+
+func win(winner: int) -> void:
 	#加載並切換到新場景
 	var end_scene = preload("res://scenes/end.tscn").instantiate()
 	end_scene.set_winner(winner)
 	get_parent().add_child(end_scene)
 	get_parent().remove_child(self)
-
 #endregion
 
 #region 觸發

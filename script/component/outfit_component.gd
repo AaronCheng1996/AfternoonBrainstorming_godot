@@ -59,6 +59,9 @@ func enable_attack() -> void:
 	attack_button.disabled = false
 func disable_attack() -> void:
 	attack_button.disabled = true
+#不會攻擊的單位
+func hide_attack() -> void:
+	attack_button.hide()
 #顯示移動
 func show_move() -> void:
 	move_button.show()

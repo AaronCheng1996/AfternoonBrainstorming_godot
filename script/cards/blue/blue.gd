@@ -55,7 +55,8 @@ func blue_charge_release(player: Player, blue_charge_buff: BlueCharge) -> void:
 	#藍ADC自動攻擊、更新HF數值
 	var trigger_list = [
 		Global.data.card.blue.name + Global.data.card.default_name.adc, 
-		Global.data.card.blue.name + Global.data.card.default_name.hf
+		Global.data.card.blue.name + Global.data.card.default_name.hf,
+		Global.data.card.blue.name + Global.data.card.default_name.hero
 	]
 	for piece: Card in Global.get_show_pieces(player):
 		if trigger_list.has(piece.show_name):

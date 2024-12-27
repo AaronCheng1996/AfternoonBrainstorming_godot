@@ -13,7 +13,8 @@ func on_piece_set() -> void:
 	#清除手牌
 	var n : int = card_owner.hand.size()
 	for i in range(n):
-		card_owner.discard(card_owner.hand[n - 1 - i])
+		if card_owner.hand[n - 1 - i].card_type != Global.CardType.SPELL:
+			card_owner.discard(card_owner.hand[n - 1 - i])
 	#清除場上
 	var allys = Global.board_pieces.filter(filter_ally_piece)
 	for ally: Piece in allys:

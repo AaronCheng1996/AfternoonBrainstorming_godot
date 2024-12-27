@@ -47,11 +47,7 @@ func add_buff(buff_name: String, value: int, piece: Piece) -> void:
 
 #取得紅鑽石
 func get_redsp(player: Player) -> Array:
-	var result := []
-	for piece in Global.board_pieces:
-		if piece.show_name == Global.data.card.red.name + Global.data.card.default_name.sp and piece.card_owner.id == player.id:
-			result.append(piece)
-	return result
+	return Global.get_piece_on_board(Global.data.card.red.name + Global.data.card.default_name.sp, player)
 
 #給紅鑽石增益
 func buff_redsp(buff_name: String, value: int, player: Player) -> void:

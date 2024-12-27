@@ -20,9 +20,9 @@
 			"ass": "[b]先攻[/b]",
 			"hf": "",
 			"lf": "",
-			"sp": "計分時額外獲得 {0} 分",
+			"sp": "計分額外獲得 {0} 分",
 			"tank": "",
-			"hero": "[b]進場時[/b]：將手牌棄置\n轉化牌堆中白色友方\n為其他隨機派別\n然後抽與棄牌數等量的牌"
+			"hero": "[b]進場[/b]：將手牌棄置\n轉化牌堆中白色友方\n為其他隨機派別\n然後抽與棄牌數等量的牌"
 		},
 		"red": {
 			"name" : "紅色",
@@ -35,7 +35,7 @@
 			"lf": "[b]造成傷害[/b]：\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n以及 {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']最大生命[/color]",
 			"sp": "紅色友方給予增益時\n此單位獲得相同增益",
 			"tank": "[b]承受傷害[/b]：\n最近隊友獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
-			"hero": "增益 {0} 次後抽起，[b]先攻[/b]\n[b]進場時[/b]：移除所有手牌和友方\n獲得本賽局所有紅色增益\n[b]斬殺[/b]：額外攻擊一名隨機敵方"
+			"hero": "增益 {0} 次後抽起，[b]先攻[/b]\n[b]進場[/b]：移除非魔法手牌和友方\n獲得本賽局所有紅色增益\n[b]斬殺[/b]：額外攻擊一名隨機敵方"
 		},
 		"green": {
 			"name" : "綠色",
@@ -44,11 +44,11 @@
 			"ap": "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n敵方機率觸發[img]res://img/UI/buff/bad_luck.png[/img][color='orange']厄運事件[/color]\n自己機率觸發[img]res://img/UI/buff/luck.png[/img][color='orange']幸運事件[/color]",
 			"apt": "[b]回合開始、攻擊後[/b]：\n於自己相鄰格子生成[color='orange']幸運箱[/color]\n每次有[color='orange']幸運箱生成[/color]時\n獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
 			"ass": "[b]先攻[/b]\n[b]斬殺[/b]：增加 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n降低對手 {0} [img]res://img/UI/buff/bad_luck.png[/img][color='orange']幸運[/color]",
-			"hf": "[b]斬殺[/b]：對象為[color='orange']幸運箱[/color]時\n增加 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n並隨機生成一個[color='orange']幸運箱[/color]",
-			"lf": "[b]斬殺[/b]：對象為[color='orange']幸運箱[/color]時\n對最近敵方造成 {0} 點傷害\n並機率[color='orange']返刀[/color] (0.5[img]res://img/UI/buff/luck.png[/img])",
+			"hf": "[b]斬殺[/b]：若對象為[color='orange']幸運箱[/color]\n增加 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n並隨機生成一個[color='orange']幸運箱[/color]",
+			"lf": "[b]斬殺[/b]：若對象為[color='orange']幸運箱[/color]\n對最近敵方造成 {0} 點傷害\n並機率[color='orange']返刀[/color] (0.5[img]res://img/UI/buff/luck.png[/img])",
 			"sp": "獲得 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n根據[color='orange']幸運[/color]隨機生成數個[color='orange']幸運箱[/color] (0.1[img]res://img/UI/buff/luck.png[/img])",
 			"tank": "[b]承受傷害[/b]：\n攻擊者機率觸發[img]res://img/UI/buff/bad_luck.png[/img][color='orange']厄運事件[/color]",
-			"hero": "[b]進場時[/b]：獲得隨機體質\n你現在更幸運了\n(作弊啊！你這骰子是不是灌鉛啊？)"
+			"hero": "[b]進場[/b]：獲得隨機體質\n獲得隨機進場效果\n你現在更幸運了\n(作弊啊！你這骰子是不是灌鉛啊？)"
 		},
 		"blue": {
 			"name" : "藍色",
@@ -59,9 +59,9 @@
 			"ass": "[b]先攻[/b]、[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
 			"hf": "攻擊額外造成 {0} 點傷害 ([img]res://img/UI/buff/blue_charge.png[/img])",
 			"lf": "[b]造成傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
-			"sp": "[b]進場時[/b]：隨機造成 {0} 點傷害\n重複 {1} 次 (場上與棄牌堆牌數)",
+			"sp": "[b]進場[/b]：隨機造成 {0} 點傷害\n重複 {1} 次 (場上與棄牌堆牌數)",
 			"tank": "[b]承受傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
-			"hero": "釋放[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時\n對隨機敵方造成 {0} 點傷害\n[b]回合結束[/b]：獲得 {1} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]"
+			"hero": "不能攻擊\n[b]回合結束[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]\n釋放[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時\n自動攻擊 {0} 個隨機敵方"
 		},
 		"orange": {
 			"name" : "橘色",
@@ -84,7 +84,7 @@
 			"apt": "攻擊額外造成 {0} 點傷害\n[b]攻擊後[/b]：獲得 {1} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]\n[b]造成傷害[/b]：獲得 {2} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]\n(0.5[img]res://img/UI/buff/rune.png[/img]/0.5[img]res://img/UI/sword.png[/img]/0.5[img]res://img/UI/shield.png[/img])",
 			"ass": "[b]先攻[/b]、[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]",
 			"hf": "[b]回合開始[/b]：失去 {0} [img]res://img/UI/buff/health_debuff.png[/img][color='orange']生命[/color]\n然後獲得 {1} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]\n[b]造成傷害[/b]：回復 {2} [img]res://img/UI/buff/health_buff.png[/img][color='orange']生命[/color]",
-			"lf": "[b]進場時[/b]：對攻擊範圍內敵方\n造成 {0} 點傷害 (0.{1}[img]res://img/UI/buff/rune.png[/img])\n[b]斬殺[/b]：獲得 {2} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]",
+			"lf": "[b]進場[/b]：對攻擊範圍內敵方\n造成 {0} 點傷害 (0.{1}[img]res://img/UI/buff/rune.png[/img])\n[b]斬殺[/b]：獲得 {2} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]",
 			"sp": "在場上時[img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]加倍",
 			"tank": "[b]承受傷害[/b]：獲得 {0} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]",
 			"hero": "[b]回合開始[/b]：獲得 {0} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]\n計分時額外獲得 {0} 分\n(0.05[img]res://img/UI/buff/rune.png[/img])"

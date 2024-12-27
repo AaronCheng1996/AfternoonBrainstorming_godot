@@ -43,7 +43,8 @@ const card_groups = {
 		 "res://scenes/cards/green/hf.tscn",
 		 "res://scenes/cards/green/lf.tscn", 
 		"res://scenes/cards/green/sp.tscn", 
-		"res://scenes/cards/green/tank.tscn"
+		"res://scenes/cards/green/tank.tscn",
+		"res://scenes/cards/green/hero.tscn",
 	],
 	"blue": [
 		"res://scenes/cards/blue/adc.tscn",
@@ -53,7 +54,8 @@ const card_groups = {
 		 "res://scenes/cards/blue/hf.tscn",
 		 "res://scenes/cards/blue/lf.tscn", 
 		"res://scenes/cards/blue/sp.tscn", 
-		"res://scenes/cards/blue/tank.tscn"
+		"res://scenes/cards/blue/tank.tscn",
+		"res://scenes/cards/blue/hero.tscn",
 	],
 	"orange": [
 		"res://scenes/cards/orange/adc.tscn",
@@ -185,7 +187,6 @@ func shuffle_deck(deck: Array) -> Array:
 		shuffled_deck[i] = shuffled_deck[j]
 		shuffled_deck[j] = temp_piece
 	return shuffled_deck
-
 #region 場面
 #取得對戰場景節點
 func get_match_scene() -> Node:
@@ -203,6 +204,27 @@ func get_show_pieces(player: Player) -> Array:
 			return false
 		return element.card_owner.id == player.id
 	))
+	return result
+#是否有特定牌
+func has_piece_on_board(piece_name: String, player: Player = null) -> bool:
+	for piece: Card in board_pieces:
+		if not piece.show_name == piece_name:
+			continue
+		if player == null:
+			return true
+		elif piece.card_owner == player:
+			return true
+	return false
+#取得特定牌
+func get_piece_on_board(piece_name: String, player: Player = null) -> Array:
+	var result = []
+	for piece: Card in board_pieces:
+		if not piece.show_name == piece_name:
+			continue
+		if player == null:
+			result.append(piece)
+		elif piece.card_owner == player:
+			result.append(piece)
 	return result
 #取得所有牌
 func get_all_pieces(player: Player) -> Array:

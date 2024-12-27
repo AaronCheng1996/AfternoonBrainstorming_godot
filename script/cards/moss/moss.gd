@@ -29,13 +29,7 @@ func get_rune_count(player: Player) -> int:
 
 #取得墨綠sp數
 func get_sp_count(player: Player) -> int:
-	var count: int = 0
-	for piece: Card in Global.board_pieces:
-		if not piece.show_name == Global.data.card.moss.name + Global.data.card.default_name.sp:
-			continue
-		if piece.card_owner == player:
-			count += 1
-	return count
+	return Global.get_piece_on_board(Global.data.card.moss.name + Global.data.card.default_name.sp, player).size()
 
 func on_sp_set(player: Player) -> void:
 	if not player.buff_component.has_buff(Global.data.buff.rune.name):

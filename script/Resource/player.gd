@@ -1,6 +1,7 @@
 extends Control
 class_name Player
 
+signal player_win(player_id: int)
 signal player_draw_card(player: Player, card: Card)
 signal player_discard_card(card: Card)
 
@@ -115,3 +116,7 @@ func reshuffle() -> void:
 	deck.append_array(grave)
 	grave.clear()
 	Global.shuffle_deck(deck)
+
+#特殊勝利
+func win() -> void:
+	emit_signal("player_win", id)
