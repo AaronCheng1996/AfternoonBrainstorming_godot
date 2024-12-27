@@ -374,7 +374,7 @@
 			"lucky_box" : {
 				"show_name" : "幸運箱",
 				"description" : "[b]死亡[/b]：觸發[img]res://img/UI/buff/unknown_luck.png[/img][color='orange']隨機事件[/color]",
-				"hint" : "裡面到底裝著什麼呢？\n好好奇哦～"
+				"hint" : "裡面到底裝著什麼呢？好好奇哦～"
 			},
 		},
 	},
