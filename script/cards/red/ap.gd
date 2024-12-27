@@ -5,8 +5,10 @@ var red = preload("res://script/cards/red/red.gd").new()
 var buff_value : int = 100
 
 func _init() -> void:
-	show_name = Global.data.card.red.name + Global.data.card.default_name.ap
-	description = Global.data.card.red.ap.format([str(buff_value)])
+	show_name = Global.data.card.red.ap.show_name
+	description = Global.data.card.red.ap.description.format([str(buff_value)])
+	hint = Global.data.card.red.ap.hint
+	piece_type = Global.PieceType.AP
 
 func _on_attack_component_on_hit(target: Piece) -> void:
 	if not target.has_node("BuffComponent") or not target.has_node("AttackComponent"):

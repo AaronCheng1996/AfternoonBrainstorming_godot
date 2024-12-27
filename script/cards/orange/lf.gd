@@ -2,14 +2,16 @@ extends Piece
 class_name OrangeLF
 
 func _init() -> void:
-	show_name = Global.data.card.orange.name + Global.data.card.default_name.lf
-	description = Global.data.card.orange.lf.format([str(3)])
+	show_name = Global.data.card.orange.lf.show_name
+	description = Global.data.card.orange.lf.description.format([str(3)])
+	hint = Global.data.card.orange.lf.hint
+	piece_type = Global.PieceType.LF
 
 func refresh() -> void:
 	if has_node("AttackComponent"):
 		var text = str(attack_component.atk)
 		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
-		description = Global.data.card.orange.lf.format([text])
+		description = Global.data.card.orange.lf.description.format([text])
 	super.refresh()
 
 func attack() -> void:

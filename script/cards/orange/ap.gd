@@ -4,8 +4,10 @@ class_name OrangeAP
 var value : int = 1
 
 func _init() -> void:
-	show_name = Global.data.card.orange.name + Global.data.card.default_name.ap
-	description = Global.data.card.orange.ap.format([str(value)])
+	show_name = Global.data.card.orange.ap.show_name
+	description = Global.data.card.orange.ap.description.format([str(value)])
+	hint = Global.data.card.orange.ap.hint
+	piece_type = Global.PieceType.AP
 
 #回合開始時
 func on_turn_start(current_turn: int) -> void:

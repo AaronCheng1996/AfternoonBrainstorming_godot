@@ -6,8 +6,9 @@ var health : int = 4
 const CUBE_TOKEN = preload("res://scenes/cards/token/cube_token.tscn")
 
 func _init() -> void:
-	show_name = Global.data.card.spell.spell_name.cube
-	description = Global.data.card.spell.spell_description.cube.format([str(attack), str(health)])
+	show_name = Global.data.card.spell_and_token.cube.show_name
+	description = Global.data.card.spell_and_token.cube.description.format([str(attack), str(health)])
+	hint = Global.data.card.spell_and_token.cube.hint
 
 #效果
 func effect(target: Vector2i) -> void:

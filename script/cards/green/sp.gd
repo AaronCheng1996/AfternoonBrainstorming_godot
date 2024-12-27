@@ -5,8 +5,10 @@ var green = preload("res://script/cards/green/green.gd").new()
 var buff_value = 10
 
 func _init() -> void:
-	show_name = Global.data.card.green.name + Global.data.card.default_name.sp
-	description = Global.data.card.green.sp.format([str(buff_value)])
+	show_name = Global.data.card.green.sp.show_name
+	description = Global.data.card.green.sp.description.format([str(buff_value)])
+	hint = Global.data.card.green.sp.hint
+	piece_type = Global.PieceType.SP
 
 func on_piece_set() -> void:
 	super.on_piece_set()

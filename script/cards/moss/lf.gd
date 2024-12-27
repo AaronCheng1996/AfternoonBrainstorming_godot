@@ -6,8 +6,10 @@ var rate : int = 25
 var buff_value : int = 2
 
 func _init() -> void:
-	show_name = Global.data.card.moss.name + Global.data.card.default_name.lf
-	description = Global.data.card.moss.lf.format([str(0), str(rate), str(buff_value)])
+	show_name = Global.data.card.moss.lf.show_name
+	description = Global.data.card.moss.lf.description.format([str(0), str(rate), str(buff_value)])
+	hint = Global.data.card.moss.lf.hint
+	piece_type = Global.PieceType.LF
 
 func refresh() -> void:
 	#更改圖示
@@ -15,7 +17,7 @@ func refresh() -> void:
 	moss.update_icon(self)
 	var text = str(power * rate / 100)
 	Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))
-	description = Global.data.card.moss.lf.format([text, str(rate), str(buff_value)])
+	description = Global.data.card.moss.lf.description.format([text, str(rate), str(buff_value)])
 	super.refresh()
 
 func on_piece_set() -> void:

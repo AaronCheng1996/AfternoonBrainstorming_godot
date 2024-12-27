@@ -3,9 +3,11 @@ class_name Card
 
 var show_name : String = ""
 var description : String = ""
+var hint : String = ""
 var location : Vector2i
 var is_on_board : bool
 var card_owner : Player
+var piece_type : Global.PieceType = Global.PieceType.OTHER
 
 #抽起時
 func on_draw() -> void:

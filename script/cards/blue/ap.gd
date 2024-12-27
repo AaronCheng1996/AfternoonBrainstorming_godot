@@ -5,8 +5,10 @@ var blue = preload("res://script/cards/blue/blue.gd").new()
 var buff_value : int = 2
 
 func _init() -> void:
-	show_name = Global.data.card.blue.name + Global.data.card.default_name.ap
-	description = Global.data.card.blue.ap.format([str(buff_value)])
+	show_name = Global.data.card.blue.ap.show_name
+	description = Global.data.card.blue.ap.description.format([str(buff_value)])
+	hint = Global.data.card.blue.ap.hint
+	piece_type = Global.PieceType.AP
 
 func attack() -> void:
 	blue.add_blue_charge(card_owner, buff_value)

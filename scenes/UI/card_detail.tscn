@@ -45,6 +45,12 @@ offset_bottom = 295.0
 mouse_filter = 2
 color = Color(0.169245, 0.169245, 0.169245, 1)
 
+[node name="card_icon" type="Sprite2D" parent="."]
+position = Vector2(119, 80)
+texture = ExtResource("2_7yvi8")
+hframes = 3
+vframes = 3
+
 [node name="lbl_card_name" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_top = 10.0
@@ -54,21 +60,22 @@ mouse_filter = 2
 bbcode_enabled = true
 text = "Name"
 
-[node name="card_icon" type="Sprite2D" parent="."]
-position = Vector2(119, 80)
-texture = ExtResource("2_7yvi8")
-hframes = 3
-vframes = 3
-
 [node name="lbl_card_description" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 10.0
-offset_top = 180.0
+offset_top = 175.0
 offset_right = 230.0
-offset_bottom = 280.0
+offset_bottom = 275.0
 mouse_filter = 2
 bbcode_enabled = true
 text = "description"
+
+[node name="lbl_hint" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 275.0
+offset_right = 240.0
+offset_bottom = 295.0
+bbcode_enabled = true
 
 [node name="States" type="GridContainer" parent="."]
 custom_minimum_size = Vector2(180, 20)

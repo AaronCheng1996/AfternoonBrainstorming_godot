@@ -7,8 +7,10 @@ var count_show : int = 0
 var default_count : int = 0
 
 func _init() -> void:
-	show_name = Global.data.card.purple.name + Global.data.card.default_name.ass
-	description = Global.data.card.purple.ass.format([str(0), str(minus)])
+	show_name = Global.data.card.purple.ass.show_name
+	description = Global.data.card.purple.ass.description.format([str(0), str(minus)])
+	hint = Global.data.card.purple.ass.hint
+	piece_type = Global.PieceType.ASS
 
 func _process(delta: float) -> void:
 	if card_owner != null:

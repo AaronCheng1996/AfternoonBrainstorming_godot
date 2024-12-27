@@ -6,8 +6,9 @@ const CUBE = preload("res://scenes/cards/spell/cube.tscn")
 var value : int = 2
 
 func _init() -> void:
-	show_name = Global.data.card.spell.spell_name.cubes
-	description = Global.data.card.spell.spell_description.cubes.format([str(value)])
+	show_name = Global.data.card.spell_and_token.cubes.show_name
+	description = Global.data.card.spell_and_token.cubes.description.format([str(value)])
+	hint = Global.data.card.spell_and_token.cubes.hint
 
 #效果
 func effect(target: Vector2i) -> void:

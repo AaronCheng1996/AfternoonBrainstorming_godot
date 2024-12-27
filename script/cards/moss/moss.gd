@@ -29,7 +29,7 @@ func get_rune_count(player: Player) -> int:
 
 #取得墨綠sp數
 func get_sp_count(player: Player) -> int:
-	return Global.get_piece_on_board(Global.data.card.moss.name + Global.data.card.default_name.sp, player).size()
+	return Global.get_piece_on_board(Global.data.card.moss.sp.show_name, player).size()
 
 func on_sp_set(player: Player) -> void:
 	if not player.buff_component.has_buff(Global.data.buff.rune.name):
@@ -70,14 +70,15 @@ func update_icon(piece: Piece) -> void:
 func refresh(player: Player) -> void:
 	player.buff_component.show_buff()
 	var trigger_list = [
-		Global.data.card.moss.name + Global.data.card.default_name.adc,
-		Global.data.card.moss.name + Global.data.card.default_name.ap,
-		Global.data.card.moss.name + Global.data.card.default_name.apt,
-		Global.data.card.moss.name + Global.data.card.default_name.ass,
-		Global.data.card.moss.name + Global.data.card.default_name.hf,
-		Global.data.card.moss.name + Global.data.card.default_name.lf,
-		Global.data.card.moss.name + Global.data.card.default_name.sp,
-		Global.data.card.moss.name + Global.data.card.default_name.tank
+		Global.data.card.moss.adc.show_name,
+		Global.data.card.moss.ap.show_name,
+		Global.data.card.moss.apt.show_name,
+		Global.data.card.moss.ass.show_name,
+		Global.data.card.moss.hf.show_name,
+		Global.data.card.moss.lf.show_name,
+		Global.data.card.moss.sp.show_name,
+		Global.data.card.moss.tank.show_name,
+		Global.data.card.moss.hero.show_name,
 	]
 	for piece: Card in Global.get_show_pieces(player):
 		if not trigger_list.has(piece.show_name):

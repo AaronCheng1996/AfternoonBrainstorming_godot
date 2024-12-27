@@ -6,8 +6,10 @@ var blue = preload("res://script/cards/blue/blue.gd").new()
 var buff_value : int = 2
 
 func _init() -> void:
-	show_name = Global.data.card.blue.name + Global.data.card.default_name.adc
-	description = Global.data.card.blue.adc.format([str(buff_value)])	
+	show_name = Global.data.card.blue.adc.show_name
+	description = Global.data.card.blue.adc.description.format([str(buff_value)])	
+	hint = Global.data.card.blue.adc.hint
+	piece_type = Global.PieceType.ADC
 
 func trigger_effect(value: int) -> void:
 	if is_on_board:

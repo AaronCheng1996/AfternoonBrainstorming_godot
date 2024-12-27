@@ -4,15 +4,15 @@ class_name BlueHF
 var blue = preload("res://script/cards/blue/blue.gd").new()
 
 func _init() -> void:
-	show_name = Global.data.card.blue.name + Global.data.card.default_name.hf
-	var text = str(blue.get_blue_charge_count(card_owner))
-	Global.set_font_color(text, Global.get_font_color(blue.get_blue_charge_count(card_owner), 0))
-	description = Global.data.card.blue.hf.format([str(blue.get_blue_charge_count(card_owner))])
-
+	show_name = Global.data.card.blue.hf.show_name
+	description = Global.data.card.blue.hf.description.format([str(0)])
+	hint = Global.data.card.blue.hf.hint
+	piece_type = Global.PieceType.HF
+	
 func refresh() -> void:
 	var text = str(blue.get_blue_charge_count(card_owner))
 	Global.set_font_color(text, Global.get_font_color(blue.get_blue_charge_count(card_owner), 0))
-	description = Global.data.card.blue.hf.format([text])
+	description = Global.data.card.blue.hf.description.format([text])
 	super.refresh()
 
 func attack() -> void:

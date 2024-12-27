@@ -2,8 +2,10 @@ extends Piece
 class_name OrangeAss
 
 func _init() -> void:
-	show_name = Global.data.card.orange.name + Global.data.card.default_name.ass
-	description = Global.data.card.orange.ass
+	show_name = Global.data.card.orange.ass.show_name
+	description = Global.data.card.orange.ass.description
+	hint = Global.data.card.orange.ass.hint
+	piece_type = Global.PieceType.ASS
 
 #棋子放置時
 func on_piece_set() -> void:

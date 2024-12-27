@@ -5,8 +5,10 @@ var red = preload("res://script/cards/red/red.gd").new()
 var buff_value : int = 1
 
 func _init() -> void:
-	show_name = Global.data.card.red.name + Global.data.card.default_name.apt
-	description = Global.data.card.red.apt.format([str(buff_value)])
+	show_name = Global.data.card.red.apt.show_name
+	description = Global.data.card.red.apt.description.format([str(buff_value)])
+	hint = Global.data.card.red.apt.hint
+	piece_type = Global.PieceType.APT
 
 #攻擊時為最近友方附加+1/+1
 func attack() -> void:

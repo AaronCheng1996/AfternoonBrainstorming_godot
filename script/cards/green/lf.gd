@@ -4,14 +4,16 @@ class_name GreenLF
 var green = preload("res://script/cards/green/green.gd").new()
 
 func _init() -> void:
-	show_name = Global.data.card.green.name + Global.data.card.default_name.lf
-	description = Global.data.card.green.lf.format([str(4)])
+	show_name = Global.data.card.green.lf.show_name
+	description = Global.data.card.green.lf.description.format([str(4)])
+	hint = Global.data.card.green.lf.hint
+	piece_type = Global.PieceType.LF
 
 func refresh() -> void:
 	if has_node("AttackComponent"):
 		var text = str(attack_component.atk * 2)
 		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
-		description = Global.data.card.green.lf.format([text])
+		description = Global.data.card.green.lf.description.format([text])
 	super.refresh()
 
 func _on_attack_component_on_kill(target: Piece) -> void:

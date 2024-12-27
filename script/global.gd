@@ -11,6 +11,7 @@ var first_turn : int = 1
 var starter_hand_count : int = 3
 #棋子
 enum CardType {PIECE, SPELL, TOKEN}
+enum PieceType {ADC, AP, APT, ASS, HF, LF, SP, TANK, HERO, OTHER}
 enum TargetType {NONE, BOARD, PIECE}
 const card_groups = {
 	"white": [
@@ -83,7 +84,7 @@ const card_groups = {
 		"res://scenes/cards/purple/hf.tscn",
 		"res://scenes/cards/purple/tank.tscn"
 	],
-	"spell": [
+	"spell_and_token": [
 		"res://scenes/cards/spell/cubes.tscn",
 		"res://scenes/cards/spell/heal.tscn",
 		"res://scenes/cards/spell/move_spell.tscn"
@@ -304,15 +305,15 @@ func get_move_spell(player: Player) -> void:
 func piece_moved(piece_moved: Piece) -> void:
 	#觸發友方橘色效果
 	var trigger_list = [
-		Global.data.card.orange.name + Global.data.card.default_name.apt, 
-		Global.data.card.orange.name + Global.data.card.default_name.sp
+		Global.data.card.orange.apt.show_name, 
+		Global.data.card.orange.sp.show_name
 	]
 	for piece: Card in Global.get_show_pieces(piece_moved.card_owner):
 		if trigger_list.has(piece.show_name):
 			piece.trigger_effect(piece_moved)
 	#觸發敵方效果
 	var trigger_list_2 = [
-		Global.data.card.purple.name + Global.data.card.default_name.tank
+		Global.data.card.purple.tank.show_name
 	]
 	for piece: Card in Global.get_show_pieces(get_opponent(piece_moved.card_owner)):
 		if trigger_list_2.has(piece.show_name):

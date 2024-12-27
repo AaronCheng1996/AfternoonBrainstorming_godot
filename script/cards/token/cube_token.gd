@@ -2,8 +2,9 @@ extends Piece
 class_name CubeToken
 
 func _init() -> void:
-	show_name = Global.data.card.token.token_name.cube
-	description = Global.data.card.token.token_description.cube
+	show_name = Global.data.card.spell_and_token.cube_token.show_name
+	description = Global.data.card.spell_and_token.cube_token.description
+	hint = Global.data.card.spell_and_token.cube_token.hint
 	card_type = Global.CardType.TOKEN
 
 func die() -> void:

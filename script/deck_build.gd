@@ -148,12 +148,12 @@ func _on_start_button_pressed() -> void:
 #玩家選牌
 func _on_card_selected(card: Card) -> void:
 	if player_list[0].deck.size() >= Global.deck_size and player_list[1].deck.size() >= Global.deck_size: #雙方玩家手牌已滿
-		message.pop_message(Global.data.message.deck_full)
+		message.pop_message(Global.data.pop_message.deck_full)
 		return
 	if not player_list[current_turn].deck_card_type.has(card.show_name): #紀錄玩家持有該棋子數量
 		player_list[current_turn].deck_card_type[card.show_name] = 0
 	if is_limit(player_list[current_turn], card): #該棋子數量已達上限
-		message.pop_message(Global.data.message.card_limit)
+		message.pop_message(Global.data.pop_message.card_limit)
 		return
 	#將棋子新增至玩家牌組
 	var new_card = card.duplicate()
@@ -167,12 +167,12 @@ func _on_card_selected(card: Card) -> void:
 func is_limit(player: Player, card: Card) -> bool:
 	if card.card_type == Global.CardType.SPELL: #魔法牌
 		return player.deck_card_type[card.show_name] >= Global.spell_limit
-	if not card.show_name.contains(Global.data.card.default_name.hero): #非英雄牌
+	if not card.piece_type == Global.PieceType.HERO: #非英雄牌
 		return player.deck_card_type[card.show_name] >= Global.piece_limit
 	if not Global.hero_mode:
 		return true
-	for card_in_deck in player.deck: #英雄牌
-		if card_in_deck.show_name.contains(Global.data.card.default_name.hero):
+	for card_in_deck: Card in player.deck: #英雄牌
+		if card_in_deck.piece_type == Global.PieceType.HERO:
 			return true
 	return false
 

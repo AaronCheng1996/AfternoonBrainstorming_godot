@@ -5,8 +5,10 @@ var moss = preload("res://script/cards/moss/moss.gd").new()
 var buff_value : int = 4
 	
 func _init() -> void:
-	show_name = Global.data.card.moss.name + Global.data.card.default_name.ass
-	description = Global.data.card.moss.ass.format([str(buff_value)])
+	show_name = Global.data.card.moss.ass.show_name
+	description = Global.data.card.moss.ass.description.format([str(buff_value)])
+	hint = Global.data.card.moss.ass.hint
+	piece_type = Global.PieceType.ASS
 
 func refresh() -> void:
 	#更改圖示

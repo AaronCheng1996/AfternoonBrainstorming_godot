@@ -5,14 +5,16 @@ var blue = preload("res://script/cards/blue/blue.gd").new()
 var buff_value : int = 1
 
 func _init() -> void:
-	show_name = Global.data.card.blue.name + Global.data.card.default_name.apt
-	description = Global.data.card.blue.apt.format([str(buff_value), str(0)])
+	show_name = Global.data.card.blue.apt.show_name
+	description = Global.data.card.blue.apt.description.format([str(buff_value), str(0)])
+	hint = Global.data.card.blue.apt.hint
+	piece_type = Global.PieceType.APT
 
 func refresh() -> void:
 	if has_node("HealthComponent"):
 		var text = str(health_component.shield / 4)
 		Global.set_font_color(text, Global.get_font_color(health_component.shield / 4, health_component.DEAFULT_SHIELD / 4))
-		description = Global.data.card.blue.apt.format([str(buff_value), text])
+		description = Global.data.card.blue.apt.description.format([str(buff_value), text])
 	super.refresh()
 
 #攻擊後獲得護盾 1/4 藍球

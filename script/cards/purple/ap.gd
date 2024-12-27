@@ -2,11 +2,10 @@ extends Piece
 class_name PurpleAP
 
 func _init() -> void:
-	show_name = Global.data.card.purple.name + Global.data.card.default_name.ap
-	description = Global.data.card.purple.ap
-
-func attack() -> void:
-	super.attack()
+	show_name = Global.data.card.purple.ap.show_name
+	description = Global.data.card.purple.ap.description
+	hint = Global.data.card.purple.ap.hint
+	piece_type = Global.PieceType.AP
 
 func _on_attack_component_on_hit(target: Piece) -> void:
 	if not target.has_node("BuffComponent"):

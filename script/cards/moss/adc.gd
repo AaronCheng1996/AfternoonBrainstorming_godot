@@ -5,8 +5,10 @@ var moss = preload("res://script/cards/moss/moss.gd").new()
 var rate : int = 25
 
 func _init() -> void:
-	show_name = Global.data.card.moss.name + Global.data.card.default_name.adc
-	description = Global.data.card.moss.adc.format([str(0), str(rate)])
+	show_name = Global.data.card.moss.adc.show_name
+	description = Global.data.card.moss.adc.description.format([str(0), str(rate)])
+	hint = Global.data.card.moss.adc.hint
+	piece_type = Global.PieceType.ADC
 
 func refresh() -> void:
 	#更改圖示
@@ -15,7 +17,7 @@ func refresh() -> void:
 	#更改說明
 	var text = str(power * rate / 100)
 	Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))
-	description = Global.data.card.moss.adc.format([text, str(rate)])
+	description = Global.data.card.moss.adc.description.format([text, str(rate)])
 	super.refresh()
 	
 func attack() -> void:

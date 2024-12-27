@@ -6,8 +6,10 @@ var buff_value : int = 1
 var hit_count : int = 3
 
 func _init() -> void:
-	show_name = Global.data.card.blue.name + Global.data.card.default_name.hero
-	description = Global.data.card.blue.hero.format([str(hit_count)])
+	show_name = Global.data.card.blue.hero.show_name
+	description = Global.data.card.blue.hero.description.format([str(hit_count)])
+	hint = Global.data.card.blue.hero.hint
+	piece_type = Global.PieceType.HERO
 
 func on_piece_set() -> void:
 	outfit_component.hide_attack()

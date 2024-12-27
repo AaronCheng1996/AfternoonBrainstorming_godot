@@ -5,8 +5,10 @@ var red: Red = preload("res://script/cards/red/red.gd").new()
 var kill_count : int = 0
 
 func _init() -> void:
-	show_name = Global.data.card.red.name + Global.data.card.default_name.hero
-	description = Global.data.card.red.hero.format([red.battle_fury_count])
+	show_name = Global.data.card.red.hero.show_name
+	description = Global.data.card.red.hero.description.format([red.battle_fury_count])
+	hint = Global.data.card.red.hero.hint
+	piece_type = Global.PieceType.HERO
 
 #棋子放置時
 func on_piece_set() -> void:

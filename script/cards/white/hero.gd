@@ -1,20 +1,12 @@
 extends Piece
 class_name WhiteHero
 
-var dic = [
-	Global.data.card.default_name.adc,
-	Global.data.card.default_name.ap,
-	Global.data.card.default_name.apt,
-	Global.data.card.default_name.ass,
-	Global.data.card.default_name.hf,
-	Global.data.card.default_name.lf,
-	Global.data.card.default_name.sp,
-	Global.data.card.default_name.tank,
-]
 #"res://scenes/cards/white/adc.tscn",
 func _init() -> void:
-	show_name = Global.data.card.white.name + Global.data.card.default_name.hero
-	description = Global.data.card.white.hero
+	show_name = Global.data.card.white.hero.show_name
+	description = Global.data.card.white.hero.description
+	hint = Global.data.card.white.hero.hint
+	piece_type = Global.PieceType.HERO
 
 func on_piece_set() -> void:
 	super.on_piece_set()
@@ -46,13 +38,8 @@ func transform(piece: Piece) -> Piece:
 	types.pop_back() #移除紫色
 	var type_index = Global.rng.randi_range(0, types.size() - 1)
 	var type = types[type_index]
-	#找到對應類型
-	var index: int = 0
-	for i in range(dic.size()):
-		if piece.show_name.ends_with(dic[i]):
-			index = i
 	#生成棋子
-	var new_piece: Piece = load(Global.card_groups[type][index]).instantiate()
+	var new_piece: Piece = load(Global.card_groups[type][piece.piece_type]).instantiate()
 	self.add_child(new_piece)
 	new_piece.location = piece.location
 	new_piece.is_on_board = piece.is_on_board

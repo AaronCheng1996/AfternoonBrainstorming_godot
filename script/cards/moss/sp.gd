@@ -4,8 +4,10 @@ class_name MossSP
 var moss = preload("res://script/cards/moss/moss.gd").new()
 
 func _init() -> void:
-	show_name = Global.data.card.moss.name + Global.data.card.default_name.sp
-	description = Global.data.card.moss.sp
+	show_name = Global.data.card.moss.sp.show_name
+	description = Global.data.card.moss.sp.description
+	hint = Global.data.card.moss.sp.hint
+	piece_type = Global.PieceType.SP
 
 func refresh() -> void:
 	#更改圖示

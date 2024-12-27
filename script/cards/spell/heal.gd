@@ -4,8 +4,9 @@ class_name Heal
 var value : int = 8
 
 func _init() -> void:
-	show_name = Global.data.card.spell.spell_name.heal
-	description = Global.data.card.spell.spell_description.heal.format([str(value)])
+	show_name = Global.data.card.spell_and_token.heal.show_name
+	description = Global.data.card.spell_and_token.heal.description.format([str(value)])
+	hint = Global.data.card.spell_and_token.heal.hint
 
 #取得可放置範圍
 func get_valid_location() -> Array:

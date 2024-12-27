@@ -5,8 +5,10 @@ var green: Green = preload("res://script/cards/green/green.gd").new()
 var divided: int = 10
 
 func _init() -> void:
-	show_name = Global.data.card.green.name + Global.data.card.default_name.hero
-	description = Global.data.card.green.hero
+	show_name = Global.data.card.green.hero.show_name
+	description = Global.data.card.green.hero.description
+	hint = Global.data.card.green.hero.hint
+	piece_type = Global.PieceType.HERO
 
 func on_piece_set() -> void:
 	health_component.max_health = get_lucky_random_number(green.check_luck(card_owner) / divided)

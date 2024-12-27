@@ -8,8 +8,10 @@ var heal_value : int = 1
 var total_heal : int = 0
 
 func _init() -> void:
-	show_name = Global.data.card.moss.name + Global.data.card.default_name.hf
-	description = Global.data.card.moss.hf.format([str(cost_value), str(buff_value), str(heal_value)])
+	show_name = Global.data.card.moss.hf.show_name
+	description = Global.data.card.moss.hf.description.format([str(cost_value), str(buff_value), str(heal_value)])
+	hint = Global.data.card.moss.hf.hint
+	piece_type = Global.PieceType.HF
 
 func refresh() -> void:
 	#更改圖示

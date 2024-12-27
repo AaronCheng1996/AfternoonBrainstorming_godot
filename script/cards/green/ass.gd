@@ -5,8 +5,10 @@ var green : Green = preload("res://script/cards/green/green.gd").new()
 var buff_value : int = 5
 	
 func _init() -> void:
-	show_name = Global.data.card.green.name + Global.data.card.default_name.ass
-	description = Global.data.card.green.ass.format([str(buff_value)])
+	show_name = Global.data.card.green.ass.show_name
+	description = Global.data.card.green.ass.description.format([str(buff_value)])
+	hint = Global.data.card.green.ass.hint
+	piece_type = Global.PieceType.ASS
 
 #棋子放置時
 func on_piece_set() -> void:

@@ -5,8 +5,10 @@ var red = preload("res://script/cards/red/red.gd").new()
 var buff_value : int = 2
 
 func _init() -> void:
-	show_name = Global.data.card.red.name + Global.data.card.default_name.tank
-	description = Global.data.card.red.tank.format([str(buff_value)])
+	show_name = Global.data.card.red.tank.show_name
+	description = Global.data.card.red.tank.description.format([str(buff_value)])
+	hint = Global.data.card.red.tank.hint
+	piece_type = Global.PieceType.TANK
 
 #承受傷害，給予隊友 2 盾
 func take_damaged(damage: int, applyer) -> bool:

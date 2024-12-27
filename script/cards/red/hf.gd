@@ -7,8 +7,10 @@ var buff_value : int = 1
 var cost_value_sum : int = 0
 
 func _init() -> void:
-	show_name = Global.data.card.red.name + Global.data.card.default_name.hf
-	description = Global.data.card.red.hf.format([str(cost_value), str(buff_value)])
+	show_name = Global.data.card.red.hf.show_name
+	description = Global.data.card.red.hf.description.format([str(cost_value), str(buff_value)])
+	hint = Global.data.card.red.hf.hint
+	piece_type = Global.PieceType.HF
 
 func heal(value: int, applyer) -> int:
 	if buff_component.has_buff(Global.data.buff.death_door.name): #有瀕死buff

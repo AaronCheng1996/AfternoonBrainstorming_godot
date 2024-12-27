@@ -2,8 +2,9 @@ extends Spell
 class_name MoveSpellExpire
 
 func _init() -> void:
-	show_name = Global.data.card.spell.spell_name.move
-	description = Global.data.card.spell.spell_description.move
+	show_name = Global.data.card.spell_and_token.move.show_name
+	description = Global.data.card.spell_and_token.move.description
+	hint = Global.data.card.spell_and_token.move.hint
 
 #施放目標是否符合
 func is_valid(target: Vector2i) -> bool:

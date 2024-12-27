@@ -28,7 +28,7 @@ const LUCKY_BOX = preload("res://scenes/cards/token/lucky_box.tscn")
 var shield_value : int = 4
 
 func is_lucky(player: Player) -> bool:
-	return Global.has_piece_on_board(Global.data.card.green.name + Global.data.card.default_name.hero, player)
+	return Global.has_piece_on_board(Global.data.card.green.hero.show_name, player)
 
 #幸運效果
 func lucky_event(target: Piece) -> void:
@@ -144,7 +144,7 @@ func is_valid_event(target: Piece, event: EVENTS) -> bool:
 			return not target.buff_component.has_buff(Global.data.buff.move.name)
 		#幸運箱
 		EVENTS.LUCKY_BOX:
-			return not target.show_name.contains(Global.data.card.default_name.ap)
+			return not target.piece_type == Global.PieceType.AP
 		#祝福
 		EVENTS.BLESSED:
 			return true
@@ -258,5 +258,5 @@ func create_lucky_box(location: Vector2i) -> void:
 	box.card_owner = null
 	if Global.get_match_scene().add_piece_to_board(box, location):
 		#給法坦盾
-		for piece in Global.get_piece_on_board(Global.data.card.green.name + Global.data.card.default_name.apt):
+		for piece in Global.get_piece_on_board(Global.data.card.green.apt.show_name):
 			piece.shielded(piece.buff_value, piece.buff_value)

@@ -254,7 +254,7 @@ func _on_card_selected(card: Card) -> void:
 				select_piece(card)
 				return
 			if not card_selected.cast(card.location): #施放
-				message.pop_message(Global.data.message.invalid_cast) #施放失敗
+				message.pop_message(Global.data.pop_message.invalid_cast) #施放失敗
 			select_piece(null)
 			return
 	#選定棋子或衍生物，改成選定目標
@@ -268,7 +268,7 @@ func _on_tile_clicked(location: Vector2i) -> void:
 		return
 	if card_selected.card_type == Global.CardType.SPELL: #魔法牌
 		if not card_selected.cast(location):
-			message.pop_message(Global.data.message.invalid_cast) #施放失敗
+			message.pop_message(Global.data.pop_message.invalid_cast) #施放失敗
 		return
 	if not is_on_board(card_selected.location): #從手上
 		if is_on_board(location): #到場上
@@ -283,7 +283,7 @@ func _on_tile_clicked(location: Vector2i) -> void:
 #棋子發動攻擊
 func _on_piece_attack(piece: Piece) -> void:
 	if piece.card_owner.attack_count <= 0: #檢查是否有
-		message.pop_message(Global.data.message.no_attack)
+		message.pop_message(Global.data.pop_message.no_attack)
 		return
 	piece.card_owner.add_attack_count(-1) #消耗一次攻擊次數
 	#發動攻擊
@@ -292,7 +292,7 @@ func _on_piece_attack(piece: Piece) -> void:
 #施放魔法 (僅限無目標)
 func _on_spell_cast(card: Card) -> void:
 	if not card.cast(Vector2i(-100, -100)):
-		message.pop_message(Global.data.message.invalid_cast)
+		message.pop_message(Global.data.pop_message.invalid_cast)
 
 #棋子按下移動鍵
 func _on_piece_move_pressed(piece: Piece) -> void:

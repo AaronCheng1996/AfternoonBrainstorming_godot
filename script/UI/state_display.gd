@@ -10,7 +10,7 @@ class_name StateDisplay
 var txt_icon_texture : CompressedTexture2D
 var value : int = 0
 var default_value : int = 0
-var txt_size = 14
+var txt_size = 13
 
 func _ready() -> void:
 	if icon_texture:

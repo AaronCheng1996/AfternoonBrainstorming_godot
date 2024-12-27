@@ -5,8 +5,10 @@ var buff_value : int = 1
 var trans_rate : int = 50
 
 func _init() -> void:
-	show_name = Global.data.card.orange.name + Global.data.card.default_name.apt
-	description = Global.data.card.orange.apt.format([str(buff_value), str(trans_rate)])
+	show_name = Global.data.card.orange.apt.show_name
+	description = Global.data.card.orange.apt.description.format([str(buff_value), str(trans_rate)])
+	hint = Global.data.card.orange.apt.hint
+	piece_type = Global.PieceType.APT
 
 func trigger_effect(piece: Piece) -> void:
 	if not is_on_board:

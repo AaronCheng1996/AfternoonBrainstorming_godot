@@ -4,8 +4,10 @@ class_name PurpleHF
 var value : int = 3
 
 func _init() -> void:
-	show_name = Global.data.card.purple.name + Global.data.card.default_name.hf
-	description = Global.data.card.purple.hf.format([str(value)])
+	show_name = Global.data.card.purple.hf.show_name
+	description = Global.data.card.purple.hf.description.format([str(value)])
+	hint = Global.data.card.purple.hf.hint
+	piece_type = Global.PieceType.HF
 
 #回合開始時
 func on_turn_start(current_turn: int) -> void:

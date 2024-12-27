@@ -5,6 +5,7 @@ signal card_selected(card: Card)
 
 @onready var lbl_card_name: RichTextLabel = $lbl_card_name
 @onready var lbl_card_description: RichTextLabel = $lbl_card_description
+@onready var lbl_hint: RichTextLabel = $lbl_hint
 @onready var card_icon: Sprite2D = $card_icon
 
 @onready var highlight: ColorRect = $highlight
@@ -26,6 +27,8 @@ signal card_selected(card: Card)
 var card_data: Card
 var lbl_name_size = 20
 var lbl_description_size = 16
+var lbl_hint_size = 13
+var lbl_hint_color = Color("b54e00")
 @export var show_highlight : bool = true
 
 #顯示棋子細節
@@ -43,6 +46,8 @@ func show_card_detail(card: Card) -> void:
 	#名稱、敘述
 	lbl_card_name.text = Global.set_font_size(Global.set_font_center(card.show_name), lbl_name_size)
 	lbl_card_description.text = Global.set_font_size(Global.set_font_center(card.description), lbl_description_size)
+	lbl_hint.text = "[i]" + Global.set_font_size(Global.set_font_center(Global.set_font_color(card.hint, lbl_hint_color)), lbl_hint_size) + "[/i]"
+	lbl_hint.show()
 	#最大生命、生命
 	if card.has_node("HealthComponent"):
 		health_states.show()
@@ -99,6 +104,10 @@ func show_card_detail(card: Card) -> void:
 	#Buff
 	if card.has_node("BuffComponent"):
 		buff_icon_list.show_buffs(card.buff_component.active_buffs)
+		if card.buff_component.active_buffs.size() > 0:
+			lbl_hint.hide()
+	else:
+		buff_icon_list.show_buffs([])
 
 func show_shader():
 	shader.show()

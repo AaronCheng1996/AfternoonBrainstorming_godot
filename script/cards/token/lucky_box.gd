@@ -9,8 +9,9 @@ func _ready() -> void:
 	super._ready()
 
 func _init() -> void:
-	show_name = Global.data.card.token.token_name.lucky_box
-	description = Global.data.card.token.token_description.lucky_box
+	show_name = Global.data.card.spell_and_token.lucky_box.show_name
+	description = Global.data.card.spell_and_token.lucky_box.description
+	hint = Global.data.card.spell_and_token.lucky_box.hint
 	card_type = Global.CardType.TOKEN
 
 func take_damaged(damage: int, applyer) -> bool:

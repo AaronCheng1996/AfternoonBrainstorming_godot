@@ -4,8 +4,10 @@ class_name OrangeHF
 var buff_value : int = 1
 
 func _init() -> void:
-	show_name = Global.data.card.orange.name + Global.data.card.default_name.hf
-	description = Global.data.card.orange.hf.format([str(buff_value)])
+	show_name = Global.data.card.orange.hf.show_name
+	description = Global.data.card.orange.hf.description.format([str(buff_value)])
+	hint = Global.data.card.orange.hf.hint
+	piece_type = Global.PieceType.HF
 
 func attack() -> void:
 	super.attack()

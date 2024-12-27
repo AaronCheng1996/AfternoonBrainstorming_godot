@@ -6,8 +6,10 @@ var rate : int = 50
 var buff_value_sum : int = 0
 
 func _init() -> void:
-	show_name = Global.data.card.moss.name + Global.data.card.default_name.apt
-	description = Global.data.card.moss.apt.format([str(0), str(0), str(0)])
+	show_name = Global.data.card.moss.apt.show_name
+	description = Global.data.card.moss.apt.description.format([str(0), str(0), str(0)])
+	hint = Global.data.card.moss.apt.hint
+	piece_type = Global.PieceType.APT
 
 func refresh() -> void:
 	#更改圖示
@@ -20,7 +22,7 @@ func refresh() -> void:
 	Global.set_font_color(text1, Global.get_font_color(power * rate / 100, 0))
 	Global.set_font_color(text2, Global.get_font_color(health_component.shield * rate / 100, 0))
 	Global.set_font_color(text3, Global.get_font_color((power * rate / 100 + attack_component.atk) * rate / 100, attack_component.DEFAULT_ATK))
-	description = Global.data.card.moss.apt.format([text1, text2, text3])
+	description = Global.data.card.moss.apt.description.format([text1, text2, text3])
 	super.refresh()
 	
 func attack() -> void:

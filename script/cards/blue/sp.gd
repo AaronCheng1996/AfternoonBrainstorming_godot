@@ -9,8 +9,10 @@ var count: int = 0
 var count_show: int = 0
 
 func _init() -> void:
-	show_name = Global.data.card.blue.name + Global.data.card.default_name.sp
-	description = Global.data.card.blue.sp.format([str(hit_value), str(default_count)])
+	show_name = Global.data.card.blue.sp.show_name
+	description = Global.data.card.blue.sp.description.format([str(hit_value), str(default_count)])
+	hint = Global.data.card.blue.sp.hint
+	piece_type = Global.PieceType.SP
 
 func _process(delta: float) -> void:
 	if card_owner != null:
@@ -21,7 +23,7 @@ func _process(delta: float) -> void:
 			count_show = count
 			var text = str(count)
 			Global.set_font_color(text, Global.get_font_color(count, default_count))
-			description = Global.data.card.blue.sp.format([str(hit_value), text])
+			description = Global.data.card.blue.sp.description.format([str(hit_value), text])
 
 func on_piece_set() -> void:
 	super.on_piece_set()
