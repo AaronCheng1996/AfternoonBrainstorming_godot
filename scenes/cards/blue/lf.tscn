@@ -23,7 +23,6 @@ DEAFULT_MAX_HEALTH = 6
 [node name="AttackComponent" parent="." instance=ExtResource("3_7i2os")]
 unique_name_in_owner = true
 DEFAULT_ATK = 3
-ATK_PATTERN = 1
 
 [node name="OutfitComponent" parent="." instance=ExtResource("4_glrwj")]
 unique_name_in_owner = true

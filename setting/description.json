@@ -70,12 +70,12 @@
 			"ass": {
 				"show_name" : "緋紅刺客",
 				"description" : "[b]先攻[/b]\n[b]斬殺[/b]：為最近友方\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]",
-				"hint" : "我為人人"
+				"hint" : "The Liberation of Roma has begun."
 			},
 			"hf": {
 				"show_name" : "緋紅重裝",
 				"description" : "[b]造成傷害[/b]：失去 {0} [img]res://img/UI/buff/health_debuff.png[/img][color='orange']生命[/color]\n然後增加 {1} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n此效果造成[color='orange']瀕死[/color]而非死亡",
-				"hint" : "無盡怒火！！！"
+				"hint" : "RRRRR！！！"
 			},
 			"lf": {
 				"show_name" : "緋紅戰士",
@@ -85,17 +85,17 @@
 			"sp": {
 				"show_name" : "血鑽石",
 				"description" : "紅色友方給予增益時\n此單位獲得相同增益",
-				"hint" : "沐浴鮮血後更有價值 -緋紅武士-"
+				"hint" : "沐浴鮮血後更有價值"
 			},
 			"tank": {
 				"show_name" : "緋紅之盾",
 				"description" : "[b]承受傷害[/b]：\n最近隊友獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
-				"hint" : "我罩你！"
+				"hint" : "我來！"
 			},
 			"hero": {
 				"show_name" : "緋紅武士",
 				"description" : "增益 {0} 次後抽起，[b]先攻[/b]\n[b]進場[/b]：移除非魔法手牌和友方\n獲得本賽局所有紅色增益\n[b]斬殺[/b]：額外攻擊一名隨機敵方",
-				"hint" : "我的刀刃渴求鮮血"
+				"hint" : "我們只能在天上看著他豎起中指破壞世界"
 			},
 		},
 		"green": {
@@ -104,7 +104,7 @@
 			"adc": {
 				"show_name" : "翠綠射手",
 				"description" : "[b]攻擊後[/b]：機率在攻擊範圍內\n生成[color='orange']幸運箱[/color] ([img]res://img/UI/buff/luck.png[/img])",
-				"hint" : "路上有個箱子，不知道裡面有什麼"
+				"hint" : "南北射手一起串聯"
 			},
 			"ap": {
 				"show_name" : "翠綠法師",
@@ -124,17 +124,17 @@
 			"hf": {
 				"show_name" : "翠綠重裝",
 				"description" : "[b]斬殺[/b]：若對象為[color='orange']幸運箱[/color]\n增加 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n並隨機生成一個[color='orange']幸運箱[/color]",
-				"hint" : "噢！又一個箱子"
+				"hint" : "噢！一個寶箱...好黑哦！好可怕！"
 			},
 			"lf": {
 				"show_name" : "翠綠戰士",
 				"description" : "[b]斬殺[/b]：若對象為[color='orange']幸運箱[/color]\n對最近敵方造成 {0} 點傷害\n並機率[color='orange']返刀[/color] (0.5[img]res://img/UI/buff/luck.png[/img])",
-				"hint" : "就跟你說開一開別再堆箱子了！"
+				"hint" : "保安！可以這樣開了又開嗎？"
 			},
 			"sp": {
 				"show_name" : "綠寶石",
 				"description" : "獲得 {0} [img]res://img/UI/buff/luck.png[/img][color='orange']幸運[/color]\n根據[color='orange']幸運[/color]隨機生成數個[color='orange']幸運箱[/color] (0.1[img]res://img/UI/buff/luck.png[/img])",
-				"hint" : "看來今天是我的幸運日"
+				"hint" : "路上有個箱子，不知道裡面有什麼？"
 			},
 			"tank": {
 				"show_name" : "翠綠之盾",
@@ -144,7 +144,7 @@
 			"hero": {
 				"show_name" : "翠綠賭徒",
 				"description" : "[b]進場[/b]：獲得隨機體質\n獲得隨機進場效果\n你現在更幸運了\n",
-				"hint" : "作弊啊！你這骰子是不是灌鉛啊？"
+				"hint" : "ALL MY PEOPLE PEOPLE"
 			},
 		},
 		"blue": {
@@ -168,12 +168,12 @@
 			"ass": {
 				"show_name" : "深藍刺客",
 				"description" : "[b]先攻[/b]、[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
-				"hint" : "可惡的紫色傢伙，我才是那個能抽的刺客"
+				"hint" : "可惡的黑色傢伙，我才是那個能抽的刺客"
 			},
 			"hf": {
 				"show_name" : "深藍重裝",
 				"description" : "攻擊額外造成 {0} 點傷害 ([img]res://img/UI/buff/blue_charge.png[/img])",
-				"hint" : "你說我常和其他派系的混？沒有吧？"
+				"hint" : "你說我自我認同有問題？沒有吧？"
 			},
 			"lf": {
 				"show_name" : "深藍戰士",
@@ -188,7 +188,7 @@
 			"tank": {
 				"show_name" : "深藍之盾",
 				"description" : "[b]承受傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
-				"hint" : "我被打，球給玩家，真公平呢"
+				"hint" : "請鞭笞我吧！公瑾！"
 			},
 			"hero": {
 				"show_name" : "深藍魔法師",
@@ -217,7 +217,7 @@
 			"ass": {
 				"show_name" : "橘子刺客",
 				"description" : "[b]先攻[/b]、[b]斬殺[/b]：獲得[img]res://img/UI/buff/move.png[/img][color='orange']移動[/color]\n[b]移動後[/b]：獲得[img]res://img/UI/buff/rage.png[/img][color='orange']狂暴[/color]\n斬殺消耗[color='orange']狂暴狀態[/color]並[color='orange']返刀[/color]",
-				"hint" : "老子可是橘子幫二把手，殺人不眨眼"
+				"hint" : "從南天門砍到蓬萊東路，眼睛都不會乾"
 			},
 			"hf": {
 				"show_name" : "橘子重裝",
@@ -242,7 +242,7 @@
 			"hero": {
 				"show_name" : "橘子老大",
 				"description" : "[b]進場[/b]：若你友方曾經移動 {0} 次\n獲得 {1} 張[color='orange']消逝[/color]的[color='orange']移動魔法牌[/color]\n(目前 {2} 次)",
-				"hint" : "剛剛誰笑我名子？讓我的小弟跟你談談"
+				"hint" : "現在的年輕人都不懂得Respect嗎？"
 			},
 		},
 		"moss": {
@@ -266,7 +266,7 @@
 			"ass": {
 				"show_name" : "遠古刺客",
 				"description" : "[b]先攻[/b]、[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]",
-				"hint" : "我的工作是刻符文，刻在你身上"
+				"hint" : "\"你別亂動，這樣我會刻歪\""
 			},
 			"hf": {
 				"show_name" : "遠古重裝",
@@ -291,7 +291,155 @@
 			"hero": {
 				"show_name" : "遠古祭壇",
 				"description" : "不能攻擊\n[b]回合開始[/b]：獲得 {0} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]\n計分時額外獲得 {1} 分\n(0.1[img]res://img/UI/buff/rune.png[/img])",
-				"hint" : "似乎在祭祀著什麼..."
+				"hint" : "當你凝視深淵，深淵也在凝視著你"
+			},
+		},
+		"cyan": {
+			"name" : "藍海",
+			"color": "CYAN",
+			"adc": {
+				"show_name" : "藍海射手",
+				"description" : "[b]造成傷害[/b]：打劫 2$\n升級(6)：[b]攻擊後[/b]：自動攻擊(+1/+2)",
+				"hint" : ""
+			},
+			"ap": {
+				"show_name" : "藍海法師",
+				"description" : "[b]進場[/b]：標記最近敵方\n升級(4)：被標記敵方受到傷害打劫3$(+1/+2)",
+				"hint" : "我鎖定你了"
+			},
+			"apt": {
+				"show_name" : "藍海守衛",
+				"description" : "每 5$ 使其受到傷害少 1 (最多 3 )\n升級(6)：回合開始時打劫 4$ (+5/+1)",
+				"hint" : ""
+			},
+			"ass": {
+				"show_name" : "藍海刺客",
+				"description" : "[b]先攻[/b]、[b]斬殺[/b]：打劫 5$\n升級(4)：第一次攻擊額外造成 2 點傷害(+1/+1)",
+				"hint" : "唉呦！他的手可以穿過我的巴巴啊！"
+			},
+			"hf": {
+				"show_name" : "藍海重裝",
+				"description" : "[b]造成傷害[/b]：打劫 2$\n升級(6)：受到致命傷時瀕死，持續 2 回合，並增加 2 攻擊力(+2/+1)",
+				"hint" : "RRRRRRRRRRRR！！！"
+			},
+			"lf": {
+				"show_name" : "藍海戰士",
+				"description" : "[b]造成傷害[/b]：打劫 2$\n升級(4)：[b]回合開始[/b]：獲得隨機攻擊模式(+2/+2)",
+				"hint" : ""
+			},
+			"sp": {
+				"show_name" : "瑪瑙",
+				"description" : "[b]進場[/b]：打劫 10$\n升級(4)：在場上時減少金幣 2$ 消耗 (+1/+3)",
+				"hint" : ""
+			},
+			"tank": {
+				"show_name" : "藍海之盾",
+				"description" : "[b]承受傷害[/b]：獲得2$/\n升級(4)：免疫第一次受到的攻擊(+2/+0)",
+				"hint" : ""
+			},
+			"hero": {
+				"show_name" : "藍海船長",
+				"description" : "",
+				"hint" : "AHOY！"
+			},
+		},
+		"shadow": {
+			"name" : "依影",
+			"color": "PINK",
+			"adc": {
+				"show_name" : "依影射手",
+				"description" : "[b]依影[/b]、[b]攻擊後[/b]：影子也會攻擊",
+				"hint" : ""
+			},
+			"ap": {
+				"show_name" : "依影法師",
+				"description" : "[b]依影[/b]\n持續暈眩影子上的敵人",
+				"hint" : "忍法。影子模仿術"
+			},
+			"apt": {
+				"show_name" : "依影守衛",
+				"description" : "[b]依影[/b]\n影子上的友方減少 50% 受到傷害\n獲得減免傷害的護盾",
+				"hint" : ""
+			},
+			"ass": {
+				"show_name" : "依影刺客",
+				"description" : "[b]先攻[/b]\n[b]斬殺[/b]：在敵方位置生成影子\n[b]攻擊後[/b]：影子也會攻擊",
+				"hint" : ""
+			},
+			"hf": {
+				"show_name" : "依影重裝",
+				"description" : "[b]依影[/b]，[b]攻擊後[/b]：影子也會攻擊",
+				"hint" : "這是影子攻擊！"
+			},
+			"lf": {
+				"show_name" : "依影戰士",
+				"description" : "[b]依影[/b]\n[b]攻擊後[/b]：影子攻擊離其最近的敵方\n若重複擊中，再攻擊一次",
+				"hint" : "歐拉歐拉歐拉！！"
+			},
+			"sp": {
+				"show_name" : "燕尾雙生方解石",
+				"description" : "[b]進場[/b]：於自己相對位置\n生成最遠友方的影子",
+				"hint" : "是和我同類型的影子呢"
+			},
+			"tank": {
+				"show_name" : "胖依影",
+				"description" : "[b]依影[/b]\n影子位置無法放置其他單位",
+				"hint" : "你可曾胖到，連影子都佔空間"
+			},
+			"hero": {
+				"show_name" : "依影忍者",
+				"description" : "",
+				"hint" : "我的夢想是成為依影！"
+			},
+		},
+		"giant": {
+			"name" : "巨人",
+			"color": "DARK_GREEN",
+			"adc": {
+				"show_name" : "巨人射手",
+				"description" : "需消耗額外 1 次攻擊次數",
+				"hint" : ""
+			},
+			"ap": {
+				"show_name" : "巨人法師",
+				"description" : "[b]攻擊後[/b]：對手抽 1 張牌",
+				"hint" : "你說我沒暈眩？你就說現在他動沒動吧"
+			},
+			"apt": {
+				"show_name" : "巨人守衛",
+				"description" : "[b]進場[/b]：敵方獲得 2 護盾\n[b]攻擊後[/b]：為自己及最近友方\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n以及 {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']最大生命[/color]\n若是巨人效果加倍",
+				"hint" : ""
+			},
+			"ass": {
+				"show_name" : "巨人刺客",
+				"description" : "[b]先攻[/b]\n[b]斬殺[/b]：對手獲得 1 分",
+				"hint" : "你沒看到格魯格",
+				"en" : "YOU NO SEE KROD"
+			},
+			"hf": {
+				"show_name" : "巨人重裝",
+				"description" : "周圍每個單位減少 1 攻擊力",
+				"hint" : ""
+			},
+			"lf": {
+				"show_name" : "巨人戰士",
+				"description" : "[b]進場[/b]：無法抽牌\n直到下回合結束",
+				"hint" : "要肌肉有肌肉，要抽牌有肌肉"
+			},
+			"sp": {
+				"show_name" : "巨石",
+				"description" : "[b]攻擊後[/b]：你的巨人失去效果\n直到下個回合",
+				"hint" : "沒關係，你想跑的時候再跑吧"
+			},
+			"tank": {
+				"show_name" : "盾之巨人",
+				"description" : "[b]回合結束[/b]：若本回合沒有承受傷害\n失去 4 點生命",
+				"hint" : "你座啊"
+			},
+			"hero": {
+				"show_name" : "巨人王",
+				"description" : "",
+				"hint" : "ここからが本番だ！"
 			},
 		},
 		"black": {
@@ -315,7 +463,7 @@
 			"ass": {
 				"show_name" : "反抗者",
 				"description" : "[b]先攻[/b]、[b]斬殺[/b]：抽 {0} 張牌\n(場上單位數差 - {1})",
-				"hint" : "放心這不是UNO，手牌+4是好事"
+				"hint" : "收手吧阿祖"
 			},
 			"hf": {
 				"show_name" : "堡壘",
@@ -323,9 +471,9 @@
 				"hint" : "投降吧，你們被我一個人包圍了"
 			},
 			"lf": {
-				"show_name" : "",
-				"description" : "",
-				"hint" : "真的假的！我打OOO？"
+				"show_name" : "颶風",
+				"description" : "[b]進場[/b]：將攻擊範圍內的敵方返回手上",
+				"hint" : "呃...船長...前面海象好像不太妙"
 			},
 			"sp": {
 				"show_name" : "",
@@ -335,12 +483,12 @@
 			"tank": {
 				"show_name" : "鐵蒺藜",
 				"description" : "敵方移動後損失 {0} 點生命",
-				"hint" : "站住！警察！不許走！"
+				"hint" : "站住！口令！誰！"
 			},
-			"hero": {
-				"show_name" : "",
-				"description" : "",
-				"hint" : ""
+			"adc": {
+				"show_name" : "巨人殺手",
+				"description" : "(3/5)對攻擊比自己生命高的敵人傷害加倍",
+				"hint" : "驅逐他們！一個不留！"
 			},
 		},
 		"spell_and_token": {
