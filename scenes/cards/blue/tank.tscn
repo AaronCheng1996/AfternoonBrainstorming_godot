@@ -22,6 +22,7 @@ unique_name_in_owner = true
 [node name="AttackComponent" parent="." instance=ExtResource("3_8cf6y")]
 unique_name_in_owner = true
 DEFAULT_ATK = 1
+ATK_PATTERN = 1
 
 [node name="OutfitComponent" parent="." instance=ExtResource("4_lkfrb")]
 unique_name_in_owner = true

@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 		if (count != count_show):
 			count_show = count
 			var text = str(count)
-			Global.set_font_color(text, Global.get_font_color(count, default_count))
+			text = Global.set_font_color(text, Global.get_font_color(count, default_count))
 			description = Global.data.card.blue.sp.description.format([str(hit_value), text])
 
 func on_piece_set() -> void:

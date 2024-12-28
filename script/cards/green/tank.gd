@@ -9,7 +9,7 @@ func _init() -> void:
 	hint = Global.data.card.green.tank.hint
 	piece_type = Global.PieceType.TANK
 
-#承受傷害，給傷害者厄運事件
+#承受傷害，給傷害者不幸事件
 func take_damaged(damage: int, applyer) -> bool:
 	if damage <= 0:
 		return false

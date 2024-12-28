@@ -97,6 +97,8 @@ func show_card_detail(card: Card) -> void:
 				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/far.png")
 			Global.PatternNames.ALL:
 				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/all.png")
+			Global.PatternNames.NONE:
+				pattern_state.txt_icon_texture = load("res://img/UI/attack_pattern/none.png")
 		pattern_state.refresh_value_text()
 	else:
 		attack_state.hide()

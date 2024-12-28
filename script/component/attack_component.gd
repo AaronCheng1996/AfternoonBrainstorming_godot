@@ -90,6 +90,8 @@ func in_attack_range(location, target_location) -> bool:
 			return abs(x - location.x) <= 1 and abs(y - location.y) <= 1
 		Global.PatternNames.ALL: #全圖
 			return true
+		Global.PatternNames.NONE: #無
+			return false
 	return false
 
 #尋找目標最近單位

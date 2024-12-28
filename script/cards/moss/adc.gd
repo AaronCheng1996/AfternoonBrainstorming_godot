@@ -16,7 +16,7 @@ func refresh() -> void:
 	moss.update_icon(self)
 	#更改說明
 	var text = str(power * rate / 100)
-	Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))
+	text = Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))
 	description = Global.data.card.moss.adc.description.format([text, str(rate)])
 	super.refresh()
 	

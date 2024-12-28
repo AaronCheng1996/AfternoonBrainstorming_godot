@@ -10,7 +10,7 @@ func _init() -> void:
 func refresh() -> void:
 	if has_node("AttackComponent"):
 		var text = str(attack_component.atk)
-		Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
+		text = Global.set_font_color(text, Global.get_font_color(attack_component.atk, attack_component.DEFAULT_ATK))
 		description = Global.data.card.orange.lf.description.format([text])
 	super.refresh()
 

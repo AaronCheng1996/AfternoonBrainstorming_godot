@@ -17,4 +17,5 @@ func remove_buff(target: Piece) -> void:
 
 func tick(target: Piece) -> void:
 	#死亡
-	target.die()
+	if duration == 1:
+		target.die(true)

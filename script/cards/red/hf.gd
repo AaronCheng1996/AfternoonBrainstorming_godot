@@ -28,6 +28,7 @@ func attack() -> void:
 			var death_door = DeathDoor.new()
 			death_door.show_name = Global.data.buff.death_door.name
 			death_door.description = Global.data.buff.death_door.description
+			death_door.duration = 1
 			death_door.tag.append_array([Global.BuffTag.BUFF])
 			death_door.icon_path = Global.buff_icon.death_door
 			add_buff(death_door)

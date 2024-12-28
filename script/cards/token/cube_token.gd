@@ -7,7 +7,7 @@ func _init() -> void:
 	hint = Global.data.card.spell_and_token.cube_token.hint
 	card_type = Global.CardType.TOKEN
 
-func die() -> void:
+func die(true_death: bool = false) -> void:
 	#預留：動畫位置
 	Global.board_dic[str(location)] = 0
 	Global.board_pieces.erase(self)

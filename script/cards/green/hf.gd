@@ -11,6 +11,6 @@ func _init() -> void:
 	piece_type = Global.PieceType.HF
 
 func _on_attack_component_on_kill(target: Piece) -> void:
-	if target.show_name == Global.data.card.token.token_name.lucky_box:
+	if target.show_name == Global.data.card.spell_and_token.lucky_box.show_name:
 		green.add_luck_buff(card_owner, buff_value)
 		green.create_lucky_box(Global.get_random_empty_slot())

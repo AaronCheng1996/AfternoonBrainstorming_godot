@@ -1,11 +1,11 @@
 extends Piece
 class_name LuckyBox
 
-const Green = preload("res://script/cards/green/green.gd")
-var green : Green
+var green = preload("res://script/cards/green/green.gd").new()
 
 func _ready() -> void:
-	green = Green.new()
+	if has_node("OutfitComponent") and Global.rng.randi_range(1, 100) > 90:
+		outfit_component.icon.frame = Global.rng.randi_range(2, 3)
 	super._ready()
 
 func _init() -> void:
@@ -18,7 +18,8 @@ func take_damaged(damage: int, applyer) -> bool:
 	if damage <= 0:
 		return false
 	if has_node("HealthComponent"):
-		#預留：動畫位置
+		if has_node("OutfitComponent"):
+			outfit_component.play_hit_flash()
 		var is_killed = health_component.take_damaged(damage)
 		if is_killed and not applyer == null:
 			green.random_event(applyer)
@@ -27,7 +28,7 @@ func take_damaged(damage: int, applyer) -> bool:
 	else:
 		return false
 
-func die() -> void:
+func die(true_death: bool = false) -> void:
 	#預留：動畫位置
 	Global.board_dic[str(location)] = 0
 	Global.board_pieces.erase(self)

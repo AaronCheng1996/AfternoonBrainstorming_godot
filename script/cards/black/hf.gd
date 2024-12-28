@@ -1,12 +1,12 @@
 extends Piece
-class_name PurpleHF
+class_name BlackHF
 
 var value : int = 3
 
 func _init() -> void:
-	show_name = Global.data.card.purple.hf.show_name
-	description = Global.data.card.purple.hf.description.format([str(value)])
-	hint = Global.data.card.purple.hf.hint
+	show_name = Global.data.card.black.hf.show_name
+	description = Global.data.card.black.hf.description.format([str(value)])
+	hint = Global.data.card.black.hf.hint
 	piece_type = Global.PieceType.HF
 
 #回合開始時

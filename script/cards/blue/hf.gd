@@ -11,7 +11,7 @@ func _init() -> void:
 	
 func refresh() -> void:
 	var text = str(blue.get_blue_charge_count(card_owner))
-	Global.set_font_color(text, Global.get_font_color(blue.get_blue_charge_count(card_owner), 0))
+	text = Global.set_font_color(text, Global.get_font_color(blue.get_blue_charge_count(card_owner), 0))
 	description = Global.data.card.blue.hf.description.format([text])
 	super.refresh()
 

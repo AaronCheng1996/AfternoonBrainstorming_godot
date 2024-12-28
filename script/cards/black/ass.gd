@@ -1,5 +1,5 @@
 extends Piece
-class_name PurpleAss
+class_name BlackAss
 
 var minus : int = 3
 var count : int = 0
@@ -7,9 +7,9 @@ var count_show : int = 0
 var default_count : int = 0
 
 func _init() -> void:
-	show_name = Global.data.card.purple.ass.show_name
-	description = Global.data.card.purple.ass.description.format([str(0), str(minus)])
-	hint = Global.data.card.purple.ass.hint
+	show_name = Global.data.card.black.ass.show_name
+	description = Global.data.card.black.ass.description.format([str(0), str(minus)])
+	hint = Global.data.card.black.ass.hint
 	piece_type = Global.PieceType.ASS
 
 func _process(delta: float) -> void:
@@ -18,8 +18,8 @@ func _process(delta: float) -> void:
 		if (count != count_show):
 			count_show = count
 			var text = str(count)
-			Global.set_font_color(text, Global.get_font_color(count, default_count))
-			description = Global.data.card.purple.ass.format([text, str(minus)])
+			text = Global.set_font_color(text, Global.get_font_color(count, default_count))
+			description = Global.data.card.black.ass.description.format([text, str(minus)])
 
 #棋子放置時
 func on_piece_set() -> void:

@@ -167,13 +167,13 @@ func take_damaged(damage: int, applyer) -> bool:
 	else:
 		return false
 #死亡
-func die() -> void:
-	#預留：動畫位置
-	renew()
-	Global.board_pieces.erase(self)
-	card_owner.grave.append(self)
-	Global.board_dic[str(location)] = 0
-	emit_signal("piece_die", self)
+func die(true_death: bool = false) -> void:
+	if not buff_component.has_buff(Global.data.buff.death_door.name) or true_death:
+		renew()
+		Global.board_pieces.erase(self)
+		card_owner.grave.append(self)
+		Global.board_dic[str(location)] = 0
+		emit_signal("piece_die", self)
 #更新顯示數值
 func refresh() -> void:
 	if not has_node("OutfitComponent"):

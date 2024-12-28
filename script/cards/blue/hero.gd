@@ -13,7 +13,7 @@ func _init() -> void:
 
 func on_piece_set() -> void:
 	outfit_component.hide_attack()
-	refresh()
+	super.on_piece_set()
 
 #回合結束時
 func on_turn_end(current_turn: int) -> void:

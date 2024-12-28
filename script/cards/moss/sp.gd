@@ -19,6 +19,6 @@ func on_piece_set() -> void:
 	super.on_piece_set()
 
 #減半
-func die() -> void:
+func die(true_death: bool = false) -> void:
 	moss.on_sp_die(card_owner)
-	super.die()
+	super.die(true_death)

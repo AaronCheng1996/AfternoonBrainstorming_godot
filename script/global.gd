@@ -61,12 +61,13 @@ const card_groups = {
 	"orange": [
 		"res://scenes/cards/orange/adc.tscn",
 		"res://scenes/cards/orange/ap.tscn",
-		 "res://scenes/cards/orange/apt.tscn",
-		 "res://scenes/cards/orange/ass.tscn",
-		 "res://scenes/cards/orange/hf.tscn",
-		 "res://scenes/cards/orange/lf.tscn", 
+		"res://scenes/cards/orange/apt.tscn",
+		"res://scenes/cards/orange/ass.tscn",
+		"res://scenes/cards/orange/hf.tscn",
+		"res://scenes/cards/orange/lf.tscn", 
 		"res://scenes/cards/orange/sp.tscn", 
-		"res://scenes/cards/orange/tank.tscn"
+		"res://scenes/cards/orange/tank.tscn",
+		"res://scenes/cards/orange/hero.tscn"
 	],
 	"moss": [
 		"res://scenes/cards/moss/adc.tscn",
@@ -76,13 +77,16 @@ const card_groups = {
 		 "res://scenes/cards/moss/hf.tscn",
 		 "res://scenes/cards/moss/lf.tscn", 
 		"res://scenes/cards/moss/sp.tscn", 
-		"res://scenes/cards/moss/tank.tscn"
+		"res://scenes/cards/moss/tank.tscn",
+		"res://scenes/cards/moss/hero.tscn"
 	],
-	"purple": [
-		"res://scenes/cards/purple/ap.tscn",
-		"res://scenes/cards/purple/ass.tscn",
-		"res://scenes/cards/purple/hf.tscn",
-		"res://scenes/cards/purple/tank.tscn"
+	"black": [
+		"res://scenes/cards/black/ap.tscn",
+		"res://scenes/cards/black/apt.tscn",
+		"res://scenes/cards/black/ass.tscn",
+		"res://scenes/cards/black/hf.tscn",
+		"res://scenes/cards/black/tank.tscn",
+		
 	],
 	"spell_and_token": [
 		"res://scenes/cards/spell/cubes.tscn",
@@ -91,7 +95,7 @@ const card_groups = {
 	]
 }
 #攻擊
-enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST, ALL}
+enum PatternNames {CROSS, CROSS_LARGE, X, X_LARGE, NEARBY, NEAREST, FAREST, ALL, NONE}
 #buff
 enum BuffTag {DEBUFF, BUFF, STUN, MOVE, RED, GREEN}
 const buff_icon = {
@@ -153,7 +157,7 @@ const buff_icon = {
 var default_score_color : Color = Color.WHITE
 var player_color := [Color.RED, Color.BLUE]
 var player_color_dark := [Color("#3c0004"), Color("#002b4c")]
-
+var ready_color := Color.ORANGE
 #endregion
 
 #region 通用變數
@@ -306,14 +310,15 @@ func piece_moved(piece_moved: Piece) -> void:
 	#觸發友方橘色效果
 	var trigger_list = [
 		Global.data.card.orange.apt.show_name, 
-		Global.data.card.orange.sp.show_name
+		Global.data.card.orange.sp.show_name,
+		Global.data.card.orange.hero.show_name
 	]
-	for piece: Card in Global.get_show_pieces(piece_moved.card_owner):
+	for piece: Card in Global.get_all_pieces(piece_moved.card_owner):
 		if trigger_list.has(piece.show_name):
 			piece.trigger_effect(piece_moved)
 	#觸發敵方效果
 	var trigger_list_2 = [
-		Global.data.card.purple.tank.show_name
+		Global.data.card.black.tank.show_name
 	]
 	for piece: Card in Global.get_show_pieces(get_opponent(piece_moved.card_owner)):
 		if trigger_list_2.has(piece.show_name):

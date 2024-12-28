@@ -19,9 +19,9 @@ func refresh() -> void:
 	var text1 = str(power * rate / 100)
 	var text2 = str(health_component.shield * rate / 100)
 	var text3 = str((power * rate / 100 + attack_component.atk) * rate / 100)
-	Global.set_font_color(text1, Global.get_font_color(power * rate / 100, 0))
-	Global.set_font_color(text2, Global.get_font_color(health_component.shield * rate / 100, 0))
-	Global.set_font_color(text3, Global.get_font_color((power * rate / 100 + attack_component.atk) * rate / 100, attack_component.DEFAULT_ATK))
+	text1 = Global.set_font_color(text1, Global.get_font_color(power * rate / 100, 0))
+	text2 = Global.set_font_color(text2, Global.get_font_color(health_component.shield * rate / 100, 0))
+	text3 = Global.set_font_color(text3, Global.get_font_color((power * rate / 100 + attack_component.atk) * rate / 100, attack_component.DEFAULT_ATK))
 	description = Global.data.card.moss.apt.description.format([text1, text2, text3])
 	super.refresh()
 	

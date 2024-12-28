@@ -16,14 +16,14 @@ func refresh() -> void:
 	var power = moss.get_rune_count(card_owner)
 	moss.update_icon(self)
 	var text = str(power * rate / 100)
-	Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))
+	text = Global.set_font_color(text, Global.get_font_color(power * rate / 100, 0))
 	description = Global.data.card.moss.lf.description.format([text, str(rate), str(buff_value)])
 	super.refresh()
 
 func on_piece_set() -> void:
 	var temp = attack_component.atk
-	attack_component.atk = moss.get_rune_count(card_owner) * rate / 100
-	attack()
+	attack_component.atk = 0
+	attack_component.attack(Global.board_pieces.filter(filter_opponent_piece), moss.get_rune_count(card_owner) * rate / 100)
 	attack_component.atk = temp
 	super.on_piece_set()
 

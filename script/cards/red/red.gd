@@ -24,9 +24,9 @@ func create_buff(buff_name: String, value: int) -> Buff:
 			health_buff.value = value
 			return health_buff
 		#護甲
-		Global.data.hint.shield.name:
+		Global.data.state.shield.name:
 			var shield_buff = Shielded.new()
-			shield_buff.show_name = Global.data.hint.shield.name
+			shield_buff.show_name = Global.data.state.shield.name
 			shield_buff.tag.append_array([Global.BuffTag.BUFF, Global.BuffTag.RED])
 			shield_buff.duration = 1
 			shield_buff.value = value
@@ -62,7 +62,7 @@ func add_to_history(buff_name: String, value: int, player: Player) -> void:
 		added_buff = create_buff(buff_name, value)
 		added_buff.show_value = true
 		added_buff.duration = INF
-		if added_buff.show_name == Global.data.hint.shield.name:
+		if added_buff.show_name == Global.data.state.shield.name:
 			added_buff.icon_path = {"default": "res://img/UI/shield.png"}
 		player.buff_component.add_buff(added_buff)
 	else:
@@ -102,6 +102,6 @@ func buff_health(value: int, piece: Piece) -> void:
 	return
 
 func shield_buff(value: int, piece: Piece) -> void:
-	add_buff(Global.data.hint.shield.name, value, piece)
-	buff_redsp(Global.data.hint.shield.name, value, piece.card_owner)
+	add_buff(Global.data.state.shield.name, value, piece)
+	buff_redsp(Global.data.state.shield.name, value, piece.card_owner)
 	return

@@ -16,7 +16,7 @@ const lucky_events_weight := {
 	EVENTS.LUCKY_BOX : 10,
 	EVENTS.BLESSED : 1,
 }
-#厄運
+#不幸
 const unlucky_events_weight := {
 	EVENTS.SHIELD_BREAK : 20,
 	EVENTS.HALF_HEALTH : 20,
@@ -40,7 +40,7 @@ func lucky_event(target: Piece) -> void:
 	add_luck_buff(target.card_owner, 1)
 	print("好運")
 
-#厄運效果
+#不幸效果
 func unlucky_event(target: Piece) -> void:
 	if target.card_owner == null:
 		return
@@ -48,7 +48,7 @@ func unlucky_event(target: Piece) -> void:
 		return
 	do_event(target, unlucky_events_weight)
 	add_luck_buff(target.card_owner, -1)
-	print("厄運")
+	print("不幸")
 
 #隨機效果
 func random_event(target: Piece) -> void:
@@ -61,7 +61,7 @@ func random_event(target: Piece) -> void:
 	else:
 		do_event(target, unlucky_events_weight)
 		add_luck_buff(target.card_owner, -1)
-		print("厄運")
+		print("不幸")
 
 #執行事件
 func do_event(target: Piece, events_weight: Dictionary) -> void:

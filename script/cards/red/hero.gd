@@ -20,12 +20,12 @@ func on_piece_set() -> void:
 	#清除場上
 	var allys = Global.board_pieces.filter(filter_ally_piece)
 	for ally: Piece in allys:
-		ally.die()
+		ally.die(true)
 	#獲得增益
 	for buff: Buff in card_owner.buff_component.active_buffs:
 		if buff.tag.has(Global.BuffTag.RED):
 			var buff_apply: Buff = buff.duplicate()
-			if buff_apply.show_name == Global.data.hint.shield.name:
+			if buff_apply.show_name == Global.data.state.shield.name:
 				buff_apply.icon_path = {}
 				buff_apply.duration = 1
 			buff_apply.show_value = false
