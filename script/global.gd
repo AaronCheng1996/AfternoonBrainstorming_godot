@@ -19,8 +19,8 @@ const card_groups = {
 		"res://scenes/cards/white/ap.tscn",
 		"res://scenes/cards/white/apt.tscn",
 		"res://scenes/cards/white/ass.tscn",
-		"res://scenes/cards/white/hf.tscn",
 		"res://scenes/cards/white/lf.tscn", 
+		"res://scenes/cards/white/hf.tscn",
 		"res://scenes/cards/white/sp.tscn", 
 		"res://scenes/cards/white/tank.tscn",
 		"res://scenes/cards/white/hero.tscn",
@@ -30,8 +30,8 @@ const card_groups = {
 		"res://scenes/cards/red/ap.tscn",
 		"res://scenes/cards/red/apt.tscn",
 		"res://scenes/cards/red/ass.tscn",
-		"res://scenes/cards/red/hf.tscn",
 		"res://scenes/cards/red/lf.tscn",
+		"res://scenes/cards/red/hf.tscn",
 		"res://scenes/cards/red/sp.tscn",
 		"res://scenes/cards/red/tank.tscn",
 		"res://scenes/cards/red/hero.tscn",
@@ -41,8 +41,8 @@ const card_groups = {
 		"res://scenes/cards/green/ap.tscn",
 		 "res://scenes/cards/green/apt.tscn",
 		 "res://scenes/cards/green/ass.tscn",
-		 "res://scenes/cards/green/hf.tscn",
-		 "res://scenes/cards/green/lf.tscn", 
+		 "res://scenes/cards/green/lf.tscn",
+		 "res://scenes/cards/green/hf.tscn", 
 		"res://scenes/cards/green/sp.tscn", 
 		"res://scenes/cards/green/tank.tscn",
 		"res://scenes/cards/green/hero.tscn",
@@ -52,8 +52,8 @@ const card_groups = {
 		"res://scenes/cards/blue/ap.tscn",
 		 "res://scenes/cards/blue/apt.tscn",
 		 "res://scenes/cards/blue/ass.tscn",
-		 "res://scenes/cards/blue/hf.tscn",
-		 "res://scenes/cards/blue/lf.tscn", 
+		 "res://scenes/cards/blue/lf.tscn",
+		 "res://scenes/cards/blue/hf.tscn", 
 		"res://scenes/cards/blue/sp.tscn", 
 		"res://scenes/cards/blue/tank.tscn",
 		"res://scenes/cards/blue/hero.tscn",
@@ -63,8 +63,8 @@ const card_groups = {
 		"res://scenes/cards/orange/ap.tscn",
 		"res://scenes/cards/orange/apt.tscn",
 		"res://scenes/cards/orange/ass.tscn",
-		"res://scenes/cards/orange/hf.tscn",
-		"res://scenes/cards/orange/lf.tscn", 
+		"res://scenes/cards/orange/lf.tscn",
+		"res://scenes/cards/orange/hf.tscn", 
 		"res://scenes/cards/orange/sp.tscn", 
 		"res://scenes/cards/orange/tank.tscn",
 		"res://scenes/cards/orange/hero.tscn"
@@ -74,18 +74,18 @@ const card_groups = {
 		"res://scenes/cards/moss/ap.tscn",
 		 "res://scenes/cards/moss/apt.tscn",
 		 "res://scenes/cards/moss/ass.tscn",
-		 "res://scenes/cards/moss/hf.tscn",
-		 "res://scenes/cards/moss/lf.tscn", 
+		 "res://scenes/cards/moss/lf.tscn",
+		 "res://scenes/cards/moss/hf.tscn", 
 		"res://scenes/cards/moss/sp.tscn", 
 		"res://scenes/cards/moss/tank.tscn",
 		"res://scenes/cards/moss/hero.tscn"
 	],
-	"black": [
-		"res://scenes/cards/black/ap.tscn",
-		"res://scenes/cards/black/apt.tscn",
-		"res://scenes/cards/black/ass.tscn",
-		"res://scenes/cards/black/hf.tscn",
-		"res://scenes/cards/black/tank.tscn",
+	"purple": [
+		"res://scenes/cards/purple/ap.tscn",
+		"res://scenes/cards/purple/apt.tscn",
+		"res://scenes/cards/purple/ass.tscn",
+		"res://scenes/cards/purple/hf.tscn",
+		"res://scenes/cards/purple/tank.tscn",
 		
 	],
 	"spell_and_token": [
@@ -318,7 +318,7 @@ func piece_moved(piece_moved: Piece) -> void:
 			piece.trigger_effect(piece_moved)
 	#觸發敵方效果
 	var trigger_list_2 = [
-		Global.data.card.black.tank.show_name
+		Global.data.card.purple.tank.show_name
 	]
 	for piece: Card in Global.get_show_pieces(get_opponent(piece_moved.card_owner)):
 		if trigger_list_2.has(piece.show_name):

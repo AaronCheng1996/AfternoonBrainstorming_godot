@@ -1,12 +1,12 @@
 extends Piece
-class_name BlackAPT
+class_name PurpleAPT
 
 var percent : int = 100
 
 func _init() -> void:
-	show_name = Global.data.card.black.apt.show_name
-	description = Global.data.card.black.apt.description.format([str(percent)])
-	hint = Global.data.card.black.apt.hint
+	show_name = Global.data.card.purple.apt.show_name
+	description = Global.data.card.purple.apt.description.format([str(percent)])
+	hint = Global.data.card.purple.apt.hint
 	piece_type = Global.PieceType.APT
 
 func take_damaged(damage: int, applyer) -> bool:

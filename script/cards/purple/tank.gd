@@ -1,12 +1,12 @@
 extends Piece
-class_name BlackTank
+class_name PurpleTank
 
 var hit_value : int = 2
 
 func _init() -> void:
-	show_name = Global.data.card.black.tank.show_name
-	description = Global.data.card.black.tank.description.format([str(hit_value)])
-	hint = Global.data.card.black.tank.hint
+	show_name = Global.data.card.purple.tank.show_name
+	description = Global.data.card.purple.tank.description.format([str(hit_value)])
+	hint = Global.data.card.purple.tank.hint
 	piece_type = Global.PieceType.TANK
 
 func trigger_effect(piece: Piece) -> void:

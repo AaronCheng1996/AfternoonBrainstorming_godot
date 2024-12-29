@@ -1,10 +1,10 @@
 extends Piece
-class_name BlackAP
+class_name PurpleAP
 
 func _init() -> void:
-	show_name = Global.data.card.black.ap.show_name
-	description = Global.data.card.black.ap.description
-	hint = Global.data.card.black.ap.hint
+	show_name = Global.data.card.purple.ap.show_name
+	description = Global.data.card.purple.ap.description
+	hint = Global.data.card.purple.ap.hint
 	piece_type = Global.PieceType.AP
 
 func _on_attack_component_on_hit(target: Piece) -> void:

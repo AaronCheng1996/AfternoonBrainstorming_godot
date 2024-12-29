@@ -43,6 +43,6 @@ func get_score(current_turn: int) -> int:
 		score += moss.get_rune_count(card_owner) / 10
 	
 	if card_owner.id == 0:
-		return score
+		return -score
 	else:
 		return score
