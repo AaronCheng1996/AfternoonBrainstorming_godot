@@ -43,6 +43,7 @@ func _ready() -> void:
 	if not player_list.size() == 2: #確認玩家是否正常載入，若無則回到主頁
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
 	setup_player() #設定玩家資訊
+	game_start_effect() #遊戲開始能力
 	draw_starter_hand() #抽起手牌
 	create_board_dic()
 	start_turn(player_list[current_player]) #開始回合
@@ -88,6 +89,11 @@ func setup_player() -> void:
 		player.player_draw_card.connect(on_draw_card)
 		player.player_discard_card.connect(_on_discard)
 		player.player_win.connect(win)
+
+func game_start_effect() -> void:
+	for player: Player in player_list:
+		for card: Card in player.deck:
+			card.on_game_start()
 
 #抽起手牌
 func draw_starter_hand() -> void:

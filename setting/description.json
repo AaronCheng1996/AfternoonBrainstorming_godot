@@ -14,7 +14,7 @@
 				"hint" : "\n被暈眩的人是不能說不的"
 			},
 			"apt": {
-				"show_name" : "蒼白守衛",
+				"show_name" : "蒼白守護者",
 				"description" : "[b]攻擊後[/b]：自己及最近友方\n獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color] ([img]res://img/UI/sword.png[/img])",
 				"hint" : "\n我的盾就是你的盾"
 			},
@@ -34,14 +34,14 @@
 				"hint" : "\n\"...\""
 			},
 			"sp": {
-				"show_name" : "鑽石",
+				"show_name" : "蒼白水晶",
 				"description" : "計分額外獲得 {0} 分",
 				"hint" : "\n價值連城"
 			},
 			"tank": {
 				"show_name" : "蒼白之盾",
 				"description" : "",
-				"hint" : "\n毫無反應，只是個肉盾"
+				"hint" : "\n毫無反應，只是個盾牌"
 			},
 			"hero": {
 				"show_name" : "蒼白天使",
@@ -58,12 +58,12 @@
 				"hint" : "\n厲害嗎？吃方塊長大的"
 			},
 			"ap": {
-				"show_name" : "緋紅法師",
+				"show_name" : "緋紅術士",
 				"description" : "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n並偷取敵方 {0}% [img]res://img/UI/sword.png[/img][color='orange']攻擊力[/color]",
 				"hint" : "\n偷了還要暈眩？你可以再過分一點！"
 			},
 			"apt": {
-				"show_name" : "緋紅守衛",
+				"show_name" : "緋紅守護者",
 				"description" : "[b]攻擊後[/b]：為自己及最近友方\n增加 {0} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n以及 {0} [img]res://img/UI/buff/health_buff.png[/img][color='orange']最大生命[/color]",
 				"hint" : "\n護甲？不如讓自己更強"
 			},
@@ -75,7 +75,7 @@
 			"hf": {
 				"show_name" : "緋紅重裝",
 				"description" : "[b]造成傷害[/b]：失去 {0} [img]res://img/UI/buff/health_debuff.png[/img][color='orange']生命[/color]\n然後增加 {1} [img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]\n此效果造成[color='orange']瀕死[/color]而非死亡",
-				"hint" : "\nRRRRR！！！"
+				"hint" : "\n我絕不會倒下！"
 			},
 			"lf": {
 				"show_name" : "緋紅戰士",
@@ -107,12 +107,12 @@
 				"hint" : "\n致力於綠化環境"
 			},
 			"ap": {
-				"show_name" : "翠綠法師",
-				"description" : "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n敵方機率觸發[img]res://img/UI/buff/bad_luck.png[/img][color='orange']不幸事件[/color]\n自己機率觸發[img]res://img/UI/buff/luck.png[/img][color='orange']幸運事件[/color]",
+				"show_name" : "命運法師",
+				"description" : "[b]攻擊附加[/b]：[img]res://img/UI/buff/stun.png[/img][color='orange']暈眩[/color]\n敵方觸發[img]res://img/UI/buff/bad_luck.png[/img][color='orange']不幸事件[/color]\n自己觸發[img]res://img/UI/buff/luck.png[/img][color='orange']幸運事件[/color]",
 				"hint" : "我觸發幸運事件，你觸發不幸事件\n我們之間應該沒有什麼不同吧？"
 			},
 			"apt": {
-				"show_name" : "翠綠守衛",
+				"show_name" : "寶箱怪",
 				"description" : "[b]回合開始、攻擊後[/b]：\n於自己相鄰格子生成[color='orange']幸運箱[/color]\n每次有[color='orange']幸運箱[/color]生成時\n獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]",
 				"hint" : "\n好黑哦！好可怕！"
 			},
@@ -128,8 +128,8 @@
 			},
 			"lf": {
 				"show_name" : "翠綠戰士",
-				"description" : "[b]斬殺[/b]：若對象為[color='orange']幸運箱[/color]\n對最近敵方造成 {0} 點傷害\n並機率[color='orange']返刀[/color] (0.5[img]res://img/UI/buff/luck.png[/img])",
-				"hint" : "\n保安！箱子可以這樣開了又開嗎？"
+				"description" : "[b]斬殺[/b]：若對象為[color='orange']幸運箱[/color]\n對隨機敵方造成 {0} 點傷害\n並機率[color='orange']返刀[/color] (0.5[img]res://img/UI/buff/luck.png[/img])",
+				"hint" : "\n運氣也是實力的一環"
 			},
 			"sp": {
 				"show_name" : "綠寶石",
@@ -137,7 +137,7 @@
 				"hint" : "\n等等，今年不是 5 倍嗎？"
 			},
 			"tank": {
-				"show_name" : "翠綠之盾",
+				"show_name" : "不幸之盾",
 				"description" : "[b]承受傷害[/b]：\n攻擊者機率觸發[img]res://img/UI/buff/bad_luck.png[/img][color='orange']不幸事件[/color]",
 				"hint" : "\n還在尋找不死的不幸"
 			},
@@ -163,12 +163,12 @@
 			"apt": {
 				"show_name" : "深藍守衛",
 				"description" : "獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]時獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]\n[b]攻擊後[/b]：獲得 {1} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]\n(0.25[img]res://img/UI/shield.png[/img])",
-				"hint" : "只要給我100護甲\n我就能抽完整個牌庫"
+				"hint" : "只要給我100護甲\n我就能抽起整個牌庫"
 			},
 			"ass": {
 				"show_name" : "深藍刺客",
 				"description" : "[b]先攻[/b]、[b]斬殺[/b]：獲得 {0} [img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
-				"hint" : "你說我和另一個能抽牌的刺客比？\n會贏哦。"
+				"hint" : "\n你說我和那個紫色的刺客比？會贏哦。"
 			},
 			"hf": {
 				"show_name" : "深藍重裝",
@@ -178,7 +178,7 @@
 			"lf": {
 				"show_name" : "深藍戰士",
 				"description" : "[b]造成傷害[/b]：獲得[img]res://img/UI/buff/blue_charge.png[/img][color='orange']藍球[/color]",
-				"hint" : "\n這是我苦練一年的，無限四球流"
+				"hint" : "\n這是我苦練一年的，無限四球流",
 			},
 			"sp": {
 				"show_name" : "藍寶石",
@@ -210,7 +210,7 @@
 				"hint" : "\n你叫誰橘子啊"
 			},
 			"apt": {
-				"show_name" : "橘子守衛",
+				"show_name" : "橘子守護者",
 				"description" : "友方移動後，該友方及自己\n獲得 {0} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]\n[b]移動後[/b]：轉換 {1}% [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]\n為[img]res://img/UI/buff/attack_buff.png[/img][color='orange']攻擊力[/color]",
 				"hint" : "\n運動時記得戴好護具"
 			},
@@ -227,7 +227,7 @@
 			"lf": {
 				"show_name" : "橘子戰士",
 				"description" : "[b]造成傷害[/b]：獲得[img]res://img/UI/buff/move.png[/img][color='orange']移動[/color]\n[b]移動後[/b]：對最近敵方\n造成 {0} 點傷害 ([img]res://img/UI/sword.png[/img])",
-				"hint" : "\n打帶跑"
+				"hint" : "\n打～帶～跑～"
 			},
 			"sp": {
 				"show_name" : "琥珀",
@@ -261,7 +261,7 @@
 			"apt": {
 				"show_name" : "遠古守衛",
 				"description" : "攻擊額外造成 {0} 點傷害\n[b]攻擊後[/b]：獲得 {1} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]\n[b]造成傷害[/b]：獲得 {2} [img]res://img/UI/shield.png[/img][color='orange']護盾[/color]\n(0.5[img]res://img/UI/buff/rune.png[/img]/0.5[img]res://img/UI/sword.png[/img]/0.5[img]res://img/UI/shield.png[/img])",
-				"hint" : "\n134傷害67護甲，這就是遠古守衛！"
+				"hint" : "\n我的戰鬥力是...{0}萬"
 			},
 			"ass": {
 				"show_name" : "遠古刺客",
@@ -284,7 +284,7 @@
 				"hint" : "\n遠古文明100億%很喜歡這顆"
 			},
 			"tank": {
-				"show_name" : "遠古之盾",
+				"show_name" : "遠古石板",
 				"description" : "[b]承受傷害[/b]：獲得 {0} [img]res://img/UI/buff/rune.png[/img][color='orange']符文[/color]",
 				"hint" : "\n把石板還來～"
 			},
@@ -320,7 +320,7 @@
 			"hf": {
 				"show_name" : "藍海重裝",
 				"description" : "[b]造成傷害[/b]：獲得 2 金幣\n升級(6)：受到致命傷時瀕死，持續 2 回合，並增加 2 攻擊力(+2/+1)",
-				"hint" : "\n我絕不會倒下！"
+				"hint" : "\n屍體在說話"
 			},
 			"lf": {
 				"show_name" : "藍海戰士",
@@ -328,7 +328,7 @@
 				"hint" : "\n今天的海風好喧囂啊"
 			},
 			"sp": {
-				"show_name" : "瑪瑙",
+				"show_name" : "鑽石",
 				"description" : "[b]進場[/b]：獲得 10 金幣\n升級(4)：消耗金幣後，獲得 2 金幣 (+1/+3)",
 				"hint" : "\n你要出多少？"
 			},
@@ -466,12 +466,12 @@
 			},
 			"hf": {
 				"show_name" : "堡壘",
-				"description" : "[b]回合開始[/b]：周圍每 {0} 個敵方\n增加 1 攻擊次數",
+				"description" : "[b]回合開始[/b]：\n周圍每 {0} 個非友方單位\n增加 1 攻擊次數",
 				"hint" : "\n你們被我一個人包圍了"
 			},
 			"lf": {
 				"show_name" : "颶風",
-				"description" : "[b]進場[/b]：將攻擊範圍內的敵方返回手上，每返回 1 隻對方增 2 分",
+				"description" : "[b]進場[/b]：將攻擊範圍內的敵方返回手上，每返回 1 隻對方增加 2 分",
 				"hint" : "\n左滿舵！！！"
 			},
 			"sp": {
@@ -517,6 +517,16 @@
 				"show_name" : "幸運箱",
 				"description" : "[b]死亡[/b]：觸發[img]res://img/UI/buff/unknown_luck.png[/img][color='orange']隨機事件[/color]",
 				"hint" : "\n裡面到底裝著什麼呢？好好奇哦～"
+			},
+			"retreat" : {
+				"show_name" : "戰術性撤退",
+				"description" : "將一個自己的單位返回手中",
+				"hint" : "\n這不是逃跑，是戰術性撤退"
+			},
+			"fire_ball" : {
+				"show_name" : "炎拳",
+				"description" : "燃燒一個單位，回合開始時造成 2 點傷害",
+				"hint" : "就當是為了我，對他使用炎拳吧"
 			},
 		},
 	},

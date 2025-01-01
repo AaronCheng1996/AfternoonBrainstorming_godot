@@ -31,20 +31,20 @@ func is_lucky(player: Player) -> bool:
 	return Global.has_piece_on_board(Global.data.card.green.hero.show_name, player)
 
 #幸運效果
-func lucky_event(target: Piece) -> void:
+func lucky_event(target: Piece, force: bool = false) -> void:
 	if target.card_owner == null:
 		return
-	if not luck_is_trigger(target.card_owner):
+	if not luck_is_trigger(target.card_owner) and not force:
 		return
 	do_event(target, lucky_events_weight)
 	add_luck_buff(target.card_owner, 1)
 	print("好運")
 
 #不幸效果
-func unlucky_event(target: Piece) -> void:
+func unlucky_event(target: Piece, force: bool = false) -> void:
 	if target.card_owner == null:
 		return
-	if luck_is_trigger(target.card_owner):
+	if luck_is_trigger(target.card_owner) and not force:
 		return
 	do_event(target, unlucky_events_weight)
 	add_luck_buff(target.card_owner, -1)

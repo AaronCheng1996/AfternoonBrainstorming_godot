@@ -1,7 +1,7 @@
 extends Piece
 class_name OrangeHero
 
-var condition : int = 8
+var condition : int = 6
 var current : int = 0
 
 func _init() -> void:

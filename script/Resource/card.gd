@@ -23,3 +23,7 @@ func expire() -> void:
 
 func refresh() -> void:
 	pass
+
+#遊戲開始時
+func on_game_start() -> void:
+	pass

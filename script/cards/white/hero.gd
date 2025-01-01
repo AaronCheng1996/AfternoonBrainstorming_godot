@@ -8,6 +8,9 @@ func _init() -> void:
 	hint = Global.data.card.white.hero.hint
 	piece_type = Global.PieceType.HERO
 
+func on_game_start() -> void:
+	card_owner.search_and_draw_card(show_name)
+
 func on_piece_set() -> void:
 	super.on_piece_set()
 	#棄置手牌

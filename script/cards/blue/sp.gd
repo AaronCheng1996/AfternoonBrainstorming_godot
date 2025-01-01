@@ -2,6 +2,7 @@ extends Piece
 class_name BlueSP
 
 var blue = preload("res://script/cards/blue/blue.gd").new()
+var beam_scene = preload("res://scenes/attack/beam_attack.tscn")
 var hit_value = 1
 
 var default_count: int = 0
@@ -29,5 +30,14 @@ func on_piece_set() -> void:
 	super.on_piece_set()
 	#攻擊隨機敵人
 	for i in range(count + 2): #預設 1 次 + 自己在場上 1 次
-		attack_component.hit(get_random_enemy(), hit_value - attack_component.atk)
+		var enemy = get_random_enemy()
+		attack_component.hit(enemy, hit_value - attack_component.atk)
+		if not enemy == null:
+			var beam = beam_scene.instantiate()
+			var random_offset = Vector2(Global.rng.randi_range(-10, 10), Global.rng.randi_range(-10, 10))
+			beam.start_position = Vector2(0, 0)
+			beam.end_position = Vector2((enemy.location - location) * 80) + random_offset
+			add_child(beam)
+			await get_tree().create_timer(0.1).timeout
+			beam.queue_free()
 	refresh()

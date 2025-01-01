@@ -16,6 +16,6 @@ func _on_attack_component_on_hit(target: Piece) -> void:
 	if not target.buff_component.has_buff(Global.data.buff.stun.name): #不疊加
 		target.add_buff(Global.get_stun_debuff())
 	#對手不幸事件
-	green.unlucky_event(target)
+	green.unlucky_event(target, true)
 	#自己幸運事件
-	green.lucky_event(self)
+	green.lucky_event(self, true)

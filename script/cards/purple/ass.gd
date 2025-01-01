@@ -1,7 +1,7 @@
 extends Piece
 class_name PurpleAss
 
-var minus : int = 3
+var minus : int = 2
 var count : int = 0
 var count_show : int = 0
 var default_count : int = 0
@@ -17,9 +17,9 @@ func _process(delta: float) -> void:
 		count = Global.board_pieces.filter(filter_opponent_piece_only).size() - Global.board_pieces.filter(filter_ally_piece).size()
 		if (count != count_show):
 			count_show = count
-			if count < 0:
-				count = 0
 			var text = str(count - minus)
+			if count - minus < 0:
+				text = str(0)
 			text = Global.set_font_color(text, Global.get_font_color(count, default_count))
 			description = Global.data.card.purple.ass.description.format([text, str(minus)])
 

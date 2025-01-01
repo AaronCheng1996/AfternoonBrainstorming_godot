@@ -17,5 +17,7 @@ func take_damaged(damage: int, applyer) -> bool:
 			if damage_reduced < 0:
 				damage_reduced = 0
 	if damage_reduced > 0:
-		get_nearest_ally().shielded(damage_reduced * percent / 100, self)
+		var ally = get_nearest_ally()
+		if not ally == null:
+			ally.shielded(damage_reduced * percent / 100, self)
 	return super.take_damaged(damage - damage_reduced, applyer)
